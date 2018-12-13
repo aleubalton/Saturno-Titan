@@ -1,0 +1,39 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.zenit.saturno",
+      "nativeLanguage": "es"
+    },
+    "jhipsterVersion": "5.7.0",
+    "applicationType": "monolith",
+    "baseName": "Saturno",
+    "packageName": "com.zenit.saturno",
+    "packageFolder": "com/zenit/saturno",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "YzVkYjE0ZTJiZGU0YzIxZTZlNzkzN2NjNjdlYTQxZmJlZjNmYTM5NjJjODJkNzI0ZTZiNzA0YjFhY2QwYjdmODMwMWNkM2VhOTQwODAyOGQwOGY1OTllMTBlOWZmZjM0ODUxYWZiOThjZDI0OGEzOGI3MmI5MGE1MDAyNzc1MWI=",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "es",
+    "languages": [
+      "es",
+      "en"
+    ]
+  }
+}
