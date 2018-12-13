@@ -20,7 +20,6 @@
             "status": "Estado"
         },
         "status": {
-            "UNKNOWN": "UNKNOWN",
             "UP": "LEVANTADO",
             "DOWN": "CAÍDO"
         }

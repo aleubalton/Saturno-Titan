@@ -1,0 +1,27 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+
+.footer {
+    display: inline-block;
+    height: 50px;
+    background-color: white;
+    background-size: contain;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    animation-name: slideInUp;
+    animation-duration: 1s;
+    box-shadow: black 0px 0px 20px 5px;
+}
+
+.logo-zenit {
+    height: 28px;
+    width: 196px;
+    background: url('../../../content/images/zenit.png') no-repeat center center;
+    background-size: contain;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+}

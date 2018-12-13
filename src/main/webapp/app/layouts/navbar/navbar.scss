@@ -1,25 +1,23 @@
 /* ==========================================================================
 Navbar
 ========================================================================== */
-
 .navbar-version {
     font-size: 10px;
     color: #ccc;
 }
 
 .jh-navbar {
-    background-color: #353d47;
     padding: 0.2em 1em;
     .profile-image {
         margin: -10px 0px;
-        height: 40px;
-        width: 40px;
+        height: 30px;
+        width: 30px;
         border-radius: 50%;
     }
     .dropdown-item.active,
     .dropdown-item.active:focus,
     .dropdown-item.active:hover {
-        background-color: #353d47;
+        background-color: #4f81bd;
     }
     .dropdown-toggle::after {
         margin-left: 0.15em;
@@ -28,6 +26,7 @@ Navbar
         padding: 0.5em;
         .nav-item {
             margin-left: 1.5rem;
+            white-space: nowrap;
         }
     }
     a.nav-link {
@@ -49,7 +48,7 @@ Navbar
     }
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 768px) {
     .jh-logo-container {
         width: 100%;
     }
@@ -58,6 +57,7 @@ Navbar
 .navbar-title {
     display: inline-block;
     vertical-align: middle;
+    letter-spacing: 0.1em;
 }
 
 /* ==========================================================================
@@ -67,11 +67,11 @@ Logo styles
     &.logo {
         padding: 5px 15px;
         .logo-img {
-            height: 45px;
+            height: 70px;
             width: 70px;
             display: inline-block;
             vertical-align: middle;
-            background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
+            background: url('../../../content/images/logo-saturno.png') no-repeat center center;
             background-size: contain;
         }
     }

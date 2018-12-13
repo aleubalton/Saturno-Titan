@@ -1,3 +1,18 @@
-<div class="footer">
-    <p jhiTranslate="footer">This is your footer</p>
+<div>
+  <span class="footer img-fluid rounded">
+    <div ngbDropdown placement="top-left" class="nav-item pointer" *ngIf="languages">
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown" *ngIf="languages.length > 1">
+            <span>
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                <span jhiTranslate="global.menu.language">Language</span>
+            </span>
+        </a>
+        <ul class="dropdown-menu" ngbDropdownMenu *ngIf="languages.length > 1">
+            <li *ngFor="let language of languages">
+                <a class="dropdown-item" [jhiActiveMenu]="language" href="javascript:void(0);" (click)="changeLanguage(language);">{{language | findLanguageFromKey}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="logo-zenit">
+  </span>
 </div>
