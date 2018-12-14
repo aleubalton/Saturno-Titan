@@ -2,11 +2,12 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SaturnoSharedModule } from 'app/shared';
-import { HOME_ROUTE, HomeComponent } from './';
+import { HOME_ROUTE, HomeComponent, LoginService } from './';
 
 @NgModule({
     imports: [SaturnoSharedModule, RouterModule.forChild([HOME_ROUTE])],
     declarations: [HomeComponent],
+    providers: [LoginService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SaturnoHomeModule {}

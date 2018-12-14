@@ -1,6 +1,6 @@
 {
     "home": {
-        "title": "¡Bienvenido a Saturno!",
+        "title": "¡Bienvenido!",
         "subtitle": "Por favor inicie sesión",
         "logged": {
             "message": "Está conectado como \"{{username}}\"."

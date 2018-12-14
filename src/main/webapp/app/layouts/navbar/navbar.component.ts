@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { VERSION } from 'app/app.constants';
-import { Principal, LoginModalService, LoginService } from 'app/core';
+import { Principal, LoginService } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
 
 @Component({
@@ -16,14 +15,12 @@ export class NavbarComponent implements OnInit {
     inProduction: boolean;
     isNavbarCollapsed: boolean;
     swaggerEnabled: boolean;
-    modalRef: NgbModalRef;
     version: string;
 
     constructor(
         private loginService: LoginService,
         private sessionStorage: SessionStorageService,
         private principal: Principal,
-        private loginModalService: LoginModalService,
         private profileService: ProfileService,
         private router: Router
     ) {
@@ -47,7 +44,7 @@ export class NavbarComponent implements OnInit {
     }
 
     login() {
-        this.modalRef = this.loginModalService.open();
+        this.router.navigate(['/']);
     }
 
     logout() {
@@ -62,5 +59,9 @@ export class NavbarComponent implements OnInit {
 
     getImageUrl() {
         return this.isAuthenticated() ? this.principal.getImageUrl() : null;
+    }
+
+    getUserName() {
+        return this.isAuthenticated() ? this.principal.getUserName() : null;
     }
 }
