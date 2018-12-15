@@ -3,7 +3,7 @@
         <span class="saturno img-fluid rounded"></span>
     </div> -->
     <div class="home" [ngSwitch]="isAuthenticated()">
-        <h1 class="display-5" style="text-align:center" jhiTranslate="home.title">Welcome to Saturno!</h1>
+        <h1 style="text-align:center" jhiTranslate="home.title">Welcome to Saturno!</h1>
         <p class="lead" style="text-align:center" *ngSwitchCase="false" jhiTranslate="home.subtitle">Please sign in</p>
 
         <div [ngSwitch]="isAuthenticated()" class="col-md-8 offset-md-2">

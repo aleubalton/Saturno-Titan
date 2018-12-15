@@ -4,12 +4,18 @@
 Bootstrap tweaks
 ===============================================================*/
 
-body,
+body {
+    font-weight: 300;
+    white-space: nowrap;
+}
+
 h1,
 h2,
 h3,
 h4 {
     font-weight: 300;
+    text-align: center;
+    white-space: normal;
 }
 
 a {
@@ -49,7 +55,7 @@ Generic styles
 /* other generic styles */
 
 .jh-card {
-    padding: 50px;
+    padding: 20px;
     margin-top: 20px;
     margin-bottom: 70px;
     border-radius: 2rem;
