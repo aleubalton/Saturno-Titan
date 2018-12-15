@@ -3,7 +3,7 @@
         <span class="saturno img-fluid rounded"></span>
     </div> -->
     <div class="home" [ngSwitch]="isAuthenticated()">
-        <h1 class="display-4" style="text-align:center" jhiTranslate="home.title">Welcome to Saturno!</h1>
+        <h1 class="display-5" style="text-align:center" jhiTranslate="home.title">Welcome to Saturno!</h1>
         <p class="lead" style="text-align:center" *ngSwitchCase="false" jhiTranslate="home.subtitle">Please sign in</p>
 
         <div [ngSwitch]="isAuthenticated()" class="col-md-8 offset-md-2">
@@ -29,12 +29,12 @@
                         <input type="password" class="form-control" name="password" id="password" placeholder="{{'login.form.password' | translate}}"
                                [(ngModel)]="password">
                     </div>
-                    <div class="form-check" style="margin:10px">
+                    <!--<div class="form-check" style="margin:10px">
                         <label class="form-check-label" for="rememberMe">
                             <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" [(ngModel)]="rememberMe" checked>
                             <span jhiTranslate="login.form.rememberme">Remember me</span>
                         </label>
-                    </div>
+                    </div>-->
                     <button type="submit" class="btn btn-primary" style="width:100%" jhiTranslate="login.form.button">Sign in</button>
                 </form>
                 <p></p>
