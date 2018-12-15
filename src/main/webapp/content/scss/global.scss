@@ -11,7 +11,8 @@ body {
 h1,
 h2,
 h3,
-h4 {
+h4,
+.alert {
     font-weight: 300;
     text-align: center;
 }
@@ -24,6 +25,10 @@ a {
 a:hover {
     color: #4f81bd;
     font-weight: bold;
+}
+
+th {
+    white-space: nowrap;
 }
 
 /* ==========================================================================
