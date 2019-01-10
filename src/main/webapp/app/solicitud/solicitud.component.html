@@ -1,0 +1,169 @@
+<ngb-accordion #acc="ngbAccordion" [closeOthers]="true" [activeIds]="activeIds" (panelChange)="beforeChange($event)">
+    <ngb-panel id="toggle-1" title="Datos del turno" [disabled]="disable_toggle_1">
+        <ng-template ngbPanelContent>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="lead" jhiTranslate="solicitud.vehicle">Vehicle data</p>
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.marca">Brand</label>
+                            <select class="form-control" id="marca" name="marca" required>
+                                <option>TOYOTA</option>
+                                <option>LEXUS</option>
+                                <option>HINO</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.modelo">Model</label>
+                            <select class="form-control" id="modelo" name="modelo" required>
+                                <option>Etios</option>
+                                <option>Corolla</option>
+                                <option>Hilux</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.anio">Year</label>
+                            <select class="form-control" id="anio" name="anio" required>
+                                <option *ngFor="let number of numeros">{{number}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.kilometraje">Mileage</label>
+                            <input type="number" class="form-control" id="kilometraje" name="kilometraje" min="0" value="0" required>
+                            </input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.servicios">Services</label>
+                            <select class="form-control" style="overflow: hidden" multiple id="servicios" name="servicios" size="10" required>
+                                <option *ngFor="let service of servicios">{{service}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.estimaciones">Estimated times</label>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Service de 10000km
+                                    <span class="badge badge-primary badge-pill">60</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Cambio de batería
+                                    <span class="badge badge-primary badge-pill">15</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Cambio de neumáticos
+                                    <span class="badge badge-primary badge-pill">30</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-10">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.fecha">Date</label>
+                            <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"
+                            [minDate]="minDate" [maxDate]="maxDate" [displayMonths]="2" name="date"></ngb-datepicker>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.hora">Time</label>
+                            <select class="form-control" style="overflow: hidden" id="hora" name="hora" size="10" required>
+                                <option *ngFor="let horario of horarios">{{horario}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" style="float:right" jhiTranslate="solicitud.form.siguiente" (click)="toggleAccordion2()">Next</button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </ngb-panel>
+    <ngb-panel id="toggle-2" title="Datos personales" [disabled]="disable_toggle_2">
+        <ng-template ngbPanelContent>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.marca">Brand</label>
+                            <select class="form-control" id="marca" name="marca" disabled>
+                                <option>TOYOTA</option>
+                                <option>LEXUS</option>
+                                <option>HINO</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.modelo">Model</label>
+                            <select class="form-control" id="modelo" name="modelo" disabled>
+                                <option>Etios</option>
+                                <option>Corolla</option>
+                                <option>Hilux</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.anio">Year</label>
+                            <select class="form-control" id="anio" name="anio" disabled>
+                                <option *ngFor="let number of numbers">{{number}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.kilometraje">Mileage</label>
+                            <input type="number" class="form-control" id="kilometraje2" name="kilometraje2" min="0" disabled>
+                            </input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.nombre">Name</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" maxlength="20">
+                            </input>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.apellido">Last name</label>
+                            <input type="text" class="form-control" id="apellido" name="apellido" maxlength="20">
+                            </input>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.patente">Licence plate</label>
+                            <input type="text" class="form-control" id="patente" name="patente" maxlength="7">
+                            </input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.correo">Email</label>
+                            <input type="text" class="form-control" id="correo" name="correo" maxlength="20">
+                            </input>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.telefono">Phone</label>
+                            <input type="text" class="form-control" id="telefono" name="telefono" maxlength="20">
+                            </input>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="form-control-label" jhiTranslate="solicitud.form.celular">Cellphone</label>
+                            <input type="text" class="form-control" id="celular" name="celular" maxlength="10">
+                            </input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <button class="btn" style="float:left" jhiTranslate="solicitud.form.anterior" (click)="toggleAccordion1()">Previous</button>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <button class="btn btn-primary" style="float:right" jhiTranslate="solicitud.form.siguiente" (click)="toggleAccordion3()">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </ngb-panel>
+    <ngb-panel id="toggle-3" title="Confirmar turno" [disabled]="disable_toggle_3">
+        <ng-template ngbPanelContent>
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+            <button class="btn" style="float:left" jhiTranslate="solicitud.form.anterior" (click)="toggleAccordion2()">Previous</button>
+        </ng-template>
+    </ngb-panel>
+</ngb-accordion>

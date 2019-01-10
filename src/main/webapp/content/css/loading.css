@@ -28,8 +28,8 @@
     border-radius: 50%;
     background: linear-gradient(0deg, transparent 90%, #3e8acc 90%) 0 95%, linear-gradient(0deg, transparent 90%, #3e8acc 90%) 100% 95%,
         linear-gradient(-45deg, #2d559f 50%, transparent 50%) 100% 0, linear-gradient(-45deg, transparent 50%, #2d559f 50%) 0 100%,
-        radial-gradient(6em 6em at 50% 50%, #2d559f 49%, transparent 50%) 50% 50%,
-        radial-gradient(8em 8em at 50% 50%, #3e8acc 49%, transparent 50%) 50% 50%, #2d559f;
+        radial-gradient(5em 5em at 50% 50%, #2d559f 49%, transparent 50%) 50% 50%,
+        radial-gradient(7em 7em at 50% 50%, #3e8acc 49%, transparent 50%) 50% 50%, #2d559f;
     background-repeat: no-repeat;
     background-size: 50% 50%;
     animation-name: spin;

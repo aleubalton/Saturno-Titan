@@ -17,6 +17,7 @@ import { SaturnoAppRoutingModule } from './app-routing.module';
 import { SaturnoHomeModule } from './home/home.module';
 import { SaturnoAccountModule } from './account/account.module';
 import { SaturnoEntityModule } from './entities/entity.module';
+import { SolicitudModule } from './solicitud/solicitud.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
@@ -38,7 +39,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         SaturnoHomeModule,
         SaturnoAccountModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
-        SaturnoEntityModule
+        SaturnoEntityModule,
+        SolicitudModule
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     providers: [

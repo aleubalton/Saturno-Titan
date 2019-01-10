@@ -1,0 +1,24 @@
+{
+    "solicitud": {
+        "title": "Turn request",
+        "vehicle": "Vehicle",
+        "form": {
+            "marca": "Brand",
+            "modelo": "Model",
+            "anio": "Year",
+            "kilometraje": "Mileage",
+            "servicios": "Services",
+            "fecha": "Date",
+            "hora": "Time",
+            "estimaciones": "Estimated times",
+            "nombre": "Name",
+            "apellido": "Last name",
+            "patente": "Licence plate",
+            "correo": "Email",
+            "telefono": "Phone",
+            "celular": "Cellphone",
+            "anterior": "Previous",
+            "siguiente": "Next"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "solicitud": {
+        "title": "Solicitud de turno",
+        "vehicle": "Vehículo",
+        "form": {
+            "marca": "Marca",
+            "modelo": "Modelo",
+            "anio": "Año",
+            "kilometraje": "Kilometraje",
+            "servicios": "Servicios",
+            "fecha": "Fecha",
+            "hora": "Hora",
+            "estimaciones": "Tiempos estimados",
+            "nombre": "Nombre",
+            "apellido": "Apellido",
+            "patente": "Patente",
+            "correo": "Correo electrónico",
+            "telefono": "Teléfono",
+            "celular": "Celular",
+            "anterior": "Anterior",
+            "siguiente": "Siguiente"
+        }
+    }
+}
