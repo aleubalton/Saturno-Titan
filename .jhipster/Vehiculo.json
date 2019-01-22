@@ -1,0 +1,61 @@
+{
+    "name": "Vehiculo",
+    "fields": [
+        {
+            "fieldName": "patente",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMinlength": 6,
+            "fieldValidateRulesMaxlength": 7,
+            "fieldValidateRulesPattern": "^[A-Z]{2}\\d{3}[A-Z]{2}|[A-Z]{3}[0-9]{3}$"
+        },
+        {
+            "fieldName": "anio",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 1950,
+            "fieldValidateRulesMax": 2018
+        },
+        {
+            "fieldName": "kilometraje",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "modelo",
+            "otherEntityName": "modelo",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipValidateRules": "required",
+            "relationshipName": "turno",
+            "otherEntityName": "turno",
+            "otherEntityRelationshipName": "vehiculo"
+        }
+    ],
+    "changelogDate": "20190116125736",
+    "entityTableName": "vehiculo",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

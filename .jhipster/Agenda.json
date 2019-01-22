@@ -1,0 +1,68 @@
+{
+    "name": "Agenda",
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 100
+        },
+        {
+            "fieldName": "tipoDeRecurso",
+            "fieldType": "TipoRecurso",
+            "fieldValues": "BAHIA,LAVADERO,ASESOR,TECNICO",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "fechaDesde",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "fechaHasta",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "activa",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "agenda",
+            "relationshipName": "intervalo",
+            "otherEntityName": "intervalo",
+            "otherEntityField": "fechaHoraDesde",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "agenda",
+            "relationshipName": "diaNoLaborable",
+            "otherEntityName": "diaNoLaborable",
+            "otherEntityField": "dia",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipValidateRules": "required",
+            "relationshipName": "turno",
+            "otherEntityName": "turno",
+            "otherEntityRelationshipName": "agenda"
+        }
+    ],
+    "changelogDate": "20190116125742",
+    "entityTableName": "agenda",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

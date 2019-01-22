@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="vehiculo">
+            <h2><span jhiTranslate="saturnoApp.vehiculo.detail.title">Vehiculo</span> {{vehiculo.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="saturnoApp.vehiculo.patente">Patente</span></dt>
+                <dd>
+                    <span>{{vehiculo.patente}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.vehiculo.anio">Anio</span></dt>
+                <dd>
+                    <span>{{vehiculo.anio}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.vehiculo.kilometraje">Kilometraje</span></dt>
+                <dd>
+                    <span>{{vehiculo.kilometraje}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.vehiculo.modelo">Modelo</span></dt>
+                <dd>
+                    <div *ngIf="vehiculo.modeloId">
+                        <a [routerLink]="['/modelo', vehiculo.modeloId, 'view']">{{vehiculo.modeloNombre}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/vehiculo', vehiculo.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

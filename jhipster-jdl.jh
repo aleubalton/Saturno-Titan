@@ -1,0 +1,147 @@
+enum Estado {
+    RESERVADO, EXPIRADO, VALIDADO, CONFIRMADO, CANCELADO, FINALIZADO
+}
+
+enum Dia {
+    LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO, TODOS
+}
+
+enum TipoRecurso {
+    BAHIA, LAVADERO, ASESOR, TECNICO
+}
+
+enum Marca {
+    TOYOTA, LEXUS, HINO
+}
+
+enum TipoTarea {
+    CAMBIO, INSPECCION
+}
+
+enum Categoria {
+    AUTOMOVIL, CARGA, REMOLQUE, TRANSPORTE
+}
+
+entity Turno {
+	fechaHora Instant required,
+    estado Estado required
+}
+
+entity Cliente {
+	nombre String required maxlength(100),
+    apellido String required maxlength(100),
+    email String required pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/),
+    telefono String,
+    celular String
+}
+
+entity Vehiculo {
+    patente String required minlength(6) maxlength(7) pattern(/^[A-Z]{2}\d{3}[A-Z]{2}|[A-Z]{3}[0-9]{3}$/),
+    anio Integer required min(1950) max(2018),
+    kilometraje Integer required
+}
+
+entity Modelo {
+    codigo String required minlength(3) maxlength(4),
+    nombre String required maxlength(100),
+    anioInicioProduccion Integer required min(1950) max(2018),
+    anioFinProduccion Integer min(1950) max(2018),
+    marca Marca required, 
+    categoria Categoria required    
+}
+
+entity TipoDeServicio {
+	nombre String required maxlength(100),
+    codigo String required minlength(3) maxlength(4),
+    interno Boolean,
+    tipoDeRecurso TipoRecurso
+}
+
+entity Servicio {
+	nombre String required maxlength(100),
+    codigo String required minlength(3) maxlength(4),
+    kilometraje Integer required min(0),
+    duracion Integer required min(0) max(600),
+    categoria Categoria required
+}
+
+entity PrecioServicio {
+    precio Integer required min(0)
+}
+
+entity Tarea {
+    codigo String required minlength(3) maxlength(4),
+    descripcion String required maxlength(100),
+    tipo TipoTarea required
+}
+
+entity Agenda {	
+    nombre String required maxlength(100),
+    tipoDeRecurso TipoRecurso required,
+    fechaDesde LocalDate,
+    fechaHasta LocalDate,
+    activa Boolean
+}
+
+entity Intervalo {	
+    fechaHoraDesde Instant,
+    duracion Integer min(0) max(600),
+    dia Dia,
+    repite Boolean
+}
+
+entity DiaNoLaborable {	
+	fecha LocalDate,
+    dia Dia,
+    repite Boolean
+}
+
+relationship ManyToOne {
+	Turno{agenda(nombre) required} to Agenda{turno(fechaHora) required}
+}
+
+relationship ManyToMany {
+	Agenda{intervalo(fechaHoraDesde)} to Intervalo{agenda(fechaDesde)}
+}
+relationship ManyToMany {
+	Agenda{diaNoLaborable(dia)} to DiaNoLaborable{agenda(fechaDesde)}
+}
+
+relationship ManyToMany {
+	Turno{servicio(nombre) required} to Servicio{turno(fechaHora) required}
+}
+
+relationship ManyToMany {
+	Servicio{tarea(codigo) required} to Tarea{servicio(nombre) required}
+}
+
+relationship ManyToOne {
+	Servicio{tipo(codigo) required} to TipoDeServicio{servicio(codigo) required} 
+}
+
+relationship ManyToOne {
+	Vehiculo{modelo(nombre) required} to Modelo{vehiculo(patente) required}
+}
+
+relationship OneToMany {
+	Cliente{turno(fechaHora) required} to Turno{cliente(apellido) required}
+}
+
+relationship ManyToOne {
+	Turno{vehiculo(patente) required} to Vehiculo{turno(fechaHora) required}
+}
+
+relationship OneToMany {
+	Modelo{precio(precio) required} to PrecioServicio{modelo(nombre) required}
+}
+
+relationship OneToMany {
+	Servicio{precio(precio) required} to PrecioServicio{servicio(nombre) required}
+}
+
+paginate * with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl// except Employee, Job

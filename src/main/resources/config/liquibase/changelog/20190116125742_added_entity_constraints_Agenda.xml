@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Agenda.
+    -->
+    <changeSet id="20190116125742-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="agenda_id"
+                                 baseTableName="agenda_intervalo"
+                                 constraintName="fk_agenda_intervalo_agenda_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="agenda"/>
+        <addForeignKeyConstraint baseColumnNames="intervalos_id"
+                                 baseTableName="agenda_intervalo"
+                                 constraintName="fk_agenda_intervalo_intervalos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="intervalo"/>
+        
+        <addForeignKeyConstraint baseColumnNames="agenda_id"
+                                 baseTableName="agenda_dia_no_laborable"
+                                 constraintName="fk_agenda_dia_no_laborable_agenda_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="agenda"/>
+        <addForeignKeyConstraint baseColumnNames="dia_no_laborables_id"
+                                 baseTableName="agenda_dia_no_laborable"
+                                 constraintName="fk_agenda_dia_no_laborable_dia_no_laborables_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="dia_no_laborable"/>
+        
+    </changeSet>
+</databaseChangeLog>

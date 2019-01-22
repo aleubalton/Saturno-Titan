@@ -1,0 +1,109 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-turno-heading" jhiTranslate="saturnoApp.turno.home.createOrEditLabel">Create or edit a Turno</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!turno.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="turno.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="saturnoApp.turno.fechaHora" for="field_fechaHora">Fecha Hora</label>
+                    <div class="d-flex">
+                        <input id="field_fechaHora" type="datetime-local" class="form-control" name="fechaHora" [(ngModel)]="fechaHora"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.fechaHora?.dirty && editForm.controls.fechaHora?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.fechaHora?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.fechaHora?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="saturnoApp.turno.estado" for="field_estado">Estado</label>
+                    <select class="form-control" name="estado" [(ngModel)]="turno.estado" id="field_estado"  required>
+                        <option value="RESERVADO">{{'saturnoApp.Estado.RESERVADO' | translate}}</option>
+                        <option value="EXPIRADO">{{'saturnoApp.Estado.EXPIRADO' | translate}}</option>
+                        <option value="VALIDADO">{{'saturnoApp.Estado.VALIDADO' | translate}}</option>
+                        <option value="CONFIRMADO">{{'saturnoApp.Estado.CONFIRMADO' | translate}}</option>
+                        <option value="CANCELADO">{{'saturnoApp.Estado.CANCELADO' | translate}}</option>
+                        <option value="FINALIZADO">{{'saturnoApp.Estado.FINALIZADO' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.estado?.dirty && editForm.controls.estado?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.estado?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="saturnoApp.turno.agenda" for="field_agenda">Agenda</label>
+                    <select class="form-control" id="field_agenda" name="agenda" [(ngModel)]="turno.agendaId"  required>
+                        <option *ngIf="!editForm.value.agenda" [ngValue]="null" selected></option>
+                        <option [ngValue]="agendaOption.id" *ngFor="let agendaOption of agenda; trackBy: trackAgendaById">{{agendaOption.nombre}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.agenda?.dirty && editForm.controls.agenda?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.agenda?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="saturnoApp.turno.vehiculo" for="field_vehiculo">Vehiculo</label>
+                    <select class="form-control" id="field_vehiculo" name="vehiculo" [(ngModel)]="turno.vehiculoId"  required>
+                        <option *ngIf="!editForm.value.vehiculo" [ngValue]="null" selected></option>
+                        <option [ngValue]="vehiculoOption.id" *ngFor="let vehiculoOption of vehiculos; trackBy: trackVehiculoById">{{vehiculoOption.patente}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.vehiculo?.dirty && editForm.controls.vehiculo?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.vehiculo?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="saturnoApp.turno.servicio" for="field_servicio">Servicio</label>
+                    <select class="form-control" id="field_servicio" multiple name="servicio" [(ngModel)]="turno.servicios" required>
+                        <option [ngValue]="getSelected(turno.servicios, servicioOption)" *ngFor="let servicioOption of servicios; trackBy: trackServicioById">{{servicioOption.nombre}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.servicio?.dirty && editForm.controls.servicio?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.servicio?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="saturnoApp.turno.cliente" for="field_cliente">Cliente</label>
+                    <select class="form-control" id="field_cliente" name="cliente" [(ngModel)]="turno.clienteId"  required>
+                        <option *ngIf="!editForm.value.cliente" [ngValue]="null" selected></option>
+                        <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.apellido}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.cliente?.dirty && editForm.controls.cliente?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.cliente?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

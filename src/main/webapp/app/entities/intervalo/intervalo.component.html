@@ -1,0 +1,68 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="saturnoApp.intervalo.home.title">Intervalos</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-intervalo" [routerLink]="['/intervalo/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="saturnoApp.intervalo.home.createLabel">
+            Create new Intervalo
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="intervalos">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fechaHoraDesde"><span jhiTranslate="saturnoApp.intervalo.fechaHoraDesde">Fecha Hora Desde</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="duracion"><span jhiTranslate="saturnoApp.intervalo.duracion">Duracion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dia"><span jhiTranslate="saturnoApp.intervalo.dia">Dia</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="repite"><span jhiTranslate="saturnoApp.intervalo.repite">Repite</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let intervalo of intervalos ;trackBy: trackId">
+                <td><a [routerLink]="['/intervalo', intervalo.id, 'view' ]">{{intervalo.id}}</a></td>
+                <td>{{intervalo.fechaHoraDesde | date:'medium'}}</td>
+                <td>{{intervalo.duracion}}</td>
+                <td jhiTranslate="{{'saturnoApp.Dia.' + intervalo.dia}}">{{intervalo.dia}}</td>
+                <td>{{intervalo.repite}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/intervalo', intervalo.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/intervalo', intervalo.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'intervalo/'+ intervalo.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="intervalos && intervalos.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

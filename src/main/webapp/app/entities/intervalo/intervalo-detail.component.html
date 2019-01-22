@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="intervalo">
+            <h2><span jhiTranslate="saturnoApp.intervalo.detail.title">Intervalo</span> {{intervalo.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="saturnoApp.intervalo.fechaHoraDesde">Fecha Hora Desde</span></dt>
+                <dd>
+                    <span>{{intervalo.fechaHoraDesde}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.intervalo.duracion">Duracion</span></dt>
+                <dd>
+                    <span>{{intervalo.duracion}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.intervalo.dia">Dia</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'saturnoApp.Dia.' + intervalo.dia}}">{{intervalo.dia}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.intervalo.repite">Repite</span></dt>
+                <dd>
+                    <span>{{intervalo.repite}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/intervalo', intervalo.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+{
+    "saturnoApp": {
+        "turno": {
+            "home": {
+                "title": "Turnos",
+                "createLabel": "Create a new Turno",
+                "createOrEditLabel": "Create or edit a Turno"
+            },
+            "created": "A new Turno is created with identifier {{ param }}",
+            "updated": "A Turno is updated with identifier {{ param }}",
+            "deleted": "A Turno is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Turno {{ id }}?"
+            },
+            "detail": {
+                "title": "Turno"
+            },
+            "fechaHora": "Fecha Hora",
+            "estado": "Estado",
+            "agenda": "Agenda",
+            "vehiculo": "Vehiculo",
+            "servicio": "Servicio",
+            "cliente": "Cliente"
+        }
+    }
+}

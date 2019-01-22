@@ -1,0 +1,11 @@
+{
+    "saturnoApp": {
+        "Categoria": {
+            "null": "",
+            "AUTOMOVIL": "AUTOMOVIL",
+            "CARGA": "CARGA",
+            "REMOLQUE": "REMOLQUE",
+            "TRANSPORTE": "TRANSPORTE"
+        }
+    }
+}

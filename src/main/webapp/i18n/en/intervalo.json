@@ -1,0 +1,25 @@
+{
+    "saturnoApp": {
+        "intervalo": {
+            "home": {
+                "title": "Intervalos",
+                "createLabel": "Create a new Intervalo",
+                "createOrEditLabel": "Create or edit a Intervalo"
+            },
+            "created": "A new Intervalo is created with identifier {{ param }}",
+            "updated": "A Intervalo is updated with identifier {{ param }}",
+            "deleted": "A Intervalo is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Intervalo {{ id }}?"
+            },
+            "detail": {
+                "title": "Intervalo"
+            },
+            "fechaHoraDesde": "Fecha Hora Desde",
+            "duracion": "Duracion",
+            "dia": "Dia",
+            "repite": "Repite",
+            "agenda": "Agenda"
+        }
+    }
+}

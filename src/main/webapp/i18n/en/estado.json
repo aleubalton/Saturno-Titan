@@ -1,0 +1,13 @@
+{
+    "saturnoApp": {
+        "Estado": {
+            "null": "",
+            "RESERVADO": "RESERVADO",
+            "EXPIRADO": "EXPIRADO",
+            "VALIDADO": "VALIDADO",
+            "CONFIRMADO": "CONFIRMADO",
+            "CANCELADO": "CANCELADO",
+            "FINALIZADO": "FINALIZADO"
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "saturnoApp": {
+        "Marca": {
+            "null": "",
+            "TOYOTA": "Toyota",
+            "LEXUS": "Lexus",
+            "HINO": "Hino"
+        }
+    }
+}
