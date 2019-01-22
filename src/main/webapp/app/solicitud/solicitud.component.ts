@@ -67,7 +67,11 @@ export class SolicitudComponent implements OnInit {
         this.numeros = Array.from(new Array(50), (val, index) => 2018 - index);
         this.servicios = [
             { descripcion: 'Diagnóstico', estimacion: 30, subservicios: ['Diagnóstico general', 'Chapa y pintura'] },
-            { descripcion: 'Mantenimiento', estimacion: 60, subservicios: ['Service 10000km', 'Service 20000km'] },
+            {
+                descripcion: 'Mantenimiento',
+                estimacion: 60,
+                subservicios: ['Service 10000km', 'Service 20000km', 'Service 30000km', 'Service 40000km', 'Service 50000km']
+            },
             { descripcion: 'Campaña', estimacion: 45, subservicios: ['Campaña cambio bujías', 'Campaña cambio amortiguadores'] }
         ];
         this.adicionales = [
