@@ -4,8 +4,6 @@ import { NgbDateStruct, NgbCalendar, NgbPanelChangeEvent } from '@ng-bootstrap/n
 import { JhiEventManager } from 'ng-jhipster';
 
 import { SolicitudService } from './solicitud.service';
-import { StateStorageService } from 'app/core/auth/state-storage.service';
-import { Principal, LoginService } from 'app/core';
 
 @Injectable()
 export abstract class NgbDatepickerI18n {
@@ -24,31 +22,61 @@ export class SolicitudComponent implements OnInit {
     model: NgbDateStruct;
     minDate: NgbDateStruct;
     maxDate: NgbDateStruct;
+    marcas: any[];
     numeros: any[];
     servicios: any[];
+    adicionales: any[];
     horarios: any[];
     activeIds: any[];
-    fecha: any;
+    fecha: Date;
     disable_toggle_1 = false;
     disable_toggle_2 = true;
     disable_toggle_3 = true;
+    solicitud = {
+        id: 1,
+        vehiculo: {
+            marca: '',
+            modelo: '',
+            anio: 2018,
+            kilometraje: 0,
+            patente: ''
+        },
+        cliente: {
+            nombre: '',
+            apellido: '',
+            email: '',
+            telefono: '',
+            celular: ''
+        },
+        servicio: '',
+        adicionales: []
+    };
 
     constructor(private calendar: NgbCalendar) {
         this.minDate = calendar.getToday();
         this.fecha = new Date(this.minDate['year'], this.minDate['month'], this.minDate['day'] + 40);
         this.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
+        this.marcas = [
+            { marca: 'Hino', modelos: ['300', '300 Bus'] },
+            { marca: 'Lexus', modelos: ['IS', 'ES', 'GS', 'LS', 'RC', 'LC', 'UX', 'NX', 'RX'] },
+            {
+                marca: 'Toyota',
+                modelos: ['86', 'Etios', 'Yaris', 'Corolla', 'Camry', 'Hilux', 'Prius', 'RAV4', 'SW4', 'Land Cruiser', 'Innova']
+            }
+        ];
         this.numeros = Array.from(new Array(50), (val, index) => 2018 - index);
         this.servicios = [
-            'Pre Entrega',
-            'Campaña',
-            'Mantenimiento',
-            'Mantenimiento express',
-            'Chapa y pintura',
-            'Instalación de accesorios',
-            'Cambio de batería',
-            'Cambio de neumáticos',
-            'Reparación',
-            'Otros'
+            { descripcion: 'Diagnóstico', estimacion: 30, subservicios: ['Diagnóstico general', 'Chapa y pintura'] },
+            { descripcion: 'Mantenimiento', estimacion: 60, subservicios: ['Service 10000km', 'Service 20000km'] },
+            { descripcion: 'Campaña', estimacion: 45, subservicios: ['Campaña cambio bujías', 'Campaña cambio amortiguadores'] }
+        ];
+        this.adicionales = [
+            { descripcion: 'Cambio de batería', estimacion: 15, subservicios: ['Cambio de batería'] },
+            {
+                descripcion: 'Cambio de neumáticos',
+                estimacion: 30,
+                subservicios: ['Neumáticos traseros', 'Neumáticos delanteros', 'Ambas', 'Rotación y balanceo']
+            }
         ];
         this.horarios = ['8:--', '9:--', '10:--', '11:--', '12:--', '13:--', '14:--', '15:--', '16:--', '17:--'];
         this.activeIds = ['toggle-1'];

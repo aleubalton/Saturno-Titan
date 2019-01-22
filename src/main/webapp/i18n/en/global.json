@@ -7,6 +7,17 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "turno": "Turno",
+                "cliente": "Cliente",
+                "vehiculo": "Vehiculo",
+                "modelo": "Modelo",
+                "tipoDeServicio": "Tipo De Servicio",
+                "servicio": "Servicio",
+                "precioServicio": "Precio Servicio",
+                "tarea": "Tarea",
+                "agenda": "Agenda",
+                "intervalo": "Intervalo",
+                "diaNoLaborable": "Dia No Laborable",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

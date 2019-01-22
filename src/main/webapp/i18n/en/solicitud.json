@@ -1,16 +1,18 @@
 {
     "solicitud": {
         "title": "Turn request",
-        "vehicle": "Vehicle",
+        "vehiculo": "Vehicle",
+        "cliente": "Client",
         "form": {
             "marca": "Brand",
             "modelo": "Model",
             "anio": "Year",
             "kilometraje": "Mileage",
             "servicios": "Services",
+            "adicionales": "Additionals",
             "fecha": "Date",
             "hora": "Time",
-            "estimaciones": "Estimated times",
+            "estimaciones": "Estimated times (in minutes)",
             "nombre": "Name",
             "apellido": "Last name",
             "patente": "Licence plate",
@@ -18,7 +20,8 @@
             "telefono": "Phone",
             "celular": "Cellphone",
             "anterior": "Previous",
-            "siguiente": "Next"
+            "siguiente": "Next",
+            "confirmar": "Confirm turn"
         }
     }
 }
