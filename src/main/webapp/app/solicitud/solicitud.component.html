@@ -7,14 +7,14 @@
                     <div class="row">
                         <div class="form-group col-md-3">
                             <label class="form-control-label" jhiTranslate="solicitud.form.marca">Brand</label>
-                            <select class="form-control" id="marca" name="marca" [(ngModel)]="solicitud.vehiculo.marca" required>
-                                <option *ngFor="let marca of marcas" [(ngValue)]="marca">{{marca.marca}}</option>
+                            <select class="form-control" id="marca" name="marca" [(ngModel)]="solicitud.vehiculo.marca" (change)="refreshMarcas()" required>
+                                <option *ngFor="let marca of marcas" [(ngValue)]="marca">{{marca}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="form-control-label" jhiTranslate="solicitud.form.modelo">Model</label>
                             <select class="form-control" id="modelo" name="modelo" [(ngModel)]="solicitud.vehiculo.modelo" required>
-                                <option *ngFor="let modelo of solicitud.vehiculo.marca.modelos">{{modelo}}</option>
+                                <option *ngFor="let modelo of modelosByMarca">{{modelo.nombre}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
@@ -32,29 +32,36 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="form-control-label" jhiTranslate="solicitud.form.servicios">Services</label>
-                            <select class="form-control" style="overflow: hidden" id="servicios" name="servicios" [(ngModel)]="solicitud.servicio" required>
-                                <option *ngFor="let servicio of servicios" [(ngValue)]="servicio">{{servicio.descripcion}}</option>
+                            <select class="form-control" style="overflow: hidden" id="servicios" name="servicios" [(ngModel)]="solicitud.tipo_servicio" (change)="refreshTipos()">
+                                <option *ngFor="let tipo_servicio of tiposDeServicios">{{tipo_servicio}}</option>
                             </select>
                             <br>
                             <label class="form-control-label" jhiTranslate="solicitud.form.adicionales">Additionals</label>
-                            <select class="form-control" style="overflow: hidden" multiple id="adicionales" name="adicionales" size="4" [(ngModel)]="solicitud.adicionales">
-                                <option *ngFor="let adicional of adicionales" [(ngValue)]="adicional">{{adicional.descripcion}}</option>
+                            <select class="form-control" style="overflow: hidden" multiple id="adicionales" name="adicionales" size="6" [(ngModel)]="solicitud.adicionales">
+                                <option *ngFor="let adicional of tiposDeAdicionales">{{adicional}}</option>
                             </select>
                         </div>
                         <div class="col-md-6">
                             <label class="form-control-label" jhiTranslate="solicitud.form.estimaciones">Estimated times (in minutes)</label>
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <select class="form-control" style="overflow: hidden">
-                                        <option *ngFor="let subservicio of solicitud.servicio.subservicios">{{subservicio}}</option>
+                                    <select class="form-control" style="overflow: hidden" [(ngModel)]="solicitud.servicio" required>
+                                        <option *ngFor="let servicio of serviciosByTipo" [(ngValue)]="servicio">{{servicio.nombre}}</option>
                                     </select>
-                                    <span class="badge badge-primary badge-pill">{{solicitud.servicio.estimacion}}</span>
+                                    <span class="badge badge-primary badge-pill">{{solicitud.servicio.estimacion}} min.</span>
+                                    <span class="badge badge-success badge-pill">$ {{solicitud.servicio.costo}}</span>
                                 </li>
                                 <li *ngFor="let adicional of solicitud.adicionales" class="list-group-item d-flex justify-content-between align-items-center">
                                     <select class="form-control" style="overflow: hidden">
                                         <option *ngFor="let subservicio of adicional.subservicios">{{subservicio}}</option>
                                     </select>
-                                    <span class="badge badge-primary badge-pill">{{adicional.estimacion}}</span>
+                                    <span class="badge badge-primary badge-pill">{{adicional.estimacion}} min.</span>
+                                    <span class="badge badge-success badge-pill">$ {{adicional.costo}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Total:
+                                    <span class="badge badge-primary badge-pill">{{solicitud.servicio.estimacion}} min.</span>
+                                    <span class="badge badge-success badge-pill">$ {{solicitud.servicio.costo}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -171,7 +178,7 @@
                             <label class="form-control-label" jhiTranslate="solicitud.vehiculo">Vehicle</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{solicitud.vehiculo.marca.marca + ' ' + solicitud.vehiculo.modelo + ' ' + solicitud.vehiculo.anio}}</small>
+                            <small>{{solicitud.vehiculo.marca + ' ' + solicitud.vehiculo.modelo + ' ' + solicitud.vehiculo.anio}}</small>
                         </div>
                     </div>
                     <div class="row">
@@ -229,7 +236,7 @@
                             <label class="form-control-label" jhiTranslate="solicitud.vehiculo">Vehicle</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{solicitud.vehiculo.marca.marca + ' ' + solicitud.vehiculo.modelo + ' ' + solicitud.vehiculo.anio}}</small>
+                            <small>{{solicitud.vehiculo.marca + ' ' + solicitud.vehiculo.modelo + ' ' + solicitud.vehiculo.anio}}</small>
                         </div>
                     </div>
                     <div class="row">

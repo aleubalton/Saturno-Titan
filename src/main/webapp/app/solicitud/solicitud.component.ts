@@ -22,10 +22,16 @@ export class SolicitudComponent implements OnInit {
     model: NgbDateStruct;
     minDate: NgbDateStruct;
     maxDate: NgbDateStruct;
-    marcas: any[];
+    marcas: Set<any>;
+    modelos: any[];
+    modelosByMarca: any[];
     numeros: any[];
     servicios: any[];
+    tiposDeServicios: Set<any>;
+    serviciosByTipo: any[];
     adicionales: any[];
+    tiposDeAdicionales: Set<any>;
+    adicionalesByTipo: any[];
     horarios: any[];
     activeIds: any[];
     fecha: Date;
@@ -35,8 +41,8 @@ export class SolicitudComponent implements OnInit {
     solicitud = {
         id: 1,
         vehiculo: {
-            marca: '',
-            modelo: '',
+            marca: 'Toyota',
+            modelo: 'Etios',
             anio: 2018,
             kilometraje: 0,
             patente: ''
@@ -48,6 +54,7 @@ export class SolicitudComponent implements OnInit {
             telefono: '',
             celular: ''
         },
+        tipo_servicio: 'Mantenimiento',
         servicio: '',
         adicionales: []
     };
@@ -56,32 +63,54 @@ export class SolicitudComponent implements OnInit {
         this.minDate = calendar.getToday();
         this.fecha = new Date(this.minDate['year'], this.minDate['month'], this.minDate['day'] + 40);
         this.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
-        this.marcas = [
-            { marca: 'Hino', modelos: ['300', '300 Bus'] },
-            { marca: 'Lexus', modelos: ['IS', 'ES', 'GS', 'LS', 'RC', 'LC', 'UX', 'NX', 'RX'] },
-            {
-                marca: 'Toyota',
-                modelos: ['86', 'Etios', 'Yaris', 'Corolla', 'Camry', 'Hilux', 'Prius', 'RAV4', 'SW4', 'Land Cruiser', 'Innova']
-            }
+        this.modelos = [
+            { nombre: '300', marca: 'Hino' },
+            { nombre: '300 Bus', marca: 'Hino' },
+            { nombre: 'IS', marca: 'Lexus' },
+            { nombre: 'ES', marca: 'Lexus' },
+            { nombre: 'GS', marca: 'Lexus' },
+            { nombre: 'LS', marca: 'Lexus' },
+            { nombre: 'RC', marca: 'Lexus' },
+            { nombre: 'LC', marca: 'Lexus' },
+            { nombre: 'UX', marca: 'Lexus' },
+            { nombre: 'NX', marca: 'Lexus' },
+            { nombre: 'RX', marca: 'Lexus' },
+            { nombre: '86', marca: 'Toyota' },
+            { nombre: 'Etios', marca: 'Toyota' },
+            { nombre: 'Yaris', marca: 'Toyota' },
+            { nombre: 'Corolla', marca: 'Toyota' },
+            { nombre: 'Camry', marca: 'Toyota' },
+            { nombre: 'Hilux', marca: 'Toyota' },
+            { nombre: 'Prius', marca: 'Toyota' },
+            { nombre: 'RAV4', marca: 'Toyota' },
+            { nombre: 'SW4', marca: 'Toyota' },
+            { nombre: 'Land Cruiser', marca: 'Toyota' },
+            { nombre: 'Innova', marca: 'Toyota' }
         ];
+        this.marcas = new Set(this.modelos.map(a => a.marca));
+        this.modelosByMarca = filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
         this.numeros = Array.from(new Array(50), (val, index) => 2018 - index);
         this.servicios = [
-            { descripcion: 'Diagnóstico', estimacion: 30, subservicios: ['Diagnóstico general', 'Chapa y pintura'] },
-            {
-                descripcion: 'Mantenimiento',
-                estimacion: 60,
-                subservicios: ['Service 10000km', 'Service 20000km', 'Service 30000km', 'Service 40000km', 'Service 50000km']
-            },
-            { descripcion: 'Campaña', estimacion: 45, subservicios: ['Campaña cambio bujías', 'Campaña cambio amortiguadores'] }
+            { nombre: 'Diagnóstico general', estimacion: 30, costo: 7000, tipo: 'Diagnóstico' },
+            { nombre: 'Chapa y pintura', estimacion: 45, costo: 5000, tipo: 'Diagnóstico' },
+            { nombre: 'Service 10000km', estimacion: 60, costo: 11000, tipo: 'Mantenimiento' },
+            { nombre: 'Service 20000km', estimacion: 45, costo: 12000, tipo: 'Mantenimiento' },
+            { nombre: 'Service 30000km', estimacion: 60, costo: 13000, tipo: 'Mantenimiento' },
+            { nombre: 'Service 40000km', estimacion: 45, costo: 14000, tipo: 'Mantenimiento' },
+            { nombre: 'Service 50000km', estimacion: 60, costo: 15000, tipo: 'Mantenimiento' },
+            { nombre: 'Campaña cambio bujías', estimacion: 35, costo: 0, tipo: 'Campaña' },
+            { nombre: 'Campaña cambio amortiguadores', estimacion: 45, costo: 0, tipo: 'Campaña' }
         ];
+        this.tiposDeServicios = new Set(this.servicios.map(a => a.tipo));
+        this.serviciosByTipo = filterByTipo(this.servicios, this.solicitud.tipo_servicio);
         this.adicionales = [
-            { descripcion: 'Cambio de batería', estimacion: 15, subservicios: ['Cambio de batería'] },
-            {
-                descripcion: 'Cambio de neumáticos',
-                estimacion: 30,
-                subservicios: ['Neumáticos traseros', 'Neumáticos delanteros', 'Ambas', 'Rotación y balanceo']
-            }
+            { nombre: 'Cambio de batería', estimacion: 15, costo: 3000, tipo: 'Cambio de batería' },
+            { nombre: 'Neumáticos traseros', estimacion: 30, costo: 4500, tipo: 'Cambio de neumáticos' },
+            { nombre: 'Neumáticos delanteros', estimacion: 30, costo: 4500, tipo: 'Cambio de neumáticos' },
+            { nombre: 'Neumáticos ambos ejes', estimacion: 60, costo: 9000, tipo: 'Cambio de neumáticos' },
+            { nombre: 'Alineación y balanceo', estimacion: 15, costo: 3000, tipo: 'Cambio de neumáticos' }
         ];
+        this.tiposDeAdicionales = new Set(this.adicionales.map(a => a.tipo));
         this.horarios = ['8:--', '9:--', '10:--', '11:--', '12:--', '13:--', '14:--', '15:--', '16:--', '17:--'];
         this.activeIds = ['toggle-1'];
     }
@@ -119,5 +148,27 @@ export class SolicitudComponent implements OnInit {
         this.disable_toggle_1 = true;
         this.disable_toggle_2 = true;
         this.disable_toggle_3 = false;
+    }
+
+    public refreshMarcas() {
+        this.solicitud.vehiculo.modelo = '';
+        this.modelosByMarca = filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
+    }
+
+    public refreshTipos() {
+        this.solicitud.servicio = '';
+        this.serviciosByTipo = filterByTipo(this.servicios, this.solicitud.tipo_servicio);
+    }
+
+    public filterByMarca(data, s) {
+        return data
+            .filter(e => e.marca.includes(s) || e.nombre.includes(s))
+            .sort((a, b) => (a.marca.includes(s) && !b.marca.includes(s) ? -1 : b.marca.includes(s) && !a.marca.includes(s) ? 1 : 0));
+    }
+
+    public filterByTipo(data, s) {
+        return data
+            .filter(e => e.tipo.includes(s) || e.nombre.includes(s))
+            .sort((a, b) => (a.tipo.includes(s) && !b.tipo.includes(s) ? -1 : b.tipo.includes(s) && !a.tipo.includes(s) ? 1 : 0));
     }
 }
