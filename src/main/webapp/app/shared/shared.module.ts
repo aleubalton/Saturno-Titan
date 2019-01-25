@@ -7,7 +7,6 @@ import { SaturnoSharedLibsModule, SaturnoSharedCommonModule, JhiLoginModalCompon
 @NgModule({
     imports: [SaturnoSharedLibsModule, SaturnoSharedCommonModule],
     declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective],
-    providers: [{ provide: NgbDateAdapter, useClass: NgbDateMomentAdapter }],
     entryComponents: [JhiLoginModalComponent],
     exports: [SaturnoSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

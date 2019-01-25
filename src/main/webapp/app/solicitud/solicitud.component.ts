@@ -1,17 +1,9 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDateStruct, NgbCalendar, NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { SolicitudService } from './solicitud.service';
-
-@Injectable()
-export abstract class NgbDatepickerI18n {
-    abstract getWeekdayShortName(weekday: number): string;
-    abstract getMonthShortName(month: number): string;
-    abstract getMonthFullName(month: number): string;
-    abstract getDayAriaLabel(date: NgbDateStruct): string;
-}
 
 @Component({
     selector: 'jhi-solicitud',
@@ -56,7 +48,10 @@ export class SolicitudComponent implements OnInit {
         },
         tipo_servicio: 'Mantenimiento',
         servicio: '',
-        adicionales: []
+        adicionales: [],
+        fecha: '',
+        horario: '',
+        horario2: ''
     };
 
     constructor(private calendar: NgbCalendar) {
@@ -88,30 +83,42 @@ export class SolicitudComponent implements OnInit {
             { nombre: 'Innova', marca: 'Toyota' }
         ];
         this.marcas = new Set(this.modelos.map(a => a.marca));
-        this.modelosByMarca = filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
+        this.modelosByMarca = this.filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
         this.numeros = Array.from(new Array(50), (val, index) => 2018 - index);
         this.servicios = [
-            { nombre: 'Diagnóstico general', estimacion: 30, costo: 7000, tipo: 'Diagnóstico' },
+            { nombre: 'General', estimacion: 30, costo: 7000, tipo: 'Diagnóstico' },
             { nombre: 'Chapa y pintura', estimacion: 45, costo: 5000, tipo: 'Diagnóstico' },
-            { nombre: 'Service 10000km', estimacion: 60, costo: 11000, tipo: 'Mantenimiento' },
-            { nombre: 'Service 20000km', estimacion: 45, costo: 12000, tipo: 'Mantenimiento' },
-            { nombre: 'Service 30000km', estimacion: 60, costo: 13000, tipo: 'Mantenimiento' },
-            { nombre: 'Service 40000km', estimacion: 45, costo: 14000, tipo: 'Mantenimiento' },
-            { nombre: 'Service 50000km', estimacion: 60, costo: 15000, tipo: 'Mantenimiento' },
-            { nombre: 'Campaña cambio bujías', estimacion: 35, costo: 0, tipo: 'Campaña' },
-            { nombre: 'Campaña cambio amortiguadores', estimacion: 45, costo: 0, tipo: 'Campaña' }
+            { nombre: '10000km', estimacion: 60, costo: 11000, tipo: 'Mantenimiento' },
+            { nombre: '20000km', estimacion: 45, costo: 12000, tipo: 'Mantenimiento' },
+            { nombre: '30000km', estimacion: 60, costo: 13000, tipo: 'Mantenimiento' },
+            { nombre: '40000km', estimacion: 45, costo: 14000, tipo: 'Mantenimiento' },
+            { nombre: '50000km', estimacion: 60, costo: 15000, tipo: 'Mantenimiento' },
+            { nombre: 'Cambio bujías', estimacion: 35, costo: 0, tipo: 'Campaña' },
+            { nombre: 'Cambio amortiguadores', estimacion: 45, costo: 0, tipo: 'Campaña' }
         ];
         this.tiposDeServicios = new Set(this.servicios.map(a => a.tipo));
-        this.serviciosByTipo = filterByTipo(this.servicios, this.solicitud.tipo_servicio);
+        this.serviciosByTipo = this.filterByTipo(this.servicios, this.solicitud.tipo_servicio);
+        this.solicitud.servicio = this.serviciosByTipo[0];
         this.adicionales = [
             { nombre: 'Cambio de batería', estimacion: 15, costo: 3000, tipo: 'Cambio de batería' },
-            { nombre: 'Neumáticos traseros', estimacion: 30, costo: 4500, tipo: 'Cambio de neumáticos' },
-            { nombre: 'Neumáticos delanteros', estimacion: 30, costo: 4500, tipo: 'Cambio de neumáticos' },
-            { nombre: 'Neumáticos ambos ejes', estimacion: 60, costo: 9000, tipo: 'Cambio de neumáticos' },
+            { nombre: 'Traseros', estimacion: 30, costo: 4500, tipo: 'Cambio de neumáticos' },
+            { nombre: 'Delanteros', estimacion: 30, costo: 4500, tipo: 'Cambio de neumáticos' },
+            { nombre: 'Ambos ejes', estimacion: 60, costo: 9000, tipo: 'Cambio de neumáticos' },
             { nombre: 'Alineación y balanceo', estimacion: 15, costo: 3000, tipo: 'Cambio de neumáticos' }
         ];
         this.tiposDeAdicionales = new Set(this.adicionales.map(a => a.tipo));
-        this.horarios = ['8:--', '9:--', '10:--', '11:--', '12:--', '13:--', '14:--', '15:--', '16:--', '17:--'];
+        this.horarios = [
+            { hora: '8', disabled: true },
+            { hora: '9', disabled: true },
+            { hora: '10', disabled: false },
+            { hora: '11', disabled: false },
+            { hora: '12', disabled: true },
+            { hora: '13', disabled: false },
+            { hora: '14', disabled: false },
+            { hora: '15', disabled: false },
+            { hora: '16', disabled: true },
+            { hora: '17', disabled: true }
+        ];
         this.activeIds = ['toggle-1'];
     }
 
@@ -151,13 +158,13 @@ export class SolicitudComponent implements OnInit {
     }
 
     public refreshMarcas() {
-        this.solicitud.vehiculo.modelo = '';
-        this.modelosByMarca = filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
+        this.modelosByMarca = this.filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
+        this.solicitud.vehiculo.modelo = this.modelosByMarca[0].nombre;
     }
 
     public refreshTipos() {
-        this.solicitud.servicio = '';
-        this.serviciosByTipo = filterByTipo(this.servicios, this.solicitud.tipo_servicio);
+        this.serviciosByTipo = this.filterByTipo(this.servicios, this.solicitud.tipo_servicio);
+        this.solicitud.servicio = this.serviciosByTipo[0];
     }
 
     public filterByMarca(data, s) {
