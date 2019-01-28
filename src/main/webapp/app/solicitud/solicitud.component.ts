@@ -88,7 +88,7 @@ export class SolicitudComponent implements OnInit {
             { nombre: 'Innova', marca: 'Toyota' }
         ];
         this.marcas = new Set(this.modelos.map(a => a.marca));
-        this.modelosByMarca = filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
+        this.modelosByMarca = this.filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
         this.numeros = Array.from(new Array(50), (val, index) => 2018 - index);
         this.servicios = [
             { nombre: 'Diagnóstico general', estimacion: 30, costo: 7000, tipo: 'Diagnóstico' },
@@ -102,7 +102,7 @@ export class SolicitudComponent implements OnInit {
             { nombre: 'Campaña cambio amortiguadores', estimacion: 45, costo: 0, tipo: 'Campaña' }
         ];
         this.tiposDeServicios = new Set(this.servicios.map(a => a.tipo));
-        this.serviciosByTipo = filterByTipo(this.servicios, this.solicitud.tipo_servicio);
+        this.serviciosByTipo = this.filterByTipo(this.servicios, this.solicitud.tipo_servicio);
         this.adicionales = [
             { nombre: 'Cambio de batería', estimacion: 15, costo: 3000, tipo: 'Cambio de batería' },
             { nombre: 'Neumáticos traseros', estimacion: 30, costo: 4500, tipo: 'Cambio de neumáticos' },
@@ -152,12 +152,12 @@ export class SolicitudComponent implements OnInit {
 
     public refreshMarcas() {
         this.solicitud.vehiculo.modelo = '';
-        this.modelosByMarca = filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
+        this.modelosByMarca = this.filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
     }
 
     public refreshTipos() {
         this.solicitud.servicio = '';
-        this.serviciosByTipo = filterByTipo(this.servicios, this.solicitud.tipo_servicio);
+        this.serviciosByTipo = this.filterByTipo(this.servicios, this.solicitud.tipo_servicio);
     }
 
     public filterByMarca(data, s) {
