@@ -10,7 +10,7 @@
                        <div class="form-group col-md-3">
                            <label class="form-control-label" jhiTranslate="solicitud.form.marca">Brand</label>
                            <select class="form-control" id="marca" name="marca" [(ngModel)]="solicitud.vehiculo.marca" (change)="refreshMarcas()" required>
-                               <option *ngFor="let marca of marcas;let i = i" [(ngValue)]="marcas[i]">{{marca}}</option>
+                               <option *ngFor="let marca of marcas;let index = index" [(ngValue)]="marca">{{marca}}</option>
                            </select>
                        </div>
                        <div class="form-group col-md-3">
@@ -37,16 +37,16 @@
                            <label class="form-control-label" jhiTranslate="solicitud.form.servicios">Services</label>
                            <br>
                            <div class="btn-group btn-group-toggle" ngbRadioGroup id="adicionales" name="adicionales" [(ngModel)]="solicitud.tipo_servicio" (change)="refreshTipos()">
-                               <label class="btn-primary" ngbButtonLabel *ngFor="let tipo_servicio of tiposDeServicios;let i = i">
-                                 <input type="radio" ngbButton [value]="tiposDeServicios[i]"> {{tipo_servicio}}
+                               <label class="btn-primary" ngbButtonLabel *ngFor="let tipo_servicio of tiposDeServicios;let index = index">
+                                  <input type="radio" ngbButton [value]="tipo_servicio"> {{tipo_servicio}}
                                </label>
                            </div>
                            <hr>
                            <label class="form-control-label" jhiTranslate="solicitud.form.adicionales">Additionals</label>
                            <br>
                            <div class="btn-group btn-group-toggle" id="adicionales" name="adicionales" (change)="refreshTipos()">
-                               <label class="btn-primary" ngbButtonLabel *ngFor="let adicional of tiposDeAdicionales;let i = i">
-                                 <input type="checkbox" ngbButton [(ngModel)]="tiposDeAdicionales[i].enabled"> {{adicional}}
+                               <label class="btn-primary" ngbButtonLabel *ngFor="let adicional of tiposDeAdicionales;let index = index">
+                                  <input type="checkbox" ngbButton [(ngModel)]="tiposDeAdicionales[index]"> {{adicional}}
                                </label>
                            </div>
                            <hr>
@@ -57,7 +57,7 @@
                                        {{solicitud.tipo_servicio}}
                                        <br>
                                        <select class="form-control" style="overflow: hidden" [(ngModel)]="solicitud.servicio" required>
-                                           <option *ngFor="let servicio of serviciosByTipo;let i = i" [(ngValue)]="serviciosByTipo[i]">{{servicio.nombre}}</option>
+                                           <option *ngFor="let servicio of serviciosByTipo;let index = index" [(ngValue)]="servicio">{{servicio.nombre}}</option>
                                        </select>
                                    </div>
                                    <div class="col-md-2">
@@ -95,8 +95,8 @@
                            <label class="form-control-label" jhiTranslate="solicitud.form.hora">Time</label>
                            <br>
                            <div class="btn-group btn-group-toggle" style="margin: auto" ngbRadioGroup id="hora" name="hora" [(ngModel)]="solicitud.horario">
-                               <label class="btn-primary" ngbButtonLabel *ngFor="let horario of horarios;let i = i">
-                                   <input type="radio" ngbButton [value]="horarios[i].hora" [(disabled)]="horarios[i].disabled"> {{horario.hora}}
+                               <label class="btn-primary" ngbButtonLabel *ngFor="let horario of horarios;let index = index">
+                                   <input type="radio" ngbButton [value]="horarios[index].hora" [(disabled)]="horarios[index].disabled"> {{horario.hora}}
                                </label>
                            </div>
                            <br>
