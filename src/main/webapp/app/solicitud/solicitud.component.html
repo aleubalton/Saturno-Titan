@@ -10,7 +10,7 @@
                        <div class="form-group col-md-3">
                            <label class="form-control-label" jhiTranslate="solicitud.form.marca">Brand</label>
                            <select class="form-control" id="marca" name="marca" [(ngModel)]="solicitud.vehiculo.marca" (change)="refreshMarcas()" required>
-                               <option *ngFor="let marca of marcas;let index = index" [(ngValue)]="marca">{{marca}}</option>
+                               <option *ngFor="let marca of marcas;let index = index">{{marca}}</option>
                            </select>
                        </div>
                        <div class="form-group col-md-3">
@@ -57,7 +57,7 @@
                                        {{solicitud.tipo_servicio}}
                                        <br>
                                        <select class="form-control" style="overflow: hidden" [(ngModel)]="solicitud.servicio" required>
-                                           <option *ngFor="let servicio of serviciosByTipo;let index = index" [(ngValue)]="servicio">{{servicio.nombre}}</option>
+                                           <option *ngFor="let servicio of serviciosByTipo;let index = index" [(ngValue)]="serviciosByTipo[index]">{{servicio.nombre}}</option>
                                        </select>
                                    </div>
                                    <div class="col-md-2">
@@ -88,7 +88,7 @@
                        <div class="form-group col-md-6">
                            <label class="form-control-label" jhiTranslate="solicitud.form.fecha">Date</label>
                            <br>
-                           <ngb-datepicker style="margin: auto" #dp [(ngModel)]="solicitud.fecha" (navigate)="date = $event.next"
+                           <ngb-datepicker style="margin: auto" #dp [(ngModel)]="solicitud.fecha"
                            [minDate]="minDate" [maxDate]="maxDate" [displayMonths]="2" name="date"></ngb-datepicker>
                            <br>
                            <br>

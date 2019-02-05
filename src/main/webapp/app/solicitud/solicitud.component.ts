@@ -47,9 +47,9 @@ export class SolicitudComponent implements OnInit {
             celular: ''
         },
         tipo_servicio: 'Mantenimiento',
-        servicio: '',
+        servicio: { nombre: 'General', estimacion: 30, costo: 7000, tipo: 'Diagnóstico' },
         adicionales: [],
-        fecha: '',
+        fecha: { year: 2019, month: 1, day: 1 },
         horario: '',
         horario2: ''
     };
