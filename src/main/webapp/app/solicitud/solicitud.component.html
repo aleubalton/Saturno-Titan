@@ -87,7 +87,9 @@
                                     </div>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div class="col-md-10">Demora y costo aproximados:</div>
+                                    <div class="col-md-10">
+                                        <label class="form-control-label" jhiTranslate="solicitud.form.estimaciones">Estimated cost and delay:</label>
+                                    </div>
                                     <div class="col-md-2">
                                         <span class="badge badge-primary badge-pill">{{solicitud.servicio.estimacion}} min.</span>
                                         <span class="badge badge-success badge-pill">$ {{solicitud.servicio.costo}}</span>
@@ -129,7 +131,7 @@
                     </div>
                     <hr>
                     <div class="form-group col-md-12">
-                        <label class="form-control-label">Comentarios</label><!--jhiTranslate="solicitud.form.comentarios-->
+                        <label class="form-control-label" jhiTranslate="solicitud.form.comentarios">Comments</label>
                         <textarea class="form-control" style="resize:none" id="comentarios" name="comentarios" rows="3" [(ngModel)]="solicitud.comentarios">
                         </textarea>
                     </div>
@@ -182,7 +184,8 @@
                         <div class="form-group col-md-6">
                             <button class="btn" style="float: left" jhiTranslate="solicitud.form.anterior" (click)="toggleAccordion1()">Previous</button>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6" *ngIf="(solicitud.cliente.nombre !== '')&&(solicitud.cliente.apellido !== '')
+                                                                &&(solicitud.vehiculo.patente !== '')&&(solicitud.cliente.email !== '')">
                             <button class="btn btn-primary" style="float: right" jhiTranslate="solicitud.form.siguiente" (click)="toggleAccordion3()">Next</button>
                         </div>
                     </div>

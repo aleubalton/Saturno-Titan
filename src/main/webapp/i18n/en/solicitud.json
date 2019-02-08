@@ -13,6 +13,8 @@
             "fecha": "Date",
             "hora": "Time",
             "detalle": "Services detail",
+            "estimaciones": "Estimated cost and delay:",
+            "comentarios": "Comments",
             "nombre": "Name",
             "apellido": "Last name",
             "patente": "Licence plate",

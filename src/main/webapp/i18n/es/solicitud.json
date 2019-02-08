@@ -13,6 +13,8 @@
             "fecha": "Fecha",
             "hora": "Hora",
             "detalle": "Detalle de servicios",
+            "estimaciones": "Demora y costo estimados:",
+            "comentarios": "Comentarios",
             "nombre": "Nombre",
             "apellido": "Apellido",
             "patente": "Patente",
