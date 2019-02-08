@@ -56,8 +56,8 @@ export class SolicitudComponent implements OnInit {
         },
         adicionales: [],
         fecha: { year: 2019, month: 1, day: 1 },
-        horario: '',
-        horario2: '',
+        horario: '10',
+        horario2: 1,
         comentarios: ''
     };
 

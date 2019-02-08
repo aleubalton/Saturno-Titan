@@ -220,7 +220,7 @@
                             <small>{{solicitud.cliente.telefono}}</small>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="solicitud.cliente.celular !== ''">
                         <div class="col-md-6">
                             <label class="form-control-label" jhiTranslate="solicitud.form.celular">Cellphone</label>
                         </div>
@@ -278,7 +278,7 @@
                             <small>{{solicitud.fecha.day}} / {{solicitud.fecha.month}} / {{solicitud.fecha.year}}</small>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="solicitud.horario !== ''">
                         <div class="col-md-6">
                             <label class="form-control-label" jhiTranslate="solicitud.form.hora">Time</label>
                         </div>
