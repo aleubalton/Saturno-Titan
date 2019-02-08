@@ -44,7 +44,7 @@
                             <hr>
                             <label class="form-control-label" jhiTranslate="solicitud.form.adicionales">Additionals</label>
                             <br>
-                            <div class="btn-group btn-group-toggle" id="adicionales" name="adicionales" (change)="refreshTipos()">
+                            <div class="btn-group btn-group-toggle" id="adicionales" name="adicionales">
                                 <label class="btn-primary" ngbButtonLabel *ngFor="let adicional of tiposDeAdicionales;let index = index">
                                     <input type="checkbox" ngbButton [(ngModel)]="tiposDeAdicionales[index]"> {{adicional}}
                                 </label>
@@ -53,17 +53,16 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.detalle">Services detail</label>
                             <ul class="list-group">
                                 <ng-template #popContent>
-                                    <ul class="list-group">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Cambio de Aceite de Motor
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            Cambio de Filtro de Aceite
-                                        </li>
-                                    </ul>
+                                    <small *ngFor="let tarea of solicitud.servicio.tareas">
+                                        <ul class="list-group">{{tarea}}</ul>
+                                    </small>
+                                </ng-template>
+                                <ng-template #popTitle>
+                                    <small>Tareas a realizar
+                                    </small>
                                 </ng-template>
                                 <li class="list-group-item d-flex justify-content-between align-items-center"
-                                [ngbPopover]="popContent" triggers="mouseenter:mouseleave" popoverTitle="Tareas a realizar" placement="bottom">
+                                [ngbPopover]="popContent" triggers="mouseenter:mouseleave" [popoverTitle]="popTitle" placement="bottom">
                                     <div class="col-md-10">
                                         {{solicitud.tipo_servicio}}
                                         <br>
@@ -129,7 +128,10 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="form-control-label">Comentarios</label><!--jhiTranslate="solicitud.form.comentarios-->
+                        <textarea class="form-control" style="resize:none" id="comentarios" name="comentarios" rows="3" [(ngModel)]="solicitud.comentarios">
+                        </textarea>
                     </div>
                     <div>
                         <button type="submit" class="btn btn-primary" style="float: right" jhiTranslate="solicitud.form.siguiente" (click)="toggleAccordion2()">Next</button>

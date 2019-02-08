@@ -47,15 +47,23 @@ export class SolicitudComponent implements OnInit {
             celular: ''
         },
         tipo_servicio: 'Mantenimiento',
-        servicio: { nombre: 'General', estimacion: 30, costo: 7000, tipo: 'Diagnóstico' },
+        servicio: {
+            nombre: 'General',
+            estimacion: 30,
+            costo: 3000,
+            tipo: 'Diagnóstico',
+            tareas: ['Revisión general', 'Generación de presupuesto']
+        },
         adicionales: [],
         fecha: { year: 2019, month: 1, day: 1 },
         horario: '',
-        horario2: ''
+        horario2: '',
+        comentarios: ''
     };
 
     constructor(private calendar: NgbCalendar) {
-        this.minDate = calendar.getToday();
+        this.minDate = this.calendar.getToday();
+        this.solicitud.fecha = this.calendar.getToday();
         this.fecha = new Date(this.minDate['year'], this.minDate['month'], this.minDate['day'] + 40);
         this.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
         this.modelos = [
@@ -86,15 +94,87 @@ export class SolicitudComponent implements OnInit {
         this.modelosByMarca = this.filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
         this.numeros = Array.from(new Array(50), (val, index) => 2018 - index);
         this.servicios = [
-            { nombre: 'General', estimacion: 30, costo: 7000, tipo: 'Diagnóstico' },
-            { nombre: 'Chapa y pintura', estimacion: 45, costo: 5000, tipo: 'Diagnóstico' },
-            { nombre: '10000km', estimacion: 60, costo: 11000, tipo: 'Mantenimiento' },
-            { nombre: '20000km', estimacion: 45, costo: 12000, tipo: 'Mantenimiento' },
-            { nombre: '30000km', estimacion: 60, costo: 13000, tipo: 'Mantenimiento' },
-            { nombre: '40000km', estimacion: 45, costo: 14000, tipo: 'Mantenimiento' },
-            { nombre: '50000km', estimacion: 60, costo: 15000, tipo: 'Mantenimiento' },
-            { nombre: 'Cambio bujías', estimacion: 35, costo: 0, tipo: 'Campaña' },
-            { nombre: 'Cambio amortiguadores', estimacion: 45, costo: 0, tipo: 'Campaña' }
+            {
+                nombre: 'General',
+                estimacion: 30,
+                costo: 3000,
+                tipo: 'Diagnóstico',
+                tareas: ['Revisión general', 'Generación de presupuesto']
+            },
+            {
+                nombre: 'Chapa y pintura',
+                estimacion: 45,
+                costo: 5000,
+                tipo: 'Diagnóstico',
+                tareas: ['Inspección de carrocería', 'Generación de presupuesto']
+            },
+            {
+                nombre: '10000km',
+                estimacion: 30,
+                costo: 10000,
+                tipo: 'Mantenimiento',
+                tareas: [
+                    'Cambio de aceite de motor',
+                    'Cambio de filtro de aceite',
+                    'Inspección de batería',
+                    'Inspección de filtro de aire acondicionado',
+                    'Inspección de pedal de embrague',
+                    'Inspección de bocinas y luces interiores / exteriores',
+                    'Inspección de nivel de refrigerante de motor',
+                    'Inspección de nivel de fluidos de freno / embrague',
+                    'Inspección de pastillas y discos de freno',
+                    'Inspección de pedal de freno y freno de mano',
+                    'Inspección de presión de inflado de neumáticos'
+                ]
+            },
+            {
+                nombre: '20000km',
+                estimacion: 45,
+                costo: 15000,
+                tipo: 'Mantenimiento',
+                tareas: ['Cambio de aceite de motor', 'Cambio de filtro de aceite', 'Cambio de filtro de acondicionador de aire']
+            },
+            {
+                nombre: '30000km',
+                estimacion: 30,
+                costo: 10000,
+                tipo: 'Mantenimiento',
+                tareas: ['Cambio de aceite de motor', 'Cambio de filtro de aceite']
+            },
+            {
+                nombre: '40000km',
+                estimacion: 60,
+                costo: 20000,
+                tipo: 'Mantenimiento',
+                tareas: [
+                    'Cambio de aceite de motor',
+                    'Cambio de filtro de aceite',
+                    'Cambio de filtro de aire',
+                    'Cambio de fluidos de freno y embrague',
+                    'Cambio de filtro de acondicionador de aire'
+                ]
+            },
+            {
+                nombre: '50000km',
+                estimacion: 30,
+                costo: 10000,
+                tipo: 'Mantenimiento',
+                tareas: ['Cambio de aceite de motor', 'Cambio de filtro de aceite']
+            },
+            {
+                nombre: 'Cambio bujías',
+                estimacion: 35,
+                costo: 0,
+                tipo: 'Campaña',
+                tareas: ['Revisión de bujías', 'Cambio de bujías']
+            },
+            {
+                nombre: 'Cambio amortiguadores',
+                estimacion: 45,
+                costo: 0,
+                tipo: 'Campaña',
+                tareas: ['Revisión de amortiguadores', 'Cambio de amortiguadores']
+            }
         ];
         this.tiposDeServicios = new Set(this.servicios.map(a => a.tipo));
         this.serviciosByTipo = this.filterByTipo(this.servicios, this.solicitud.tipo_servicio);
@@ -125,7 +205,7 @@ export class SolicitudComponent implements OnInit {
     ngOnInit() {}
 
     selectToday() {
-        this.model = this.calendar.getToday();
+        this.solicitud.fecha = this.calendar.getToday();
     }
 
     save() {}
