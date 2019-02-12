@@ -22,8 +22,6 @@ export class SolicitudComponent implements OnInit {
     tiposDeServicios: Set<any>;
     serviciosByTipo: any[];
     adicionales: any[];
-    tiposDeAdicionales: Set<any>;
-    adicionalesByTipo: any[];
     horarios: any[];
     activeIds: any[];
     fecha: Date;
@@ -181,12 +179,8 @@ export class SolicitudComponent implements OnInit {
         this.solicitud.servicio = this.serviciosByTipo[0];
         this.adicionales = [
             { nombre: 'Cambio de batería', estimacion: 15, costo: 3000, tipo: 'Cambio de batería' },
-            { nombre: 'Traseros', estimacion: 30, costo: 4500, tipo: 'Cambio de neumáticos' },
-            { nombre: 'Delanteros', estimacion: 30, costo: 4500, tipo: 'Cambio de neumáticos' },
-            { nombre: 'Ambos ejes', estimacion: 60, costo: 9000, tipo: 'Cambio de neumáticos' },
-            { nombre: 'Alineación y balanceo', estimacion: 15, costo: 3000, tipo: 'Cambio de neumáticos' }
+            { nombre: 'Cambio de neumáticos', estimacion: 30, costo: 4500, tipo: 'Cambio de neumáticos' }
         ];
-        this.tiposDeAdicionales = new Set(this.adicionales.map(a => a.tipo));
         this.horarios = [
             { hora: '8', disabled: true },
             { hora: '9', disabled: true },

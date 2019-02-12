@@ -45,8 +45,8 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.adicionales">Additionals</label>
                             <br>
                             <div class="btn-group btn-group-toggle" id="adicionales" name="adicionales">
-                                <label class="btn-primary" ngbButtonLabel *ngFor="let adicional of tiposDeAdicionales;let index = index">
-                                    <input type="checkbox" ngbButton [(ngModel)]="tiposDeAdicionales[index]"> {{adicional}}
+                                <label class="btn-primary" ngbButtonLabel *ngFor="let adicional of adicionales;let index = index">
+                                    <input type="checkbox" ngbButton [(ngModel)]="solicitud.adicionales[index]" [valueChecked]="adicional" [valueUnChecked]="null"> {{adicional.nombre}}
                                 </label>
                             </div>
                             <hr>
@@ -75,26 +75,26 @@
                                         <span class="badge badge-success badge-pill">$ {{solicitud.servicio.costo}}</span>
                                     </div>
                                 </li>
-                                <li *ngFor="let adicional of solicitud.adicionales" class="list-group-item d-flex justify-content-between align-items-center">
+                                <ng-container *ngFor="let adicional of solicitud.adicionales;let index = index">
+                                    <li *ngIf="adicional" class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div class="col-md-10">
+                                            {{adicional.nombre}}
+                                        </div>
+                                        <div class="col-md-2">
+                                          <span class="badge badge-primary badge-pill">{{solicitud.adicionales[index].estimacion}} min.</span>
+                                          <span class="badge badge-success badge-pill">$ {{solicitud.adicionales[index].costo}}</span>
+                                        </div>
+                                    </li>
+                                </ng-container>
+                                <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div class="col-md-10">
-                                        <select class="form-control" style="overflow: hidden">
-                                            <option *ngFor="let subservicio of adicional.subservicios">{{subservicio}}</option>
-                                        </select>
+                                        <label class="form-control-label font-weight-bold" jhiTranslate="solicitud.form.estimaciones">Estimated cost and delay:</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <span class="badge badge-primary badge-pill">{{adicional.estimacion}} min.</span>
-                                        <span class="badge badge-success badge-pill">$ {{adicional.costo}}</span>
+                                        <span class="badge badge-primary badge-pill">{{solicitud.servicio.estimacion+solicitud?.adicionales[0]?.estimacion+solicitud?.adicionales[1]?.estimacion}} min.</span>
+                                        <span class="badge badge-success badge-pill">$ {{solicitud.servicio.costo+solicitud?.adicionales[0]?.costo+solicitud?.adicionales[1]?.costo}}</span>
                                     </div>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div class="col-md-10">
-                                        <label class="form-control-label" jhiTranslate="solicitud.form.estimaciones">Estimated cost and delay:</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <span class="badge badge-primary badge-pill">{{solicitud.servicio.estimacion}} min.</span>
-                                        <span class="badge badge-success badge-pill">$ {{solicitud.servicio.costo}}</span>
-                                    </div>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                         <div class="form-group col-md-6">
@@ -270,7 +270,7 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.adicionales">Additionals</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{solicitud.adicionales}}</small>
+                            <small>{{solicitud.tipos_de_adicionales}}</small>
                         </div>
                     </div>
                     <div class="row">
@@ -291,12 +291,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-9">
-                            <label class="form-control-label">Demora y costo aproximados</label>
+                            <label class="form-control-label" jhiTranslate="solicitud.form.estimaciones">Estimated cost and delay:</label>
                         </div>
                         <div class="col-md-3">
-                            <span class="badge badge-primary badge-pill">{{solicitud.servicio.estimacion}} min.</span>
-                            <span class="badge badge-success badge-pill">$ {{solicitud.servicio.costo}}</span>
+                            <span class="badge badge-primary badge-pill">{{solicitud.servicio.estimacion+solicitud?.adicionales[0]?.estimacion+solicitud?.adicionales[1]?.estimacion}} min.</span>
+                            <span class="badge badge-success badge-pill">$ {{solicitud.servicio.costo+solicitud?.adicionales[0]?.costo+solicitud?.adicionales[1]?.costo}}</span>
                         </div>
+                        <!-- Arreglar esta asquerosidad -->
                     </div>
                 </div>
             </div>
