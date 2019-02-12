@@ -270,7 +270,9 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.adicionales">Additionals</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{solicitud.tipos_de_adicionales}}</small>
+                            <ng-container *ngFor="let adicional of solicitud.adicionales">
+                                <small *ngIf="adicional">{{adicional.nombre}}</small>
+                            </ng-container>
                         </div>
                     </div>
                     <div class="row">
