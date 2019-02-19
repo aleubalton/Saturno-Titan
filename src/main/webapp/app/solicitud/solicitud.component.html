@@ -115,16 +115,16 @@
                             <br>
                             <div class="btn-group btn-group-toggle" ngbRadioGroup *ngIf="solicitud.horario !== ''" id="hora" name="hora" [(ngModel)]="solicitud.horario2">
                                 <label class="btn-primary" ngbButtonLabel>
-                                    <input type="radio" ngbButton [value]="1"> {{solicitud.horario}}:00
+                                    <input type="radio" ngbButton value="00"> {{solicitud.horario}}:00
                                 </label>
                                 <label class="btn-primary" ngbButtonLabel>
-                                    <input type="radio" ngbButton [value]="2"> {{solicitud.horario}}:15
+                                    <input type="radio" ngbButton value="15"> {{solicitud.horario}}:15
                                 </label>
                                 <label class="btn-primary" ngbButtonLabel>
-                                    <input type="radio" ngbButton [value]="3"> {{solicitud.horario}}:30
+                                    <input type="radio" ngbButton value="30"> {{solicitud.horario}}:30
                                 </label>
                                 <label class="btn-primary" ngbButtonLabel>
-                                    <input type="radio" ngbButton [value]="4"> {{solicitud.horario}}:45
+                                    <input type="radio" ngbButton value="45"> {{solicitud.horario}}:45
                                 </label>
                             </div>
                         </div>
