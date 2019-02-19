@@ -130,7 +130,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="form-group col-md-12">
+                    <div *ngIf="solicitud.comentarios !== ''" class="form-group offset-md-12 col-md-12">
                         <label class="form-control-label" jhiTranslate="solicitud.form.comentarios">Comments</label>
                         <textarea class="form-control" style="resize:none" id="comentarios" name="comentarios" rows="3" [(ngModel)]="solicitud.comentarios">
                         </textarea>
