@@ -303,6 +303,11 @@
                     </div>
                 </div>
             </div>
+            <div *ngIf="solicitud.comentarios !== ''" class="form-group offset-md-6 col-md-6">
+                <label class="form-control-label" jhiTranslate="solicitud.form.comentarios">Comments</label>
+                <br>
+                <small>{{solicitud.comentarios}}</small>
+            </div>
             <div class="row">
                 <button class="btn btn-primary" style="margin: auto" jhiTranslate="solicitud.form.confirmar" (click)="save()">Confirm turn</button>
             </div>
