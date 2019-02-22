@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Turno.
+    -->
+    <changeSet id="20190222184714-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="agenda_id"
+                                 baseTableName="turno"
+                                 constraintName="fk_turno_agenda_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="agenda"/>
+
+        <addForeignKeyConstraint baseColumnNames="vehiculo_id"
+                                 baseTableName="turno"
+                                 constraintName="fk_turno_vehiculo_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vehiculo"/>
+
+        <addForeignKeyConstraint baseColumnNames="turnos_id"
+                                 baseTableName="turno_servicio"
+                                 constraintName="fk_turno_servicio_turnos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="turno"/>
+        <addForeignKeyConstraint baseColumnNames="servicios_id"
+                                 baseTableName="turno_servicio"
+                                 constraintName="fk_turno_servicio_servicios_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="servicio"/>
+        
+        <addForeignKeyConstraint baseColumnNames="cliente_id"
+                                 baseTableName="turno"
+                                 constraintName="fk_turno_cliente_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cliente"/>
+
+    </changeSet>
+</databaseChangeLog>

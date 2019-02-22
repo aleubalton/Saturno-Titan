@@ -1,0 +1,92 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="saturnoApp.turno.home.title">Turnos</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-turno" [routerLink]="['/turno/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="saturnoApp.turno.home.createLabel">
+            Create new Turno
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="turnos">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="codigoReserva"><span jhiTranslate="saturnoApp.turno.codigoReserva">Codigo Reserva</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fechaHora"><span jhiTranslate="saturnoApp.turno.fechaHora">Fecha Hora</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="duracion"><span jhiTranslate="saturnoApp.turno.duracion">Duracion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="costo"><span jhiTranslate="saturnoApp.turno.costo">Costo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="estado"><span jhiTranslate="saturnoApp.turno.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="comentario"><span jhiTranslate="saturnoApp.turno.comentario">Comentario</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="indicaciones"><span jhiTranslate="saturnoApp.turno.indicaciones">Indicaciones</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="agendaNombre"><span jhiTranslate="saturnoApp.turno.agenda">Agenda</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="vehiculoPatente"><span jhiTranslate="saturnoApp.turno.vehiculo">Vehiculo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="clienteApellido"><span jhiTranslate="saturnoApp.turno.cliente">Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let turno of turnos ;trackBy: trackId">
+                <td><a [routerLink]="['/turno', turno.id, 'view' ]">{{turno.id}}</a></td>
+                <td>{{turno.codigoReserva}}</td>
+                <td>{{turno.fechaHora | date:'medium'}}</td>
+                <td>{{turno.duracion}}</td>
+                <td>{{turno.costo}}</td>
+                <td jhiTranslate="{{'saturnoApp.Estado.' + turno.estado}}">{{turno.estado}}</td>
+                <td>{{turno.comentario}}</td>
+                <td>{{turno.indicaciones}}</td>
+                <td>
+                    <div *ngIf="turno.agendaId">
+                        <a [routerLink]="['../agenda', turno.agendaId , 'view' ]" >{{turno.agendaNombre}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="turno.vehiculoId">
+                        <a [routerLink]="['../vehiculo', turno.vehiculoId , 'view' ]" >{{turno.vehiculoPatente}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="turno.clienteId">
+                        <a [routerLink]="['../cliente', turno.clienteId , 'view' ]" >{{turno.clienteApellido}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/turno', turno.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/turno', turno.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'turno/'+ turno.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="turnos && turnos.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

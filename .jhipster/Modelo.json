@@ -1,0 +1,87 @@
+{
+    "name": "Modelo",
+    "fields": [
+        {
+            "fieldName": "codigo",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 3,
+            "fieldValidateRulesMaxlength": 4
+        },
+        {
+            "fieldName": "nombre",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 100
+        },
+        {
+            "fieldName": "anioInicioProduccion",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 1950,
+            "fieldValidateRulesMax": 2018
+        },
+        {
+            "fieldName": "anioFinProduccion",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 1950,
+            "fieldValidateRulesMax": 2018
+        },
+        {
+            "fieldName": "marca",
+            "fieldType": "Marca",
+            "fieldValues": "TOYOTA,LEXUS,HINO",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "categoria",
+            "fieldType": "Categoria",
+            "fieldValues": "AUTOMOVIL,CARGA,REMOLQUE,TRANSPORTE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipValidateRules": "required",
+            "relationshipName": "precio",
+            "otherEntityName": "precioServicio",
+            "otherEntityRelationshipName": "modelo"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipValidateRules": "required",
+            "relationshipName": "vehiculo",
+            "otherEntityName": "vehiculo",
+            "otherEntityRelationshipName": "modelo"
+        }
+    ],
+    "changelogDate": "20190222184717",
+    "entityTableName": "modelo",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

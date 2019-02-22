@@ -18,6 +18,9 @@
                 "agenda": "Agenda",
                 "intervalo": "Intervalo",
                 "diaNoLaborable": "Dia No Laborable",
+                "tipoServicio": "Tipo Servicio",
+                "horario": "Horario",
+                "horarioEspecial": "Horario Especial",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

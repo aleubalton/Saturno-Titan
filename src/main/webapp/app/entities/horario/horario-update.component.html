@@ -1,0 +1,99 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-horario-heading" jhiTranslate="saturnoApp.horario.home.createOrEditLabel">Create or edit a Horario</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!horario.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="horario.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="saturnoApp.horario.descripcion" for="field_descripcion">Descripcion</label>
+                    <input type="text" class="form-control" name="descripcion" id="field_descripcion"
+                        [(ngModel)]="horario.descripcion" required/>
+                    <div [hidden]="!(editForm.controls.descripcion?.dirty && editForm.controls.descripcion?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.descripcion?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="saturnoApp.horario.hora" for="field_hora">Hora</label>
+                    <input type="number" class="form-control" name="hora" id="field_hora"
+                        [(ngModel)]="horario.hora" required min="0" jhiMin="0" max="23" jhiMax="23"/>
+                    <div [hidden]="!(editForm.controls.hora?.dirty && editForm.controls.hora?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.hora?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.hora?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.hora?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 23 }">
+                            This field cannot be more than 23.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.hora?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="saturnoApp.horario.duracion" for="field_duracion">Duracion</label>
+                    <input type="number" class="form-control" name="duracion" id="field_duracion"
+                        [(ngModel)]="horario.duracion" required min="0" jhiMin="0" max="600" jhiMax="600"/>
+                    <div [hidden]="!(editForm.controls.duracion?.dirty && editForm.controls.duracion?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.duracion?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.duracion?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.duracion?.errors?.max" jhiTranslate="entity.validation.max" translateValues="{ max: 600 }">
+                            This field cannot be more than 600.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.duracion?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="saturnoApp.horario.dia" for="field_dia">Dia</label>
+                    <select class="form-control" name="dia" [(ngModel)]="horario.dia" id="field_dia"  required>
+                        <option value="LUNES">{{'saturnoApp.Dia.LUNES' | translate}}</option>
+                        <option value="MARTES">{{'saturnoApp.Dia.MARTES' | translate}}</option>
+                        <option value="MIERCOLES">{{'saturnoApp.Dia.MIERCOLES' | translate}}</option>
+                        <option value="JUEVES">{{'saturnoApp.Dia.JUEVES' | translate}}</option>
+                        <option value="VIERNES">{{'saturnoApp.Dia.VIERNES' | translate}}</option>
+                        <option value="SABADO">{{'saturnoApp.Dia.SABADO' | translate}}</option>
+                        <option value="DOMINGO">{{'saturnoApp.Dia.DOMINGO' | translate}}</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.dia?.dirty && editForm.controls.dia?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dia?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
