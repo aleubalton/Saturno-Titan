@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDateStruct, NgbCalendar, NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
+import * as moment from 'moment';
 
 import { SolicitudService } from './solicitud.service';
 
@@ -53,7 +54,7 @@ export class SolicitudComponent implements OnInit {
             tareas: ['Revisión general', 'Generación de presupuesto']
         },
         adicionales: [],
-        fecha: { year: 2019, month: 1, day: 1 },
+        fecha: moment(),
         horario: '10',
         horario2: '00',
         comentarios: ''
@@ -61,7 +62,7 @@ export class SolicitudComponent implements OnInit {
 
     constructor(private calendar: NgbCalendar) {
         this.minDate = this.calendar.getToday();
-        this.solicitud.fecha = this.calendar.getToday();
+        this.solicitud.fecha = moment();
         this.fecha = new Date(this.minDate['year'], this.minDate['month'], this.minDate['day'] + 40);
         this.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
         this.modelos = [
@@ -197,10 +198,6 @@ export class SolicitudComponent implements OnInit {
     }
 
     ngOnInit() {}
-
-    selectToday() {
-        this.solicitud.fecha = this.calendar.getToday();
-    }
 
     save() {}
 
