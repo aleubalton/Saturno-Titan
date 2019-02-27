@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbDateStruct, NgbCalendar, NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbDateStruct, NgbCalendar, NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 import * as moment from 'moment';
 
 import { SolicitudService } from './solicitud.service';
+import { ICliente } from 'app/shared/model/cliente.model';
+import { Cliente } from 'app/shared/model/cliente.model';
+import { ClienteService } from 'app/entities/cliente/cliente.service';
+
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'jhi-solicitud',
@@ -29,6 +35,8 @@ export class SolicitudComponent implements OnInit {
     disable_toggle_1 = false;
     disable_toggle_2 = true;
     disable_toggle_3 = true;
+    cliente: ICliente;
+    isSaving: boolean;
     solicitud = {
         id: 1,
         vehiculo: {
@@ -60,7 +68,7 @@ export class SolicitudComponent implements OnInit {
         comentarios: ''
     };
 
-    constructor(private calendar: NgbCalendar) {
+    constructor(private clienteService: ClienteService, private calendar: NgbCalendar) {
         this.minDate = this.calendar.getToday();
         this.solicitud.fecha = moment();
         this.fecha = new Date(this.minDate['year'], this.minDate['month'], this.minDate['day'] + 40);
@@ -197,9 +205,38 @@ export class SolicitudComponent implements OnInit {
         this.activeIds = ['toggle-1'];
     }
 
-    ngOnInit() {}
+    isWeekend = (date: NgbDate) => this.calendar.getWeekday(date) >= 6;
 
-    save() {}
+    ngOnInit() {
+        this.isSaving = false;
+        this.cliente = new Cliente();
+    }
+
+    previousState() {
+        window.history.back();
+    }
+
+    save() {
+        this.isSaving = true;
+        if (this.cliente.id !== undefined) {
+            this.subscribeToSaveResponse(this.clienteService.update(this.cliente));
+        } else {
+            this.subscribeToSaveResponse(this.clienteService.create(this.cliente));
+        }
+    }
+
+    private subscribeToSaveResponse(result: Observable<HttpResponse<ICliente>>) {
+        result.subscribe((res: HttpResponse<ICliente>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private onSaveSuccess() {
+        this.isSaving = false;
+        this.previousState();
+    }
+
+    private onSaveError() {
+        this.isSaving = false;
+    }
 
     public beforeChange($event: NgbPanelChangeEvent) {
         if ($event.nextState === false) {

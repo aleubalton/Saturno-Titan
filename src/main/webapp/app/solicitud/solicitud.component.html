@@ -101,7 +101,7 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.fecha">Date</label>
                             <br>
                             <ngb-datepicker style="margin: auto" #dp [(ngModel)]="solicitud.fecha"
-                            [minDate]="minDate" [maxDate]="maxDate" [displayMonths]="2" name="date"></ngb-datepicker>
+                            [minDate]="minDate" [maxDate]="maxDate" [markDisabled]="isWeekend" [displayMonths]="2" name="date"></ngb-datepicker>
                             <br>
                             <br>
                             <label class="form-control-label" jhiTranslate="solicitud.form.hora">Time</label>
@@ -149,12 +149,12 @@
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label class="form-control-label" jhiTranslate="solicitud.form.nombre">Name</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="solicitud.cliente.nombre" maxlength="20" required>
+                            <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="cliente.nombre" maxlength="20" required>
                             </input>
                         </div>
                         <div class="form-group col-md-4">
                             <label class="form-control-label" jhiTranslate="solicitud.form.apellido">Last name</label>
-                            <input type="text" class="form-control" id="apellido" name="apellido" [(ngModel)]="solicitud.cliente.apellido" maxlength="20" required>
+                            <input type="text" class="form-control" id="apellido" name="apellido" [(ngModel)]="cliente.apellido" maxlength="20" required>
                             </input>
                         </div>
                         <div class="form-group col-md-4">
@@ -166,17 +166,17 @@
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label class="form-control-label" jhiTranslate="solicitud.form.correo">Email</label>
-                            <input type="text" class="form-control" id="correo" name="correo" [(ngModel)]="solicitud.cliente.email" maxlength="30" required>
+                            <input type="text" class="form-control" id="correo" name="correo" [(ngModel)]="cliente.email" maxlength="30" required>
                             </input>
                         </div>
                         <div class="form-group col-md-4">
                             <label class="form-control-label" jhiTranslate="solicitud.form.telefono">Phone</label>
-                            <input type="text" class="form-control" id="telefono" name="telefono" [(ngModel)]="solicitud.cliente.telefono" maxlength="10">
+                            <input type="text" class="form-control" id="telefono" name="telefono" [(ngModel)]="cliente.telefono" maxlength="10">
                             </input>
                         </div>
                         <div class="form-group col-md-4">
                             <label class="form-control-label" jhiTranslate="solicitud.form.celular">Cellphone</label>
-                            <input type="text" class="form-control" id="celular" name="celular" [(ngModel)]="solicitud.cliente.celular" maxlength="10">
+                            <input type="text" class="form-control" id="celular" name="celular" [(ngModel)]="cliente.celular" maxlength="10">
                             </input>
                         </div>
                     </div>
@@ -184,8 +184,8 @@
                         <div class="form-group col-md-6">
                             <button class="btn" style="float: left" jhiTranslate="solicitud.form.anterior" (click)="toggleAccordion1()">Previous</button>
                         </div>
-                        <div class="form-group col-md-6" *ngIf="(solicitud.cliente.nombre !== '')&&(solicitud.cliente.apellido !== '')
-                                                                &&(solicitud.vehiculo.patente !== '')&&(solicitud.cliente.email !== '')">
+                        <div class="form-group col-md-6" *ngIf="(cliente.nombre !== '')&&(cliente.apellido !== '')
+                                                                &&(solicitud.vehiculo.patente !== '')&&(cliente.email !== '')">
                             <button class="btn btn-primary" style="float: right" jhiTranslate="solicitud.form.siguiente" (click)="toggleAccordion3()">Next</button>
                         </div>
                     </div>
@@ -204,7 +204,7 @@
                             <label class="form-control-label" jhiTranslate="solicitud.cliente">Client</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{solicitud.cliente.nombre + ' ' + solicitud.cliente.apellido}}</small>
+                            <small>{{cliente.nombre + ' ' + cliente.apellido}}</small>
                           </div>
                     </div>
                     <div class="row">
@@ -212,7 +212,7 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.correo">Email</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{solicitud.cliente.email}}</small>
+                            <small>{{cliente.email}}</small>
                         </div>
                     </div>
                     <div class="row">
@@ -220,15 +220,15 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.telefono">Phone</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{solicitud.cliente.telefono}}</small>
+                            <small>{{cliente.telefono}}</small>
                         </div>
                     </div>
-                    <div class="row" *ngIf="solicitud.cliente.celular !== ''">
+                    <div class="row" *ngIf="cliente.celular !== ''">
                         <div class="col-md-6">
                             <label class="form-control-label" jhiTranslate="solicitud.form.celular">Cellphone</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{solicitud.cliente.celular}}</small>
+                            <small>{{cliente.celular}}</small>
                         </div>
                     </div>
                     <div class="row">
@@ -309,7 +309,7 @@
                 <small>{{solicitud.comentarios}}</small>
             </div>
             <div class="row">
-                <button class="btn btn-primary" style="margin: auto" jhiTranslate="solicitud.form.confirmar" (click)="save()">Confirm turn</button>
+                <button [disabled]="isSaving" class="btn btn-primary" style="margin: auto" jhiTranslate="solicitud.form.confirmar" (click)="save()">Confirm turn</button>
             </div>
             <div class="row col-md-12">
                 <button class="btn" style="float: left" jhiTranslate="solicitud.form.anterior" (click)="toggleAccordion2()">Previous</button>
