@@ -9,25 +9,25 @@
                     <div class="row">
                         <div class="form-group col-md-3">
                             <label class="form-control-label" jhiTranslate="solicitud.form.marca">Brand</label>
-                            <select class="form-control" id="marca" name="marca" [(ngModel)]="solicitud.vehiculo.marca" (change)="refreshMarcas()" required>
+                            <select class="form-control" id="marca" name="marca" [(ngModel)]="marcaSelected" (change)="refreshMarcas()" required>
                                 <option *ngFor="let marca of marcas;let index = index">{{marca}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="form-control-label" jhiTranslate="solicitud.form.modelo">Model</label>
-                            <select class="form-control" id="modelo" name="modelo" [(ngModel)]="solicitud.vehiculo.modeloId" (change)="refreshModeloNombre()" required>
+                            <select class="form-control" id="modelo" name="modelo" [(ngModel)]="vehiculo.modeloId" (change)="refreshModeloNombre()" required>
                                 <option [ngValue]="modelo.id" *ngFor="let modelo of modelosByMarca">{{modelo.nombre}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="form-control-label" jhiTranslate="solicitud.form.anio">Year</label>
-                            <select class="form-control" id="anio" name="anio" [(ngModel)]="solicitud.vehiculo.anio" required>
+                            <select class="form-control" id="anio" name="anio" [(ngModel)]="vehiculo.anio" required>
                                 <option *ngFor="let anio of anios">{{anio}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label class="form-control-label" jhiTranslate="solicitud.form.kilometraje">Mileage</label>
-                            <input type="number" class="form-control" id="kilometraje" name="kilometraje" min="0" value="0"  [(ngModel)]="solicitud.vehiculo.kilometraje" required>
+                            <input type="number" class="form-control" id="kilometraje" name="kilometraje" min="1" [(ngModel)]="vehiculo.kilometraje" required>
                             </input>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                         <textarea class="form-control" style="resize:none" id="comentarios" name="comentarios" rows="3" [(ngModel)]="solicitud.comentarios">
                         </textarea>
                     </div>
-                    <div *ngIf="(solicitud.vehiculo.marca !== null)&&(solicitud.vehiculo.modelo !== null)">
+                    <div *ngIf="(marcaSelected)&&(vehiculo.anio)&&(vehiculo.kilometraje)">
                         <button type="submit" class="btn btn-primary" style="float: right" jhiTranslate="solicitud.form.siguiente" (click)="toggleAccordion2()">Next</button>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label class="form-control-label" jhiTranslate="solicitud.form.patente">Licence plate</label>
-                            <input type="text" class="form-control" id="patente" name="patente" [(ngModel)]="solicitud.vehiculo.patente" maxlength="7" required>
+                            <input type="text" class="form-control" id="patente" name="patente" [(ngModel)]="vehiculo.patente" maxlength="7" required>
                             </input>
                         </div>
                     </div>
@@ -184,8 +184,8 @@
                         <div class="form-group col-md-6">
                             <button class="btn" style="float: left" jhiTranslate="solicitud.form.anterior" (click)="toggleAccordion1()">Previous</button>
                         </div>
-                        <div class="form-group col-md-6" *ngIf="(cliente.nombre !== '')&&(cliente.apellido !== '')
-                                                                &&(solicitud.vehiculo.patente !== '')&&(cliente.email !== '')">
+                        <div class="form-group col-md-6" *ngIf="(cliente.nombre)&&(cliente.apellido)
+                                                                &&(vehiculo.patente)&&(cliente.email)">
                             <button class="btn btn-primary" style="float: right" jhiTranslate="solicitud.form.siguiente" (click)="toggleAccordion3()">Next</button>
                         </div>
                     </div>
@@ -236,7 +236,7 @@
                             <label class="form-control-label" jhiTranslate="solicitud.vehiculo">Vehicle</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{solicitud.vehiculo.marca + ' ' + solicitud.vehiculo.modeloNombre + ' ' + solicitud.vehiculo.anio}}</small>
+                            <small>{{marcaSelected + ' ' + vehiculo.modeloNombre + ' ' + vehiculo.anio}}</small>
                         </div>
                     </div>
                     <div class="row">
@@ -244,7 +244,7 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.patente">Licence plate</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{solicitud.vehiculo.patente}}</small>
+                            <small>{{vehiculo.patente}}</small>
                         </div>
                     </div>
                     <div class="row">
@@ -252,7 +252,7 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.kilometraje">Mileage</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{solicitud.vehiculo.kilometraje}}</small>
+                            <small>{{vehiculo.kilometraje}}</small>
                         </div>
                     </div>
                 </div>

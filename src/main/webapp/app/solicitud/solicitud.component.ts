@@ -8,6 +8,9 @@ import { SolicitudService } from './solicitud.service';
 import { ICliente } from 'app/shared/model/cliente.model';
 import { Cliente } from 'app/shared/model/cliente.model';
 import { ClienteService } from 'app/entities/cliente/cliente.service';
+import { IVehiculo } from 'app/shared/model/vehiculo.model';
+import { Vehiculo } from 'app/shared/model/vehiculo.model';
+import { VehiculoService } from 'app/entities/vehiculo/vehiculo.service';
 import { IModelo } from 'app/shared/model/modelo.model';
 import { ModeloService } from 'app/entities/modelo';
 
@@ -39,25 +42,11 @@ export class SolicitudComponent implements OnInit {
     disable_toggle_2 = true;
     disable_toggle_3 = true;
     cliente: ICliente;
+    vehiculo: IVehiculo;
     isSaving: boolean;
+    marcaSelected = null;
     solicitud = {
         id: 1,
-        vehiculo: {
-            marca: null,
-            modeloId: null,
-            modeloNombre: '',
-            anio: 2018,
-            marca_modelo_anio: '',
-            kilometraje: 0,
-            patente: ''
-        },
-        cliente: {
-            nombre: '',
-            apellido: '',
-            email: '',
-            telefono: '',
-            celular: ''
-        },
         tipo_servicio: 'Mantenimiento',
         servicio: {
             nombre: 'General',
@@ -76,6 +65,7 @@ export class SolicitudComponent implements OnInit {
     constructor(
         private jhiAlertService: JhiAlertService,
         private clienteService: ClienteService,
+        private vehiculoService: VehiculoService,
         private modeloService: ModeloService,
         private calendar: NgbCalendar
     ) {
@@ -83,30 +73,6 @@ export class SolicitudComponent implements OnInit {
         this.solicitud.fecha = moment();
         this.fecha = new Date(this.minDate['year'], this.minDate['month'], this.minDate['day'] + 40);
         this.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
-        this.modelos = [
-            { nombre: '300', marca: 'Hino' },
-            { nombre: '300 Bus', marca: 'Hino' },
-            { nombre: 'IS', marca: 'Lexus' },
-            { nombre: 'ES', marca: 'Lexus' },
-            { nombre: 'GS', marca: 'Lexus' },
-            { nombre: 'LS', marca: 'Lexus' },
-            { nombre: 'RC', marca: 'Lexus' },
-            { nombre: 'LC', marca: 'Lexus' },
-            { nombre: 'UX', marca: 'Lexus' },
-            { nombre: 'NX', marca: 'Lexus' },
-            { nombre: 'RX', marca: 'Lexus' },
-            { nombre: '86', marca: 'Toyota' },
-            { nombre: 'Etios', marca: 'Toyota' },
-            { nombre: 'Yaris', marca: 'Toyota' },
-            { nombre: 'Corolla', marca: 'Toyota' },
-            { nombre: 'Camry', marca: 'Toyota' },
-            { nombre: 'Hilux', marca: 'Toyota' },
-            { nombre: 'Prius', marca: 'Toyota' },
-            { nombre: 'RAV4', marca: 'Toyota' },
-            { nombre: 'SW4', marca: 'Toyota' },
-            { nombre: 'Land Cruiser', marca: 'Toyota' },
-            { nombre: 'Innova', marca: 'Toyota' }
-        ];
         this.marcas = new Set(['TOYOTA', 'LEXUS', 'HINO']);
         this.anios = Array.from(new Array(50), (val, index) => 2018 - index);
         this.servicios = [
@@ -219,6 +185,7 @@ export class SolicitudComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.cliente = new Cliente();
+        this.vehiculo = new Vehiculo();
         this.modeloService.query().subscribe(
             (res: HttpResponse<IModelo[]>) => {
                 this.modelos_backend = res.body;
@@ -227,31 +194,23 @@ export class SolicitudComponent implements OnInit {
         );
     }
 
-    previousState() {
-        window.history.back();
-    }
-
     save() {
         this.isSaving = true;
-        if (this.cliente.id !== undefined) {
-            this.subscribeToSaveResponse(this.clienteService.update(this.cliente));
-        } else {
-            this.subscribeToSaveResponse(this.clienteService.create(this.cliente));
-        }
+        this.subscribeToSaveClienteResponse(this.clienteService.create(this.cliente));
+        this.subscribeToSaveVehiculoResponse(this.vehiculoService.create(this.vehiculo));
     }
 
-    private subscribeToSaveResponse(result: Observable<HttpResponse<ICliente>>) {
+    private subscribeToSaveClienteResponse(result: Observable<HttpResponse<ICliente>>) {
         result.subscribe((res: HttpResponse<ICliente>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveSuccess() {
-        this.isSaving = false;
-        this.previousState();
+    private subscribeToSaveVehiculoResponse(result: Observable<HttpResponse<IVehiculo>>) {
+        result.subscribe((res: HttpResponse<IVehiculo>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveError() {
-        this.isSaving = false;
-    }
+    private onSaveSuccess() {}
+
+    private onSaveError() {}
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
@@ -285,15 +244,13 @@ export class SolicitudComponent implements OnInit {
     }
 
     public refreshMarcas() {
-        this.modelosByMarca = this.filterByMarca(this.modelos_backend, this.solicitud.vehiculo.marca);
-        this.solicitud.vehiculo.modeloId = this.modelosByMarca[0].id;
-        this.solicitud.vehiculo.modeloNombre = this.modelosByMarca[0].nombre;
+        this.modelosByMarca = this.filterByMarca(this.modelos_backend, this.marcaSelected);
+        this.vehiculo.modeloId = this.modelosByMarca[0].id;
+        this.vehiculo.modeloNombre = this.modelosByMarca[0].nombre;
     }
 
     public refreshModeloNombre() {
-        this.solicitud.vehiculo.modeloNombre = this.modelosByMarca[
-            this.modelosByMarca.findIndex(a => a.id === this.solicitud.vehiculo.modeloId)
-        ].nombre;
+        this.vehiculo.modeloNombre = this.modelosByMarca[this.modelosByMarca.findIndex(a => a.id === this.vehiculo.modeloId)].nombre;
     }
 
     public refreshTipos() {
