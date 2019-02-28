@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDate, NgbDateStruct, NgbCalendar, NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import * as moment from 'moment';
 
 import { SolicitudService } from './solicitud.service';
 import { ICliente } from 'app/shared/model/cliente.model';
 import { Cliente } from 'app/shared/model/cliente.model';
 import { ClienteService } from 'app/entities/cliente/cliente.service';
+import { IModelo } from 'app/shared/model/modelo.model';
+import { ModeloService } from 'app/entities/modelo';
 
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -22,9 +24,10 @@ export class SolicitudComponent implements OnInit {
     minDate: NgbDateStruct;
     maxDate: NgbDateStruct;
     marcas: Set<any>;
+    modelos_backend: IModelo[];
     modelos: any[];
     modelosByMarca: any[];
-    numeros: any[];
+    anios: any[];
     servicios: any[];
     tiposDeServicios: Set<any>;
     serviciosByTipo: any[];
@@ -40,9 +43,11 @@ export class SolicitudComponent implements OnInit {
     solicitud = {
         id: 1,
         vehiculo: {
-            marca: 'Toyota',
-            modelo: 'Etios',
+            marca: null,
+            modeloId: null,
+            modeloNombre: '',
             anio: 2018,
+            marca_modelo_anio: '',
             kilometraje: 0,
             patente: ''
         },
@@ -68,7 +73,12 @@ export class SolicitudComponent implements OnInit {
         comentarios: ''
     };
 
-    constructor(private clienteService: ClienteService, private calendar: NgbCalendar) {
+    constructor(
+        private jhiAlertService: JhiAlertService,
+        private clienteService: ClienteService,
+        private modeloService: ModeloService,
+        private calendar: NgbCalendar
+    ) {
         this.minDate = this.calendar.getToday();
         this.solicitud.fecha = moment();
         this.fecha = new Date(this.minDate['year'], this.minDate['month'], this.minDate['day'] + 40);
@@ -97,9 +107,8 @@ export class SolicitudComponent implements OnInit {
             { nombre: 'Land Cruiser', marca: 'Toyota' },
             { nombre: 'Innova', marca: 'Toyota' }
         ];
-        this.marcas = new Set(this.modelos.map(a => a.marca));
-        this.modelosByMarca = this.filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
-        this.numeros = Array.from(new Array(50), (val, index) => 2018 - index);
+        this.marcas = new Set(['TOYOTA', 'LEXUS', 'HINO']);
+        this.anios = Array.from(new Array(50), (val, index) => 2018 - index);
         this.servicios = [
             {
                 nombre: 'General',
@@ -210,6 +219,12 @@ export class SolicitudComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.cliente = new Cliente();
+        this.modeloService.query().subscribe(
+            (res: HttpResponse<IModelo[]>) => {
+                this.modelos_backend = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -236,6 +251,10 @@ export class SolicitudComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 
     public beforeChange($event: NgbPanelChangeEvent) {
@@ -266,8 +285,15 @@ export class SolicitudComponent implements OnInit {
     }
 
     public refreshMarcas() {
-        this.modelosByMarca = this.filterByMarca(this.modelos, this.solicitud.vehiculo.marca);
-        this.solicitud.vehiculo.modelo = this.modelosByMarca[0].nombre;
+        this.modelosByMarca = this.filterByMarca(this.modelos_backend, this.solicitud.vehiculo.marca);
+        this.solicitud.vehiculo.modeloId = this.modelosByMarca[0].id;
+        this.solicitud.vehiculo.modeloNombre = this.modelosByMarca[0].nombre;
+    }
+
+    public refreshModeloNombre() {
+        this.solicitud.vehiculo.modeloNombre = this.modelosByMarca[
+            this.modelosByMarca.findIndex(a => a.id === this.solicitud.vehiculo.modeloId)
+        ].nombre;
     }
 
     public refreshTipos() {
