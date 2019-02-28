@@ -30,7 +30,9 @@ export class SolicitudComponent implements OnInit {
     modelos_backend: IModelo[];
     modelos: any[];
     modelosByMarca: any[];
-    anios: any[];
+    anios: number[];
+    anioInicio: number;
+    anioFin: number;
     servicios: any[];
     tiposDeServicios: Set<any>;
     serviciosByTipo: any[];
@@ -74,7 +76,6 @@ export class SolicitudComponent implements OnInit {
         this.fecha = new Date(this.minDate['year'], this.minDate['month'], this.minDate['day'] + 40);
         this.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
         this.marcas = new Set(['TOYOTA', 'LEXUS', 'HINO']);
-        this.anios = Array.from(new Array(50), (val, index) => 2018 - index);
         this.servicios = [
             {
                 nombre: 'General',
@@ -247,10 +248,25 @@ export class SolicitudComponent implements OnInit {
         this.modelosByMarca = this.filterByMarca(this.modelos_backend, this.marcaSelected);
         this.vehiculo.modeloId = this.modelosByMarca[0].id;
         this.vehiculo.modeloNombre = this.modelosByMarca[0].nombre;
+        this.refreshAnios();
     }
 
     public refreshModeloNombre() {
         this.vehiculo.modeloNombre = this.modelosByMarca[this.modelosByMarca.findIndex(a => a.id === this.vehiculo.modeloId)].nombre;
+        this.refreshAnios();
+    }
+
+    public refreshAnios() {
+        this.vehiculo.anio = null;
+        this.anios = [];
+        this.anioInicio = this.modelosByMarca[this.modelosByMarca.findIndex(a => a.id === this.vehiculo.modeloId)].anioInicioProduccion;
+        this.anioFin = this.modelosByMarca[this.modelosByMarca.findIndex(a => a.id === this.vehiculo.modeloId)].anioFinProduccion;
+        if (!this.anioFin) {
+            this.anioFin = moment().year();
+        }
+        for (let i = this.anioFin; i >= this.anioInicio; i--) {
+            this.anios.push(i);
+        }
     }
 
     public refreshTipos() {
