@@ -38,35 +38,6 @@ public class CacheConfiguration {
             cm.createCache(com.zenit.saturno.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.zenit.saturno.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.zenit.saturno.domain.User.class.getName() + ".authorities", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Turno.class.getName(), jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Turno.class.getName() + ".servicios", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Cliente.class.getName(), jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Cliente.class.getName() + ".turnos", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Vehiculo.class.getName(), jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Vehiculo.class.getName() + ".turnos", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Modelo.class.getName(), jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Modelo.class.getName() + ".precios", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Modelo.class.getName() + ".vehiculos", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.TipoServicio.class.getName(), jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.TipoServicio.class.getName() + ".servicios", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Servicio.class.getName(), jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Servicio.class.getName() + ".precios", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Servicio.class.getName() + ".tareas", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Servicio.class.getName() + ".turnos", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.PrecioServicio.class.getName(), jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Tarea.class.getName(), jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Tarea.class.getName() + ".servicios", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Agenda.class.getName(), jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Agenda.class.getName() + ".horarios", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Agenda.class.getName() + ".horarioEspecials", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Agenda.class.getName() + ".diaNoLaborables", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Agenda.class.getName() + ".turnos", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Horario.class.getName(), jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.Horario.class.getName() + ".agenda", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.HorarioEspecial.class.getName(), jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.HorarioEspecial.class.getName() + ".agenda", jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.DiaNoLaborable.class.getName(), jcacheConfiguration);
-            cm.createCache(com.zenit.saturno.domain.DiaNoLaborable.class.getName() + ".agenda", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
