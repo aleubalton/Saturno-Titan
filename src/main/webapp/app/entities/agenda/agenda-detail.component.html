@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="agenda">
+            <h2><span jhiTranslate="saturnoApp.agenda.detail.title">Agenda</span> {{agenda.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="saturnoApp.agenda.nombre">Nombre</span></dt>
+                <dd>
+                    <span>{{agenda.nombre}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.agenda.tipoRecurso">Tipo Recurso</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'saturnoApp.TipoRecurso.' + agenda.tipoRecurso}}">{{agenda.tipoRecurso}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.agenda.fechaDesde">Fecha Desde</span></dt>
+                <dd>
+                    <span>{{agenda.fechaDesde}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.agenda.fechaHasta">Fecha Hasta</span></dt>
+                <dd>
+                    <span>{{agenda.fechaHasta}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.agenda.email">Email</span></dt>
+                <dd>
+                    <span>{{agenda.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.agenda.activa">Activa</span></dt>
+                <dd>
+                    <span>{{agenda.activa}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.agenda.horario">Horario</span></dt>
+                <dd>
+                    <span *ngFor="let horario of agenda.horarios; let last = last">
+                        <a [routerLink]="['/horario', horario?.id, 'view' ]">{{horario.descripcion}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.agenda.horarioEspecial">Horario Especial</span></dt>
+                <dd>
+                    <span *ngFor="let horarioEspecial of agenda.horarioEspecials; let last = last">
+                        <a [routerLink]="['/horario-especial', horarioEspecial?.id, 'view' ]">{{horarioEspecial.descripcion}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.agenda.diaNoLaborable">Dia No Laborable</span></dt>
+                <dd>
+                    <span *ngFor="let diaNoLaborable of agenda.diaNoLaborables; let last = last">
+                        <a [routerLink]="['/dia-no-laborable', diaNoLaborable?.id, 'view' ]">{{diaNoLaborable.descripcion}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/agenda', agenda.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

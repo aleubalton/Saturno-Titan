@@ -1,0 +1,23 @@
+{
+    "saturnoApp": {
+        "precioServicio": {
+            "home": {
+                "title": "Precio Servicios",
+                "createLabel": "Create a new Precio Servicio",
+                "createOrEditLabel": "Create or edit a Precio Servicio"
+            },
+            "created": "A new Precio Servicio is created with identifier {{ param }}",
+            "updated": "A Precio Servicio is updated with identifier {{ param }}",
+            "deleted": "A Precio Servicio is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Precio Servicio {{ id }}?"
+            },
+            "detail": {
+                "title": "Precio Servicio"
+            },
+            "precio": "Precio",
+            "modelo": "Modelo",
+            "servicio": "Servicio"
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "saturnoApp": {
+        "diaNoLaborable": {
+            "home": {
+                "title": "Dia No Laborables",
+                "createLabel": "Crear nuevo Dia No Laborable",
+                "createOrEditLabel": "Crear o editar Dia No Laborable"
+            },
+            "created": "Un nuevo Dia No Laborable ha sido creado con el identificador {{ param }}",
+            "updated": "Un Dia No Laborable ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Dia No Laborable ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Dia No Laborable {{ id }}?"
+            },
+            "detail": {
+                "title": "Dia No Laborable"
+            },
+            "descripcion": "Descripcion",
+            "fecha": "Fecha",
+            "agenda": "Agenda"
+        }
+    }
+}

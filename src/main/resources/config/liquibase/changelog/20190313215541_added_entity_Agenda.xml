@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Agenda.
+    -->
+    <changeSet id="20190313215541-1" author="jhipster">
+        <createTable tableName="agenda">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nombre" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="tipo_recurso" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="fecha_desde" type="date">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="fecha_hasta" type="date">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="activa" type="boolean">
+                <constraints nullable="false" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+        <createTable tableName="agenda_horario">
+            <column name="horarios_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="agenda_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="agenda_id, horarios_id" tableName="agenda_horario"/>
+        
+        <createTable tableName="agenda_horario_especial">
+            <column name="horario_especials_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="agenda_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="agenda_id, horario_especials_id" tableName="agenda_horario_especial"/>
+        
+        <createTable tableName="agenda_dia_no_laborable">
+            <column name="dia_no_laborables_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="agenda_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="agenda_id, dia_no_laborables_id" tableName="agenda_dia_no_laborable"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>
