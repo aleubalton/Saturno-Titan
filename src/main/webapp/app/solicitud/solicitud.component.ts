@@ -61,7 +61,8 @@ export class SolicitudComponent implements OnInit {
         fecha: moment(),
         horario: '10',
         horario2: '00',
-        comentarios: ''
+        comentarios: '',
+        codigoReserva: ''
     };
 
     constructor(
@@ -209,7 +210,9 @@ export class SolicitudComponent implements OnInit {
         result.subscribe((res: HttpResponse<IVehiculo>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveSuccess() {}
+    private onSaveSuccess() {
+        this.solicitud.codigoReserva = this.randomString(8, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    }
 
     private onSaveError() {}
 
@@ -284,5 +287,13 @@ export class SolicitudComponent implements OnInit {
         return data
             .filter(e => e.tipo.includes(s) || e.nombre.includes(s))
             .sort((a, b) => (a.tipo.includes(s) && !b.tipo.includes(s) ? -1 : b.tipo.includes(s) && !a.tipo.includes(s) ? 1 : 0));
+    }
+
+    private randomString(length, chars) {
+        let result = '';
+        for (let i = length; i > 0; --i) {
+            result += chars[Math.round(Math.random() * (chars.length - 1))];
+        }
+        return result;
     }
 }

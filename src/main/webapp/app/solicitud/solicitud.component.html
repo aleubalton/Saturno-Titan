@@ -195,7 +195,11 @@
     </ngb-panel>
     <ngb-panel id="toggle-3" title="Confirmar turno" [disabled]="disable_toggle_3">
         <ng-template ngbPanelContent>
-            <div class="row" style="width:720px;">
+            <div class="row col-md-12">
+                <div *ngIf="solicitud.codigoReserva" class="alert alert-primary" role="alert">
+                    <label>Su solicitud ha sido registrada exitosamente. Su código de reserva es:</label>
+                    <label class="font-weight-bold">{{solicitud.codigoReserva}}</label>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
