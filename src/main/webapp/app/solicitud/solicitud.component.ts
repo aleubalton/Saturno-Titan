@@ -5,14 +5,18 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import * as moment from 'moment';
 
 import { SolicitudService } from './solicitud.service';
-import { ICliente } from 'app/shared/model/cliente.model';
-import { Cliente } from 'app/shared/model/cliente.model';
+import { ICliente, Cliente } from 'app/shared/model/cliente.model';
 import { ClienteService } from 'app/entities/cliente/cliente.service';
-import { IVehiculo } from 'app/shared/model/vehiculo.model';
-import { Vehiculo } from 'app/shared/model/vehiculo.model';
+import { IVehiculo, Vehiculo } from 'app/shared/model/vehiculo.model';
 import { VehiculoService } from 'app/entities/vehiculo/vehiculo.service';
+import { ITurno, Turno, Estado } from 'app/shared/model/turno.model';
+import { TurnoService } from 'app/entities/turno/turno.service';
 import { IModelo } from 'app/shared/model/modelo.model';
 import { ModeloService } from 'app/entities/modelo';
+import { IServicio } from 'app/shared/model/servicio.model';
+import { ServicioService } from 'app/entities/servicio';
+import { IAgenda } from 'app/shared/model/agenda.model';
+import { AgendaService } from 'app/entities/agenda';
 
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -28,11 +32,12 @@ export class SolicitudComponent implements OnInit {
     maxDate: NgbDateStruct;
     marcas: Set<any>;
     modelos_backend: IModelo[];
-    modelos: any[];
     modelosByMarca: any[];
     anios: number[];
     anioInicio: number;
     anioFin: number;
+    agendas_backend: IAgenda[];
+    servicios_backend: IServicio[];
     servicios: any[];
     tiposDeServicios: Set<any>;
     serviciosByTipo: any[];
@@ -45,6 +50,7 @@ export class SolicitudComponent implements OnInit {
     disable_toggle_3 = true;
     cliente: ICliente;
     vehiculo: IVehiculo;
+    turno: ITurno;
     isSaving: boolean;
     marcaSelected = null;
     solicitud = {
@@ -60,9 +66,7 @@ export class SolicitudComponent implements OnInit {
         adicionales: [],
         fecha: moment(),
         horario: '10',
-        horario2: '00',
-        comentarios: '',
-        codigoReserva: ''
+        horario2: '00'
     };
 
     constructor(
@@ -70,6 +74,9 @@ export class SolicitudComponent implements OnInit {
         private clienteService: ClienteService,
         private vehiculoService: VehiculoService,
         private modeloService: ModeloService,
+        private servicioService: ServicioService,
+        private agendaService: AgendaService,
+        private turnoService: TurnoService,
         private calendar: NgbCalendar
     ) {
         this.minDate = this.calendar.getToday();
@@ -188,9 +195,22 @@ export class SolicitudComponent implements OnInit {
         this.isSaving = false;
         this.cliente = new Cliente();
         this.vehiculo = new Vehiculo();
+        this.turno = new Turno();
         this.modeloService.query().subscribe(
             (res: HttpResponse<IModelo[]>) => {
                 this.modelos_backend = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.servicioService.query().subscribe(
+            (res: HttpResponse<IServicio[]>) => {
+                this.servicios_backend = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.agendaService.query().subscribe(
+            (res: HttpResponse<IAgenda[]>) => {
+                this.agendas_backend = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -198,20 +218,38 @@ export class SolicitudComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.turno.fechaHora = moment();
+        this.turno.codigoReserva = this.randomString(8, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        this.turno.estado = Estado.RESERVADO;
+        this.turno.servicios = this.servicios_backend;
+        this.turno.agendaId = this.agendas_backend[0].id;
         this.subscribeToSaveClienteResponse(this.clienteService.create(this.cliente));
-        this.subscribeToSaveVehiculoResponse(this.vehiculoService.create(this.vehiculo));
     }
 
     private subscribeToSaveClienteResponse(result: Observable<HttpResponse<ICliente>>) {
-        result.subscribe((res: HttpResponse<ICliente>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<ICliente>) => this.onSaveClienteSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private subscribeToSaveVehiculoResponse(result: Observable<HttpResponse<IVehiculo>>) {
-        result.subscribe((res: HttpResponse<IVehiculo>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<IVehiculo>) => this.onSaveVehiculoSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
     }
 
-    private onSaveSuccess() {
-        this.solicitud.codigoReserva = this.randomString(8, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    private subscribeToSaveTurnoResponse(result: Observable<HttpResponse<ITurno>>) {
+        result.subscribe((res: HttpResponse<ITurno>) => this.onSaveTurnoSuccess(res), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private onSaveClienteSuccess(res: HttpResponse<ICliente>) {
+        this.turno.clienteId = res.body.id;
+        this.subscribeToSaveVehiculoResponse(this.vehiculoService.create(this.vehiculo));
+    }
+
+    private onSaveVehiculoSuccess(res: HttpResponse<IVehiculo>) {
+        this.turno.vehiculoId = res.body.id;
+        this.subscribeToSaveTurnoResponse(this.turnoService.create(this.turno));
+    }
+
+    private onSaveTurnoSuccess(res: HttpResponse<ITurno>) {
+        this.turno.id = res.body.id;
     }
 
     private onSaveError() {}
@@ -245,6 +283,8 @@ export class SolicitudComponent implements OnInit {
         this.disable_toggle_1 = true;
         this.disable_toggle_2 = true;
         this.disable_toggle_3 = false;
+        this.turno.duracion = this.solicitud.servicio.estimacion;
+        this.turno.costo = this.solicitud.servicio.costo;
     }
 
     public refreshMarcas() {

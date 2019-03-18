@@ -132,7 +132,7 @@
                     <hr>
                     <div class="form-group col-md-12">
                         <label class="form-control-label" jhiTranslate="solicitud.form.comentarios">Comments</label>
-                        <textarea class="form-control" style="resize:none" id="comentarios" name="comentarios" rows="3" [(ngModel)]="solicitud.comentarios">
+                        <textarea class="form-control" style="resize:none" id="comentarios" name="comentarios" rows="3" [(ngModel)]="turno.comentario">
                         </textarea>
                     </div>
                     <div *ngIf="(marcaSelected)&&(vehiculo.anio)&&(vehiculo.kilometraje)">
@@ -196,9 +196,9 @@
     <ngb-panel id="toggle-3" title="Confirmar turno" [disabled]="disable_toggle_3">
         <ng-template ngbPanelContent>
             <div class="row col-md-12">
-                <div *ngIf="solicitud.codigoReserva" class="alert alert-primary" role="alert">
+                <div *ngIf="turno.id" class="alert alert-primary" role="alert">
                     <label>Su solicitud ha sido registrada exitosamente. Su código de reserva es:</label>
-                    <label class="font-weight-bold">{{solicitud.codigoReserva}}</label>
+                    <label class="font-weight-bold">{{turno.codigoReserva}}</label>
                 </div>
             </div>
             <div class="row">
@@ -256,7 +256,7 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.kilometraje">Mileage</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{vehiculo.kilometraje}}</small>
+                            <small>{{vehiculo.kilometraje}} km.</small>
                         </div>
                     </div>
                 </div>
@@ -300,17 +300,17 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.estimaciones">Estimated cost and delay:</label>
                         </div>
                         <div class="col-md-3">
-                            <span class="badge badge-primary badge-pill">{{solicitud.servicio.estimacion+solicitud?.adicionales[0]?.estimacion+solicitud?.adicionales[1]?.estimacion}} min.</span>
-                            <span class="badge badge-success badge-pill">$ {{solicitud.servicio.costo+solicitud?.adicionales[0]?.costo+solicitud?.adicionales[1]?.costo}}</span>
+                            <span class="badge badge-primary badge-pill">{{turno.duracion}} min.</span>
+                            <span class="badge badge-success badge-pill">$ {{turno.costo}}</span>
                         </div>
                         <!-- Arreglar esta asquerosidad -->
                     </div>
                 </div>
             </div>
-            <div *ngIf="solicitud.comentarios !== ''" class="form-group offset-md-6 col-md-6">
+            <div *ngIf="turno.comentario !== ''" class="form-group offset-md-6 col-md-6">
                 <label class="form-control-label" jhiTranslate="solicitud.form.comentarios">Comments</label>
                 <br>
-                <small>{{solicitud.comentarios}}</small>
+                <small>{{turno.comentario}}</small>
             </div>
             <div class="row">
                 <button [disabled]="isSaving" class="btn btn-primary" style="margin: auto" jhiTranslate="solicitud.form.confirmar" (click)="save()">Confirm turn</button>
