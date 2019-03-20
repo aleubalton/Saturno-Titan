@@ -338,7 +338,7 @@ export class SolicitudComponent implements OnInit {
         return result;
     }
 
-    private isPatenteOk() {
+    public isPatenteOk() {
         return this.regexPatente.test(this.vehiculo.patente);
     }
 }
