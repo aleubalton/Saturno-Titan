@@ -159,7 +159,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label class="form-control-label" jhiTranslate="solicitud.form.patente">Licence plate</label>
-                            <input type="text" class="form-control" id="patente" name="patente" [(ngModel)]="vehiculo.patente" maxlength="7" required>
+                            <input type="text" class="form-control" id="patente" name="patente" [(ngModel)]="vehiculo.patente" minlength="6" maxlength="7" pattern="^[A-Z]{2}\d{3}[A-Z]{2}|[A-Z]{3}[0-9]{3}$" required>
                             </input>
                         </div>
                     </div>
@@ -184,8 +184,8 @@
                         <div class="form-group col-md-6">
                             <button class="btn" style="float: left" jhiTranslate="solicitud.form.anterior" (click)="toggleAccordion1()">Previous</button>
                         </div>
-                        <div class="form-group col-md-6" *ngIf="(cliente.nombre)&&(cliente.apellido)
-                                                                &&(vehiculo.patente)&&(cliente.email)">
+                        <div class="form-group col-md-6" *ngIf="(cliente.nombre)&&(cliente.apellido)&&(cliente.email)
+                                                                &&(isPatenteOk())">
                             <button class="btn btn-primary" style="float: right" jhiTranslate="solicitud.form.siguiente" (click)="toggleAccordion3()">Next</button>
                         </div>
                     </div>
