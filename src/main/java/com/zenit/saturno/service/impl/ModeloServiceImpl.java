@@ -78,6 +78,20 @@ public class ModeloServiceImpl implements ModeloService {
     }
 
     /**
+     * Get one modelo by desc.
+     *
+     * @param desc the desc of the entity
+     * @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ModeloDTO> findByDesc(String desc) {
+        log.debug("Request to get Modelo : {}", desc);
+        return modeloRepository.findByDesc(desc)
+            .map(modeloMapper::toDto);
+    }
+
+    /**
      * Delete the modelo by id.
      *
      * @param id the id of the entity

@@ -38,6 +38,14 @@ public interface ModeloService {
     Optional<ModeloDTO> findOne(Long id);
 
     /**
+     * Get the "desc" modelo.
+     *
+     * @param desc the desc of the entity
+     * @return the entity
+     */
+    Optional<ModeloDTO> findByDesc(String desc);
+
+    /**
      * Delete the "id" modelo.
      *
      * @param id the id of the entity

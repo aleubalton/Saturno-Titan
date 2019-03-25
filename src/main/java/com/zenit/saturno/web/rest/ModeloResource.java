@@ -112,6 +112,20 @@ public class ModeloResource {
     }
 
     /**
+     * GET  /modelos/:Desc : get the "Desc" modelo.
+     *
+     * @param id the id of the modeloDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the modeloDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/modelosByDesc/{desc}")
+    @Timed
+    public ResponseEntity<ModeloDTO> getModeloByDesc(@PathVariable String desc) {
+        log.debug("REST request to get Modelo : {}", desc);
+        Optional<ModeloDTO> modeloDTO = modeloService.findByDesc(desc);
+        return ResponseUtil.wrapOrNotFound(modeloDTO);
+    }
+
+    /**
      * DELETE  /modelos/:id : delete the "id" modelo.
      *
      * @param id the id of the modeloDTO to delete
