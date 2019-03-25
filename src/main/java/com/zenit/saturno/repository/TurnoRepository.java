@@ -27,4 +27,7 @@ public interface TurnoRepository extends JpaRepository<Turno, Long> {
     @Query("select turno from Turno turno left join fetch turno.servicios where turno.id =:id")
     Optional<Turno> findOneWithEagerRelationships(@Param("id") Long id);
 
+    @Query("select turno from Turno turno left join fetch turno.servicios where turno.codigoReserva =:codigoReserva")
+    Optional<Turno> findByCodigoReserva(@Param("codigoReserva") String codigoReserva);
+
 }

@@ -70,7 +70,7 @@ public class TurnoServiceImpl implements TurnoService {
     public Page<TurnoDTO> findAllWithEagerRelationships(Pageable pageable) {
         return turnoRepository.findAllWithEagerRelationships(pageable).map(turnoMapper::toDto);
     }
-    
+
 
     /**
      * Get one turno by id.
@@ -83,6 +83,20 @@ public class TurnoServiceImpl implements TurnoService {
     public Optional<TurnoDTO> findOne(Long id) {
         log.debug("Request to get Turno : {}", id);
         return turnoRepository.findOneWithEagerRelationships(id)
+            .map(turnoMapper::toDto);
+    }//findByCodigoReserva
+
+    /**
+     * Get one turno by codigoReserva.
+     *
+     * @param codigoReserva the codigoReserva of the entity
+     * @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<TurnoDTO> findByCodigoReserva(String codigoReserva) {
+        log.debug("Request to get Turno : {}", codigoReserva);
+        return turnoRepository.findByCodigoReserva(codigoReserva)
             .map(turnoMapper::toDto);
     }
 

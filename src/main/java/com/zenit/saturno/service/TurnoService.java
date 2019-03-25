@@ -34,7 +34,7 @@ public interface TurnoService {
      * @return the list of entities
      */
     Page<TurnoDTO> findAllWithEagerRelationships(Pageable pageable);
-    
+
     /**
      * Get the "id" turno.
      *
@@ -42,6 +42,14 @@ public interface TurnoService {
      * @return the entity
      */
     Optional<TurnoDTO> findOne(Long id);
+
+    /**
+     * Get the "codigoReserva" turno.
+     *
+     * @param codigoReserva the codigoReserva of the entity
+     * @return the entity
+     */
+    Optional<TurnoDTO> findByCodigoReserva(String codigoReserva);
 
     /**
      * Delete the "id" turno.

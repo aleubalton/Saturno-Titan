@@ -118,6 +118,20 @@ public class TurnoResource {
     }
 
     /**
+     * GET  /turnos/:codigoReserva : get the "codigoReserva" turno.
+     *
+     * @param codigoReserva the codigoReserva of the turnoDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the turnoDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/turnosByCodigoReserva/{codigoReserva}")
+    @Timed
+    public ResponseEntity<TurnoDTO> getTurnoByCodigoReserva(@PathVariable String codigoReserva) {
+        log.debug("REST request to get Turno : {}", codigoReserva);
+        Optional<TurnoDTO> turnoDTO = turnoService.findByCodigoReserva(codigoReserva);
+        return ResponseUtil.wrapOrNotFound(turnoDTO);
+    }
+
+    /**
      * DELETE  /turnos/:id : delete the "id" turno.
      *
      * @param id the id of the turnoDTO to delete
