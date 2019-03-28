@@ -55,6 +55,8 @@ public class TurnoDTO implements Serializable {
 
     private String clienteNombre;
 
+    private String clienteEmail;
+
     public Long getId() {
         return id;
     }
@@ -189,6 +191,14 @@ public class TurnoDTO implements Serializable {
 
     public void setClienteNombre(String clienteNombre) {
         this.clienteNombre = clienteNombre;
+    }
+
+    public String getClienteEmail() {
+        return clienteEmail;
+    }
+
+    public void setClienteEmail(String clienteEmail) {
+        this.clienteEmail = clienteEmail;
     }
 
     @Override

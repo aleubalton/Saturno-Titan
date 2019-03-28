@@ -1,11 +1,16 @@
 package com.zenit.saturno.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.zenit.saturno.service.MailService;
 import com.zenit.saturno.service.TurnoService;
+import com.zenit.saturno.service.ClienteService;
+import com.zenit.saturno.service.VehiculoService;
 import com.zenit.saturno.web.rest.errors.BadRequestAlertException;
 import com.zenit.saturno.web.rest.util.HeaderUtil;
 import com.zenit.saturno.web.rest.util.PaginationUtil;
 import com.zenit.saturno.service.dto.TurnoDTO;
+import com.zenit.saturno.service.dto.ClienteDTO;
+import com.zenit.saturno.service.dto.VehiculoDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +41,17 @@ public class TurnoResource {
 
     private final TurnoService turnoService;
 
-    public TurnoResource(TurnoService turnoService) {
+    private final ClienteService clienteService;
+
+    private final VehiculoService vehiculoService;
+
+    private final MailService mailService;
+
+    public TurnoResource(TurnoService turnoService, ClienteService clienteService, VehiculoService vehiculoService, MailService mailService) {
         this.turnoService = turnoService;
+        this.clienteService = clienteService;
+        this.vehiculoService = vehiculoService;
+        this.mailService = mailService;
     }
 
     /**
@@ -55,6 +69,9 @@ public class TurnoResource {
             throw new BadRequestAlertException("A new turno cannot already have an ID", ENTITY_NAME, "idexists");
         }
         TurnoDTO result = turnoService.save(turnoDTO);
+        Optional<ClienteDTO> cliente = clienteService.findOne(result.getClienteId());
+        Optional<VehiculoDTO> vehiculo = vehiculoService.findOne(result.getVehiculoId());
+        mailService.sendTurnoEmail(result, cliente.get(), vehiculo.get());
         return ResponseEntity.created(new URI("/api/turnos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

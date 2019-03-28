@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title th:text="#{email.activation.title}">Saturno activation</title>
+        <title th:text="#{email.turno.title}">Turn validation</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="shortcut icon" th:href="@{|${baseUrl}/favicon.ico|}" />
     </head>
     <body>
-        <p th:text="#{email.activation.greeting(${user.login})}">
+        <p th:text="#{email.turno.greeting(${cliente.nombre})}">
             Dear
         </p>
-        <p th:text="#{email.activation.text1}">
-            Your Saturno account has been created, please click on the URL below to activate it:
+        <p th:text="#{email.turno.text1}">
+            Your turn has been reserved, please click on the URL below to validate it:
         </p>
         <p>
-            <a th:with="url=(@{|${baseUrl}/#/activate?key=${user.activationKey}|})" th:href="${url}"
+            <a th:with="url=(@{|${baseUrl}/api/validateTurno/{turno.codigoReserva}|})" th:href="${url}"
             th:text="${url}">Activation link</a>
         </p>
         <p>
-            <span th:text="#{email.activation.text2}">Regards, </span>
+            <span th:text="#{email.turno.text2}">Regards, </span>
             <br/>
             <em th:text="#{email.signature}">Saturno.</em>
         </p>

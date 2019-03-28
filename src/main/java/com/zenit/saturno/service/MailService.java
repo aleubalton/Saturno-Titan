@@ -1,6 +1,9 @@
 package com.zenit.saturno.service;
 
 import com.zenit.saturno.domain.User;
+import com.zenit.saturno.service.dto.TurnoDTO;
+import com.zenit.saturno.service.dto.ClienteDTO;
+import com.zenit.saturno.service.dto.VehiculoDTO;
 
 import io.github.jhipster.config.JHipsterProperties;
 
@@ -29,6 +32,12 @@ public class MailService {
     private final Logger log = LoggerFactory.getLogger(MailService.class);
 
     private static final String USER = "user";
+
+    private static final String TURNO = "turno";
+
+    private static final String CLIENTE = "cliente";
+
+    private static final String VEHICULO = "vehiculo";
 
     private static final String BASE_URL = "baseUrl";
 
@@ -101,5 +110,19 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendTurnoEmail(TurnoDTO turno, ClienteDTO cliente, VehiculoDTO vehiculo) {
+        Locale locale = Locale.forLanguageTag("es");
+        Context context = new Context(locale);
+        context.setVariable(TURNO, turno);
+        context.setVariable(CLIENTE, cliente);
+        context.setVariable(VEHICULO, vehiculo);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process("mail/turnoEmail", context);
+        String subject = messageSource.getMessage("email.turn.title", null, locale);
+        sendEmail(cliente.getEmail(), subject, content, false, true);
+
     }
 }
