@@ -9,6 +9,9 @@ import com.zenit.saturno.domain.Servicio;
 import com.zenit.saturno.domain.Cliente;
 import com.zenit.saturno.repository.TurnoRepository;
 import com.zenit.saturno.service.TurnoService;
+import com.zenit.saturno.service.ClienteService;
+import com.zenit.saturno.service.VehiculoService;
+import com.zenit.saturno.service.MailService;
 import com.zenit.saturno.service.dto.TurnoDTO;
 import com.zenit.saturno.service.mapper.TurnoMapper;
 import com.zenit.saturno.web.rest.errors.ExceptionTranslator;
@@ -91,6 +94,15 @@ public class TurnoResourceIntTest {
     private TurnoService turnoService;
 
     @Autowired
+    private ClienteService clienteService;
+
+    @Autowired
+    private VehiculoService vehiculoService;
+
+    @Autowired
+    private MailService mailService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -109,7 +121,7 @@ public class TurnoResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TurnoResource turnoResource = new TurnoResource(turnoService);
+        final TurnoResource turnoResource = new TurnoResource(turnoService, clienteService, vehiculoService, mailService);
         this.restTurnoMockMvc = MockMvcBuilders.standaloneSetup(turnoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -319,10 +331,10 @@ public class TurnoResourceIntTest {
             .andExpect(jsonPath("$.[*].comentario").value(hasItem(DEFAULT_COMENTARIO.toString())))
             .andExpect(jsonPath("$.[*].indicaciones").value(hasItem(DEFAULT_INDICACIONES.toString())));
     }
-    
+
     @SuppressWarnings({"unchecked"})
     public void getAllTurnosWithEagerRelationshipsIsEnabled() throws Exception {
-        TurnoResource turnoResource = new TurnoResource(turnoServiceMock);
+        TurnoResource turnoResource = new TurnoResource(turnoServiceMock, clienteService, vehiculoService, mailService);
         when(turnoServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restTurnoMockMvc = MockMvcBuilders.standaloneSetup(turnoResource)
@@ -339,7 +351,7 @@ public class TurnoResourceIntTest {
 
     @SuppressWarnings({"unchecked"})
     public void getAllTurnosWithEagerRelationshipsIsNotEnabled() throws Exception {
-        TurnoResource turnoResource = new TurnoResource(turnoServiceMock);
+        TurnoResource turnoResource = new TurnoResource(turnoServiceMock, clienteService, vehiculoService, mailService);
             when(turnoServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
             MockMvc restTurnoMockMvc = MockMvcBuilders.standaloneSetup(turnoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
