@@ -15,8 +15,10 @@ public interface TurnoMapper extends EntityMapper<TurnoDTO, Turno> {
     @Mapping(source = "agenda.nombre", target = "agendaNombre")
     @Mapping(source = "vehiculo.id", target = "vehiculoId")
     @Mapping(source = "vehiculo.patente", target = "vehiculoPatente")
+    @Mapping(source = "vehiculo.modelo.nombre", target = "vehiculoModelo")
     @Mapping(source = "cliente.id", target = "clienteId")
     @Mapping(source = "cliente.apellido", target = "clienteApellido")
+    @Mapping(source = "cliente.nombre", target = "clienteNombre")
     TurnoDTO toDto(Turno turno);
 
     @Mapping(source = "agendaId", target = "agenda")

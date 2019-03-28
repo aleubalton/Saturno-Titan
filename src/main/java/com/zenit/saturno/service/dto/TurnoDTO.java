@@ -45,11 +45,15 @@ public class TurnoDTO implements Serializable {
 
     private String vehiculoPatente;
 
+    private String vehiculoModelo;
+
     private Set<ServicioDTO> servicios = new HashSet<>();
 
     private Long clienteId;
 
     private String clienteApellido;
+
+    private String clienteNombre;
 
     public Long getId() {
         return id;
@@ -147,6 +151,14 @@ public class TurnoDTO implements Serializable {
         this.vehiculoPatente = vehiculoPatente;
     }
 
+    public String getVehiculoModelo() {
+        return vehiculoModelo;
+    }
+
+    public void setVehiculoModelo(String vehiculoModelo) {
+        this.vehiculoModelo = vehiculoModelo;
+    }
+
     public Set<ServicioDTO> getServicios() {
         return servicios;
     }
@@ -169,6 +181,14 @@ public class TurnoDTO implements Serializable {
 
     public void setClienteApellido(String clienteApellido) {
         this.clienteApellido = clienteApellido;
+    }
+
+    public String getClienteNombre() {
+        return clienteNombre;
+    }
+
+    public void setClienteNombre(String clienteNombre) {
+        this.clienteNombre = clienteNombre;
     }
 
     @Override
