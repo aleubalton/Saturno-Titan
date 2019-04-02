@@ -36,7 +36,7 @@
                         <div class="form-group col-md-6">
                             <label class="form-control-label" jhiTranslate="solicitud.form.servicios">Services</label>
                             <br>
-                            <div class="btn-group btn-group-toggle" ngbRadioGroup id="adicionales" name="adicionales" [(ngModel)]="solicitud.tipo_servicio" (change)="refreshTipos()">
+                            <div class="btn-group btn-group-toggle" ngbRadioGroup id="servicios" name="servicios" [(ngModel)]="solicitud.tipo_servicio" (change)="refreshTipos()">
                                 <label class="btn-primary" ngbButtonLabel *ngFor="let tipo_servicio of tiposDeServicios;let index = index">
                                     <input type="radio" ngbButton [value]="tipo_servicio"> {{tipo_servicio}}
                                 </label>

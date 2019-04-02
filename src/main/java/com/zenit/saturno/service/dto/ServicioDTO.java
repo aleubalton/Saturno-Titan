@@ -34,6 +34,8 @@ public class ServicioDTO implements Serializable {
 
     private String tipoCodigo;
 
+    private String tipoNombre;
+
     private Set<TareaDTO> tareas = new HashSet<>();
 
     private Long planId;
@@ -94,6 +96,14 @@ public class ServicioDTO implements Serializable {
 
     public void setTipoCodigo(String tipoServicioCodigo) {
         this.tipoCodigo = tipoServicioCodigo;
+    }
+
+    public String getTipoNombre() {
+        return tipoNombre;
+    }
+
+    public void setTipoNombre(String tipoNombre) {
+        this.tipoNombre = tipoNombre;
     }
 
     public Set<TareaDTO> getTareas() {

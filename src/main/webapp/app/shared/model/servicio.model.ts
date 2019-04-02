@@ -10,6 +10,7 @@ export interface IServicio {
     duracion?: number;
     precios?: IPrecioServicio[];
     tipoCodigo?: string;
+    tipoNombre?: string;
     tipoId?: number;
     tareas?: ITarea[];
     planNombre?: string;
@@ -26,6 +27,7 @@ export class Servicio implements IServicio {
         public duracion?: number,
         public precios?: IPrecioServicio[],
         public tipoCodigo?: string,
+        public tipoNombre?: string,
         public tipoId?: number,
         public tareas?: ITarea[],
         public planNombre?: string,
