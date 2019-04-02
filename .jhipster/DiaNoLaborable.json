@@ -1,0 +1,37 @@
+{
+    "name": "DiaNoLaborable",
+    "fields": [
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "fecha",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "agenda",
+            "otherEntityName": "agenda",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "diaNoLaborable"
+        }
+    ],
+    "changelogDate": "20190402152509",
+    "entityTableName": "dia_no_laborable",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

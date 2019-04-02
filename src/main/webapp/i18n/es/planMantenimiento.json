@@ -1,0 +1,24 @@
+{
+    "saturnoApp": {
+        "planMantenimiento": {
+            "home": {
+                "title": "Plan Mantenimientos",
+                "createLabel": "Crear nuevo Plan Mantenimiento",
+                "createOrEditLabel": "Crear o editar Plan Mantenimiento"
+            },
+            "created": "Un nuevo Plan Mantenimiento ha sido creado con el identificador {{ param }}",
+            "updated": "Un Plan Mantenimiento ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Plan Mantenimiento ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Plan Mantenimiento {{ id }}?"
+            },
+            "detail": {
+                "title": "Plan Mantenimiento"
+            },
+            "codigo": "Codigo",
+            "nombre": "Nombre",
+            "servicio": "Servicio",
+            "modelo": "Modelo"
+        }
+    }
+}

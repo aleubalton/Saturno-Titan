@@ -1,0 +1,70 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="saturnoApp.tipoServicio.home.title">Tipo Servicios</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tipo-servicio" [routerLink]="['/tipo-servicio/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="saturnoApp.tipoServicio.home.createLabel">
+            Create new Tipo Servicio
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="tipoServicios">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nombre"><span jhiTranslate="saturnoApp.tipoServicio.nombre">Nombre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="codigo"><span jhiTranslate="saturnoApp.tipoServicio.codigo">Codigo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="interno"><span jhiTranslate="saturnoApp.tipoServicio.interno">Interno</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="adicional"><span jhiTranslate="saturnoApp.tipoServicio.adicional">Adicional</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="tipoRecurso"><span jhiTranslate="saturnoApp.tipoServicio.tipoRecurso">Tipo Recurso</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tipoServicio of tipoServicios ;trackBy: trackId">
+                <td><a [routerLink]="['/tipo-servicio', tipoServicio.id, 'view' ]">{{tipoServicio.id}}</a></td>
+                <td>{{tipoServicio.nombre}}</td>
+                <td>{{tipoServicio.codigo}}</td>
+                <td>{{tipoServicio.interno}}</td>
+                <td>{{tipoServicio.adicional}}</td>
+                <td jhiTranslate="{{'saturnoApp.TipoRecurso.' + tipoServicio.tipoRecurso}}">{{tipoServicio.tipoRecurso}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/tipo-servicio', tipoServicio.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/tipo-servicio', tipoServicio.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'tipo-servicio/'+ tipoServicio.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="tipoServicios && tipoServicios.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

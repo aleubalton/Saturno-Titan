@@ -1,0 +1,27 @@
+{
+    "saturnoApp": {
+        "modelo": {
+            "home": {
+                "title": "Modelos",
+                "createLabel": "Crear nuevo Modelo",
+                "createOrEditLabel": "Crear o editar Modelo"
+            },
+            "created": "Un nuevo Modelo ha sido creado con el identificador {{ param }}",
+            "updated": "Un Modelo ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Modelo ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Modelo {{ id }}?"
+            },
+            "detail": {
+                "title": "Modelo"
+            },
+            "codigo": "Codigo",
+            "nombre": "Nombre",
+            "anioInicioProduccion": "Anio Inicio Produccion",
+            "anioFinProduccion": "Anio Fin Produccion",
+            "marca": "Marca",
+            "plan": "Plan",
+            "vehiculo": "Vehiculo"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "saturnoApp": {
+        "horarioEspecial": {
+            "home": {
+                "title": "Horario Especials",
+                "createLabel": "Crear nuevo Horario Especial",
+                "createOrEditLabel": "Crear o editar Horario Especial"
+            },
+            "created": "Un nuevo Horario Especial ha sido creado con el identificador {{ param }}",
+            "updated": "Un Horario Especial ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Horario Especial ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Horario Especial {{ id }}?"
+            },
+            "detail": {
+                "title": "Horario Especial"
+            },
+            "descripcion": "Descripcion",
+            "horaDesde": "Hora Desde",
+            "horaHasta": "Hora Hasta",
+            "fecha": "Fecha",
+            "agenda": "Agenda"
+        }
+    }
+}

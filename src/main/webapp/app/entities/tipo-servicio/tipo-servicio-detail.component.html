@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="tipoServicio">
+            <h2><span jhiTranslate="saturnoApp.tipoServicio.detail.title">Tipo Servicio</span> {{tipoServicio.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="saturnoApp.tipoServicio.nombre">Nombre</span></dt>
+                <dd>
+                    <span>{{tipoServicio.nombre}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.tipoServicio.codigo">Codigo</span></dt>
+                <dd>
+                    <span>{{tipoServicio.codigo}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.tipoServicio.interno">Interno</span></dt>
+                <dd>
+                    <span>{{tipoServicio.interno}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.tipoServicio.adicional">Adicional</span></dt>
+                <dd>
+                    <span>{{tipoServicio.adicional}}</span>
+                </dd>
+                <dt><span jhiTranslate="saturnoApp.tipoServicio.tipoRecurso">Tipo Recurso</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'saturnoApp.TipoRecurso.' + tipoServicio.tipoRecurso}}">{{tipoServicio.tipoRecurso}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/tipo-servicio', tipoServicio.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

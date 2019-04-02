@@ -1,0 +1,9 @@
+{
+    "saturnoApp": {
+        "TipoTarea": {
+            "null": "",
+            "CAMBIO": "CAMBIO",
+            "INSPECCION": "INSPECCION"
+        }
+    }
+}
