@@ -70,10 +70,7 @@ entity Servicio {
 	nombre String required maxlength(100),
     codigo String required minlength(3) maxlength(4),
     kilometraje Integer required min(0),
-    duracion Integer required min(0) max(600)
-}
-
-entity PrecioServicio {
+    duracion Integer required min(0) max(600),
     precio Float required min(0)
 }
 
@@ -149,14 +146,6 @@ relationship OneToMany {
 
 relationship ManyToOne {
 	Turno{vehiculo(patente) required} to Vehiculo{turno(fechaHora) required}
-}
-
-relationship OneToMany {
-	Modelo{precio(precio) required} to PrecioServicio{modelo(nombre) required}
-}
-
-relationship OneToMany {
-	Servicio{precio(precio) required} to PrecioServicio{servicio(nombre) required}
 }
 
 relationship OneToMany {
