@@ -12,8 +12,9 @@ import org.mapstruct.*;
 public interface ServicioMapper extends EntityMapper<ServicioDTO, Servicio> {
 
     @Mapping(source = "tipo.id", target = "tipoId")
+    @Mapping(source = "tipo.adicional", target = "tipoAdicional")
     @Mapping(source = "tipo.codigo", target = "tipoCodigo")
-	@Mapping(source = "tipo.nombre", target = "tipoNombre")
+    @Mapping(source = "tipo.nombre", target = "tipoNombre")
     @Mapping(source = "plan.id", target = "planId")
     @Mapping(source = "plan.nombre", target = "planNombre")
     ServicioDTO toDto(Servicio servicio);

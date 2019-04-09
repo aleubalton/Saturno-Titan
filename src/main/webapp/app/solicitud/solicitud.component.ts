@@ -37,8 +37,8 @@ export class SolicitudComponent implements OnInit {
     anioInicio: number;
     anioFin: number;
     agendas_backend: IAgenda[];
-    servicios_backend: IServicio[];
-    servicios: any[];
+    servicios: IServicio[];
+    // servicios: any[];
     tiposDeServicios: Set<any>;
     serviciosByTipo: any[];
     adicionales: any[];
@@ -59,10 +59,10 @@ export class SolicitudComponent implements OnInit {
         tipo_servicio: 'Mantenimiento',
         servicio: {
             nombre: 'General',
-            estimacion: 30,
-            costo: 3000,
+            duracion: 30,
+            precio: 3000,
             tipo: 'Diagnóstico',
-            tareas: ['Revisión general', 'Generación de presupuesto']
+            tareas: []
         },
         adicionales: [],
         fecha: moment(),
@@ -85,96 +85,6 @@ export class SolicitudComponent implements OnInit {
         this.fecha = new Date(this.minDate['year'], this.minDate['month'], this.minDate['day'] + 40);
         this.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
         this.marcas = new Set(['TOYOTA', 'LEXUS', 'HINO']);
-        this.servicios = [
-            {
-                nombre: 'General',
-                estimacion: 30,
-                costo: 3000,
-                tipo: 'Diagnóstico',
-                tareas: ['Revisión general', 'Generación de presupuesto']
-            },
-            {
-                nombre: 'Chapa y pintura',
-                estimacion: 45,
-                costo: 5000,
-                tipo: 'Diagnóstico',
-                tareas: ['Inspección de carrocería', 'Generación de presupuesto']
-            },
-            {
-                nombre: '10000km',
-                estimacion: 30,
-                costo: 10000,
-                tipo: 'Mantenimiento',
-                tareas: [
-                    'Cambio de aceite de motor',
-                    'Cambio de filtro de aceite',
-                    'Inspección de batería',
-                    'Inspección de filtro de aire acondicionado',
-                    'Inspección de pedal de embrague',
-                    'Inspección de bocinas y luces interiores / exteriores',
-                    'Inspección de nivel de refrigerante de motor',
-                    'Inspección de nivel de fluidos de freno / embrague',
-                    'Inspección de pastillas y discos de freno',
-                    'Inspección de pedal de freno y freno de mano',
-                    'Inspección de presión de inflado de neumáticos'
-                ]
-            },
-            {
-                nombre: '20000km',
-                estimacion: 45,
-                costo: 15000,
-                tipo: 'Mantenimiento',
-                tareas: ['Cambio de aceite de motor', 'Cambio de filtro de aceite', 'Cambio de filtro de acondicionador de aire']
-            },
-            {
-                nombre: '30000km',
-                estimacion: 30,
-                costo: 10000,
-                tipo: 'Mantenimiento',
-                tareas: ['Cambio de aceite de motor', 'Cambio de filtro de aceite']
-            },
-            {
-                nombre: '40000km',
-                estimacion: 60,
-                costo: 20000,
-                tipo: 'Mantenimiento',
-                tareas: [
-                    'Cambio de aceite de motor',
-                    'Cambio de filtro de aceite',
-                    'Cambio de filtro de aire',
-                    'Cambio de fluidos de freno y embrague',
-                    'Cambio de filtro de acondicionador de aire'
-                ]
-            },
-            {
-                nombre: '50000km',
-                estimacion: 30,
-                costo: 10000,
-                tipo: 'Mantenimiento',
-                tareas: ['Cambio de aceite de motor', 'Cambio de filtro de aceite']
-            },
-            {
-                nombre: 'Cambio bujías',
-                estimacion: 35,
-                costo: 0,
-                tipo: 'Campaña',
-                tareas: ['Revisión de bujías', 'Cambio de bujías']
-            },
-            {
-                nombre: 'Cambio amortiguadores',
-                estimacion: 45,
-                costo: 0,
-                tipo: 'Campaña',
-                tareas: ['Revisión de amortiguadores', 'Cambio de amortiguadores']
-            }
-        ];
-        this.tiposDeServicios = new Set(this.servicios.map(a => a.tipo));
-        this.serviciosByTipo = this.filterByTipo(this.servicios, this.solicitud.tipo_servicio);
-        this.solicitud.servicio = this.serviciosByTipo[0];
-        this.adicionales = [
-            { nombre: 'Cambio de batería', estimacion: 15, costo: 3000, tipo: 'Cambio de batería' },
-            { nombre: 'Cambio de neumáticos', estimacion: 30, costo: 4500, tipo: 'Cambio de neumáticos' }
-        ];
         this.horarios = [
             { hora: '8', disabled: true },
             { hora: '9', disabled: true },
@@ -205,7 +115,11 @@ export class SolicitudComponent implements OnInit {
         );
         this.servicioService.query().subscribe(
             (res: HttpResponse<IServicio[]>) => {
-                this.servicios_backend = res.body;
+                this.servicios = this.filterByAdicional(res.body, false);
+                this.tiposDeServicios = new Set(this.servicios.map(a => a.tipoNombre));
+                this.serviciosByTipo = this.filterByTipo(this.servicios, this.solicitud.tipo_servicio);
+                this.solicitud.servicio = this.serviciosByTipo[0];
+                this.adicionales = this.filterByAdicional(res.body, true);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -222,7 +136,6 @@ export class SolicitudComponent implements OnInit {
         this.turno.fechaHora = moment();
         this.turno.codigoReserva = this.randomString(8, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
         this.turno.estado = Estado.RESERVADO;
-        this.turno.servicios = this.servicios_backend;
         this.turno.agendaId = this.agendas_backend[0].id;
         this.subscribeToSaveClienteResponse(this.clienteService.create(this.cliente));
     }
@@ -284,8 +197,13 @@ export class SolicitudComponent implements OnInit {
         this.disable_toggle_1 = true;
         this.disable_toggle_2 = true;
         this.disable_toggle_3 = false;
-        this.turno.duracion = this.solicitud.servicio.estimacion;
-        this.turno.costo = this.solicitud.servicio.costo;
+        this.turno.servicios = [this.solicitud.servicio].concat(this.solicitud.adicionales.filter(e => e != null));
+        this.turno.duracion = 0;
+        this.turno.costo = 0;
+        this.turno.servicios.forEach(serv => {
+            this.turno.duracion += serv.duracion;
+            this.turno.costo += serv.precio;
+        });
     }
 
     public refreshMarcas() {
@@ -326,8 +244,19 @@ export class SolicitudComponent implements OnInit {
 
     public filterByTipo(data, s) {
         return data
-            .filter(e => e.tipo.includes(s) || e.nombre.includes(s))
-            .sort((a, b) => (a.tipo.includes(s) && !b.tipo.includes(s) ? -1 : b.tipo.includes(s) && !a.tipo.includes(s) ? 1 : 0));
+            .filter(e => e.tipoNombre.includes(s) || e.nombre.includes(s))
+            .sort(
+                (a, b) =>
+                    a.tipoNombre.includes(s) && !b.tipoNombre.includes(s)
+                        ? -1
+                        : b.tipoNombre.includes(s) && !a.tipoNombre.includes(s)
+                            ? 1
+                            : 0
+            );
+    }
+
+    public filterByAdicional(data, s) {
+        return data.filter(e => e.tipoAdicional === s);
     }
 
     private randomString(length, chars) {

@@ -36,9 +36,11 @@ public class ServicioDTO implements Serializable {
 
     private Long tipoId;
 
+    private Boolean tipoAdicional;
+
     private String tipoCodigo;
-	
-	private String tipoNombre;
+
+    private String tipoNombre;
 
     private Set<TareaDTO> tareas = new HashSet<>();
 
@@ -102,6 +104,14 @@ public class ServicioDTO implements Serializable {
         this.tipoId = tipoServicioId;
     }
 
+    public Boolean getTipoAdicional() {
+        return tipoAdicional;
+    }
+
+    public void setTipoAdicional(Boolean tipoAdicional) {
+        this.tipoAdicional = tipoAdicional;
+    }
+
     public String getTipoCodigo() {
         return tipoCodigo;
     }
@@ -109,8 +119,8 @@ public class ServicioDTO implements Serializable {
     public void setTipoCodigo(String tipoServicioCodigo) {
         this.tipoCodigo = tipoServicioCodigo;
     }
-	
-	public String getTipoNombre() {
+
+    public String getTipoNombre() {
         return tipoNombre;
     }
 

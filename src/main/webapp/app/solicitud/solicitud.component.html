@@ -54,7 +54,7 @@
                             <ul class="list-group">
                                 <ng-template #popContent>
                                     <small *ngFor="let tarea of solicitud.servicio.tareas">
-                                        <ul class="list-group">{{tarea}}</ul>
+                                        <ul class="list-group">{{tarea.descripcion}}</ul>
                                     </small>
                                 </ng-template>
                                 <ng-template #popTitle>
@@ -71,8 +71,8 @@
                                         </select>
                                     </div>
                                     <div class="col-md-2">
-                                        <span class="badge badge-primary badge-pill">{{solicitud.servicio.estimacion}} min.</span>
-                                        <span class="badge badge-success badge-pill">$ {{solicitud.servicio.costo}}</span>
+                                        <span class="badge badge-primary badge-pill">{{solicitud.servicio.duracion}} min.</span>
+                                        <span class="badge badge-success badge-pill">$ {{solicitud.servicio.precio}}</span>
                                     </div>
                                 </li>
                                 <ng-container *ngFor="let adicional of solicitud.adicionales;let index = index">
@@ -81,18 +81,18 @@
                                             {{adicional.nombre}}
                                         </div>
                                         <div class="col-md-2">
-                                          <span class="badge badge-primary badge-pill">{{solicitud.adicionales[index].estimacion}} min.</span>
-                                          <span class="badge badge-success badge-pill">$ {{solicitud.adicionales[index].costo}}</span>
+                                          <span class="badge badge-primary badge-pill">{{solicitud.adicionales[index].duracion}} min.</span>
+                                          <span class="badge badge-success badge-pill">$ {{solicitud.adicionales[index].precio}}</span>
                                         </div>
                                     </li>
                                 </ng-container>
                                 <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div class="col-md-10">
-                                        <label class="form-control-label font-weight-bold" jhiTranslate="solicitud.form.estimaciones">Estimated cost and delay:</label>
+                                        <label class="form-control-label font-weight-bold" jhiTranslate="solicitud.form.duraciones">Estimated cost and delay:</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <span class="badge badge-primary badge-pill">{{solicitud.servicio.estimacion+solicitud?.adicionales[0]?.estimacion+solicitud?.adicionales[1]?.estimacion}} min.</span>
-                                        <span class="badge badge-success badge-pill">$ {{solicitud.servicio.costo+solicitud?.adicionales[0]?.costo+solicitud?.adicionales[1]?.costo}}</span>
+                                        <span class="badge badge-primary badge-pill">{{solicitud.servicio.duracion+solicitud?.adicionales[0]?.duracion+solicitud?.adicionales[1]?.duracion}} min.</span>
+                                        <span class="badge badge-success badge-pill">$ {{solicitud.servicio.precio+solicitud?.adicionales[0]?.precio+solicitud?.adicionales[1]?.precio}}</span>
                                     </div>
                                 </li> -->
                             </ul>
@@ -297,7 +297,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-9">
-                            <label class="form-control-label" jhiTranslate="solicitud.form.estimaciones">Estimated cost and delay:</label>
+                            <label class="form-control-label" jhiTranslate="solicitud.form.duraciones">Estimated cost and delay:</label>
                         </div>
                         <div class="col-md-3">
                             <span class="badge badge-primary badge-pill">{{turno.duracion}} min.</span>

@@ -8,6 +8,7 @@ export interface IServicio {
     kilometraje?: number;
     duracion?: number;
     precio?: number;
+    tipoAdicional?: boolean;
     tipoCodigo?: string;
     tipoNombre?: string;
     tipoId?: number;
@@ -25,6 +26,7 @@ export class Servicio implements IServicio {
         public kilometraje?: number,
         public duracion?: number,
         public precio?: number,
+        public tipoAdicional?: boolean,
         public tipoCodigo?: string,
         public tipoNombre?: string,
         public tipoId?: number,
