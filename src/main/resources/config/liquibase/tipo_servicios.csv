@@ -1,0 +1,13 @@
+id;nombre;codigo;interno;adicional;tipo_recurso
+5502;Pre Entrega;PENT;true;false;ASESOR
+5503;Mantenimiento;MANT;false;false;BAHIA
+5504;Mantenimiento Express;MANX;true;false;BAHIA
+5505;Garantia;GART;true;false;ASESOR
+5506;Campaña;CAMP;false;false;ASESOR
+5507;Reparacion;REPA;true;false;TECNICO
+5508;Diagnostico;DIAG;false;false;BAHIA
+5509;Chapa y Puntura;CHYP;true;false;BAHIA
+5510;Instalacion de Accesorios;IDAC;true;true;BAHIA
+5511;Cambio de Bateria;CBAT;false;true;BAHIA
+5512;Cambio de Neumaticos;CNEU;false;true;BAHIA
+5513;Otros;OTRO;true;true;BAHIA

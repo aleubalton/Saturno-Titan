@@ -1,0 +1,13 @@
+id;codigo;nombre;anio_inicio_produccion;anio_fin_produccion;marca;plan_id
+1;ETIO;Etios;2013;null;TOYOTA;1
+2;CORO;Corolla;1995;null;TOYOTA;1
+3;AVEN;Avensis;1995;2009;TOYOTA;1
+4;CAM;Camry;1995;null;TOYOTA;1
+5;INNO;Innova;2017;null;TOYOTA;1
+6;YAR;Yaris;2011;null;TOYOTA;1
+7;PRI;Prius;2009;null;TOYOTA;1
+8;86;'86;2012;null;TOYOTA;1
+9;SW4;SW4;2017;null;TOYOTA;2
+10;HIL;Hilux;1995;null;TOYOTA;2
+11;RAV4;Rav4;1995;null;TOYOTA;2
+12;LAND;Land Cruiser;1995;null;TOYOTA;2

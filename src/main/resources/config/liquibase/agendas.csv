@@ -1,0 +1,8 @@
+id;nombre;tipo_recurso;fecha_desde;fecha_hasta;email;activa
+1;Bahía 1;BAHIA;2019-01-01;2019-12-31;bahia.1@saturno.com;true
+2;Bahía 2;BAHIA;2019-01-01;2019-12-31;bahia.2@saturno.com;true
+3;Bahía 3;BAHIA;2019-01-01;2019-12-31;bahia.3@saturno.com;true
+4;Lavadero;LAVADERO;2019-01-01;2019-12-31;lavadero@saturno.com;true
+5;Carlos Villate (Asesor);ASESOR;2019-01-01;2019-12-31;carlos.villate@saturno.com;true
+6;Martín García (Asesor);ASESOR;2019-01-01;2019-12-31;martin.garcia@saturno.com;true
+7;Gonzalo Chávez (Técnico);TECNICO;2019-01-01;2019-12-31;gonzalo.chavez@saturno.com;true

@@ -1,0 +1,42 @@
+id;codigo;descripcion;tipo
+5452;BUJ;Cambio de Bujias de Encendido;CAMBIO
+5451;ACM;Cambio de Aceite de Motor;CAMBIO
+6001;FAM;Cambio de filtro de aceite de motor;CAMBIO
+6002;FAI;Cambio de filtro de aire;CAMBIO
+6003;FCO;Cambio de filtro de combustible;CAMBIO
+6004;FFE;Cambio de fluidos de freno / embrague;CAMBIO
+6005;FTM;Cambio de fluidos de transmisión manual;CAMBIO
+6006;FAC;Cambio de filtro de aire acondicionado;CAMBIO
+6032;LDM;Cambio de Lubricante de motor;CAMBIO
+6007;SAC;Insp. sistema de Aire acondicionado y calefacción;INSPECCION
+6008;BAT;Insp. batería;INSPECCION
+6009;FCA;Insp. filtro de carbón activado;INSPECCION
+6010;CSA;Insp. conexiones de sistema de aire acondicionado;INSPECCION
+6011;CCO;Insp. conexiones de combustible;INSPECCION
+6012;CTR;Insp. correas transmisoras;INSPECCION
+6013;CEM;Insp. conductos de escape y montajes;INSPECCION
+6014;EAV;Insp. extremos articulados y volantes;INSPECCION
+6015;FAA;Insp. filtro de aire acondicionado;INSPECCION
+6016;FTR;Insp. fluidos de transmisión manual;INSPECCION
+6017;PEM;Insp. pedal de embrague;INSPECCION
+6018;GSE;Insp. guardapolvos de semiejes;INSPECCION
+6019;HVA;Insp. holgura de válvulas;INSPECCION
+6020;BYL;Insp. bocinas y luces interiores / exteriores;INSPECCION
+6021;NRM;Insp. nivel de refrigerante de motor;INSPECCION
+6022;NFF;Insp. nivel de fluidos de freno / embrague;INSPECCION
+6024;PDF;Insp. pastillas y discos de freno;INSPECCION
+6025;PFM;Insp. pedal de freno y freno de mano;INSPECCION
+6026;PIN;Insp. presión de inflado de neumáticos;INSPECCION
+6027;STD;Insp. suspensión trasera y delantera;INSPECCION
+6028;TMC;Insp. tuberías, mangueras y conectores de freno;INSPECCION
+6029;FIA;Insp. filtro de aire;INSPECCION
+6030;ZTF;Insp. zapatas y tambores de freno;INSPECCION
+6031;RNE;Rotación de neumáticos;INSPECCION
+6033;FDP;Fluidos de dirección de potencia;INSPECCION
+6034;NLL;Nivel rec. Limpia lavaparabrisas;INSPECCION
+6035;ASG;ARTICULACIONES Y SUS GUARDAPOLVOS;INSPECCION
+6036;FTA;FLUIDOS DE TRANSMISIÓN AUTOMÁTICA;INSPECCION
+6037;LDM;FILTRO DE LUBRICANTE DE MOTOR;INSPECCION
+6038;FDD;Fluidos de diferenciales;INSPECCION
+6039;FT4;Fluidos de transferencia (4x4);INSPECCION
+6040;HER;Humos de escape y rendimiento;INSPECCION
