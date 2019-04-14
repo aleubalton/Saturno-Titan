@@ -57,9 +57,10 @@ public interface TurnoService {
      * @param year the year of the entity
      * @param month the month of the entity
      * @param day the day of the entity
+     * @param agendaId the id of the agenda
      * @return the entity
      */
-    Page<TurnoDTO> findAllByFecha(Pageable pageable, Integer year, Integer month, Integer day);
+    Page<TurnoDTO> findAllByFecha(Pageable pageable, Integer year, Integer month, Integer day, Integer agendaId);
 
     /**
      * Delete the "id" turno.

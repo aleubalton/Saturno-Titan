@@ -101,17 +101,26 @@ public class TurnoServiceImpl implements TurnoService {
     }
 
     /**
-     * Get one turno by codigoReserva.
+     * Get the "year-month-day" turno.
      *
-     * @param codigoReserva the codigoReserva of the entity
+     * @param year the year of the entity
+     * @param month the month of the entity
+     * @param day the day of the entity
+     * @param agendaId the id of the agenda
      * @return the entity
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<TurnoDTO> findAllByFecha(Pageable pageable, Integer year, Integer month, Integer day) {
-        log.debug("Request to get Turnos by fecha : {} - {} - {}", year, month, day);
-        return turnoRepository.findAllByFecha(pageable, year, month, day)
-            .map(turnoMapper::toDto);
+    public Page<TurnoDTO> findAllByFecha(Pageable pageable, Integer year, Integer month, Integer day, Integer agendaId) {
+        if (agendaId != 0) {
+            log.debug("Request to get Turnos by fecha : {} - {} - {} / Agenda ID: {}", year, month, day, agendaId);
+            return turnoRepository.findAllByFechaAndAgenda(pageable, year, month, day, Long.valueOf(agendaId))
+                .map(turnoMapper::toDto);
+        } else {
+            log.debug("Request to get Turnos by fecha : {} - {} - {}", year, month, day);
+            return turnoRepository.findAllByFecha(pageable, year, month, day)
+                .map(turnoMapper::toDto);
+        }
     }
 
     /**

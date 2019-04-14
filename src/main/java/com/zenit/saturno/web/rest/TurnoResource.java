@@ -161,15 +161,15 @@ public class TurnoResource {
      */
     @GetMapping("/turnosByFecha/{fecha}")
     @Timed
-    public ResponseEntity<List<TurnoDTO>> getTurnosByFecha(Pageable pageable, @PathVariable String fecha) {
+    public ResponseEntity<List<TurnoDTO>> getTurnosByFecha(Pageable pageable, @PathVariable String fecha, @RequestParam(required = false, defaultValue = "0") Integer agendaId) {
         log.debug("REST request to get Turnos by fecha : {}", fecha);
         Page<TurnoDTO> turnos = null;
         try {
             Calendar c = Calendar.getInstance();
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             c.setTime(df.parse(fecha));
-            turnos = turnoService.findAllByFecha(pageable, c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH));
-            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(turnos, String.format("/api/turnosByFecha/%s", fecha));
+            turnos = turnoService.findAllByFecha(pageable, c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH), agendaId);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(turnos, String.format("/api/turnosByFecha/%s?agendaId=%d", fecha, agendaId));
             return ResponseEntity.ok().headers(headers).body(turnos.getContent());
         } catch (ParseException e) {
             log.debug("Error parseando fecha...");
