@@ -30,14 +30,14 @@ public interface TurnoRepository extends JpaRepository<Turno, Long> {
     @Query("select turno from Turno turno left join fetch turno.servicios where turno.codigoReserva =:codigoReserva")
     Optional<Turno> findByCodigoReserva(@Param("codigoReserva") String codigoReserva);
 
-    @Query(value = "select distinct turno from Turno turno where to_char(turno.fechaHora,'YYYY') =:year and " +
-        "to_char(turno.fechaHora,'MM') =:month and to_char(turno.fechaHora,'DD') =:day and " +
+    @Query(value = "select distinct turno from Turno turno where year(turno.fechaHora) =:year and " +
+        "month(turno.fechaHora) =:month and day(turno.fechaHora) =:day and " +
         "turno.estado not in ('CANCELADO','EXPIRADO','FINALIZADO')",
         countQuery = "select count(distinct turno) from Turno turno")
     Page<Turno> findAllByFecha(Pageable pageable, @Param("year") Integer year, @Param("month") Integer month, @Param("day") Integer day);
 
-    @Query(value = "select distinct turno from Turno turno where to_char(turno.fechaHora,'YYYY') =:year and " +
-        "to_char(turno.fechaHora,'MM') =:month and to_char(turno.fechaHora,'DD') =:day and " +
+    @Query(value = "select distinct turno from Turno turno where year(turno.fechaHora) =:year and " +
+        "month(turno.fechaHora) =:month and day(turno.fechaHora) =:day and " +
         "turno.estado not in ('CANCELADO','EXPIRADO','FINALIZADO') and turno.agenda.id =:agendaId",
         countQuery = "select count(distinct turno) from Turno turno")
     Page<Turno> findAllByFechaAndAgenda(Pageable pageable, @Param("year") Integer year, @Param("month") Integer month, @Param("day") Integer day, @Param("agendaId") Long agendaId);

@@ -169,7 +169,7 @@ public class TurnoResource {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             c.setTime(df.parse(fecha));
             turnos = turnoService.findAllByFecha(pageable, c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH), agendaId);
-            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(turnos, String.format("/api/turnosByFecha/%s?agendaId=%d", fecha, agendaId));
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(turnos, String.format("/api/turnosByFecha?fecha=%s&agendaId=%d", fecha, agendaId));
             return ResponseEntity.ok().headers(headers).body(turnos.getContent());
         } catch (ParseException e) {
             log.debug("Error parseando fecha...");
