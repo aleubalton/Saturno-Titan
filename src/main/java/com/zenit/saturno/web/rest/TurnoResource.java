@@ -159,9 +159,9 @@ public class TurnoResource {
      * @param fecha the fecha of the turnoDTOs to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the turnoDTO, or with status 404 (Not Found)
      */
-    @GetMapping("/turnosByFecha/{fecha}")
+    @GetMapping("/turnosByFecha")
     @Timed
-    public ResponseEntity<List<TurnoDTO>> getTurnosByFecha(Pageable pageable, @PathVariable String fecha, @RequestParam(required = false, defaultValue = "0") Integer agendaId) {
+    public ResponseEntity<List<TurnoDTO>> getTurnosByFecha(Pageable pageable, @RequestParam String fecha, @RequestParam(required = false, defaultValue = "0") Integer agendaId) {
         log.debug("REST request to get Turnos by fecha : {}", fecha);
         Page<TurnoDTO> turnos = null;
         try {
