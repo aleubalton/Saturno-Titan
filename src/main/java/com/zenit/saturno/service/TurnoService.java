@@ -52,6 +52,16 @@ public interface TurnoService {
     Optional<TurnoDTO> findByCodigoReserva(String codigoReserva);
 
     /**
+     * Get the "year-month-day" turno.
+     *
+     * @param year the year of the entity
+     * @param month the month of the entity
+     * @param day the day of the entity
+     * @return the entity
+     */
+    Page<TurnoDTO> findAllByFecha(Pageable pageable, Integer year, Integer month, Integer day);
+
+    /**
      * Delete the "id" turno.
      *
      * @param id the id of the entity

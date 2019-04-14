@@ -84,7 +84,7 @@ public class TurnoServiceImpl implements TurnoService {
         log.debug("Request to get Turno : {}", id);
         return turnoRepository.findOneWithEagerRelationships(id)
             .map(turnoMapper::toDto);
-    }//findByCodigoReserva
+    }
 
     /**
      * Get one turno by codigoReserva.
@@ -97,6 +97,20 @@ public class TurnoServiceImpl implements TurnoService {
     public Optional<TurnoDTO> findByCodigoReserva(String codigoReserva) {
         log.debug("Request to get Turno : {}", codigoReserva);
         return turnoRepository.findByCodigoReserva(codigoReserva)
+            .map(turnoMapper::toDto);
+    }
+
+    /**
+     * Get one turno by codigoReserva.
+     *
+     * @param codigoReserva the codigoReserva of the entity
+     * @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Page<TurnoDTO> findAllByFecha(Pageable pageable, Integer year, Integer month, Integer day) {
+        log.debug("Request to get Turnos by fecha : {} - {} - {}", year, month, day);
+        return turnoRepository.findAllByFecha(pageable, year, month, day)
             .map(turnoMapper::toDto);
     }
 

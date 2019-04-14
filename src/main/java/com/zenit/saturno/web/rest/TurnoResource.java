@@ -27,6 +27,11 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Calendar;
+
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
+import java.text.ParseException;
 
 /**
  * REST controller for managing Turno.
@@ -146,6 +151,30 @@ public class TurnoResource {
         log.debug("REST request to get Turno : {}", codigoReserva);
         Optional<TurnoDTO> turnoDTO = turnoService.findByCodigoReserva(codigoReserva);
         return ResponseUtil.wrapOrNotFound(turnoDTO);
+    }
+
+    /**
+     * GET  /turnos/:fecha : get the "fecha" turnos.
+     *
+     * @param fecha the fecha of the turnoDTOs to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the turnoDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/turnosByFecha/{fecha}")
+    @Timed
+    public ResponseEntity<List<TurnoDTO>> getTurnosByFecha(Pageable pageable, @PathVariable String fecha) {
+        log.debug("REST request to get Turnos by fecha : {}", fecha);
+        Page<TurnoDTO> turnos = null;
+        try {
+            Calendar c = Calendar.getInstance();
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            c.setTime(df.parse(fecha));
+            turnos = turnoService.findAllByFecha(pageable, c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH));
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(turnos, String.format("/api/turnosByFecha/%s", fecha));
+            return ResponseEntity.ok().headers(headers).body(turnos.getContent());
+        } catch (ParseException e) {
+            log.debug("Error parseando fecha...");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 
     /**
