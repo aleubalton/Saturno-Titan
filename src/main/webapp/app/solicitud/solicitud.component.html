@@ -195,12 +195,10 @@
     </ngb-panel>
     <ngb-panel id="toggle-3" title="Confirmar turno" [disabled]="disable_toggle_3">
         <ng-template ngbPanelContent>
-            <div class="row col-md-12">
-                <div *ngIf="turno.id" class="alert alert-primary" role="alert">
-                    <label jhiTranslate="solicitud.form.alerta-1">The request has been successfully registered. Your reservation code is:</label>
-                    <label class="font-weight-bold">{{turno.codigoReserva}}</label>
-                    <label jhiTranslate="solicitud.form.alerta-2">A link to validate your turn has been sent to your email address.</label>
-                </div>
+            <div *ngIf="turno.id" class="alert alert-primary" role="alert">
+                <label jhiTranslate="solicitud.form.alerta-1">The request has been successfully registered. Your reservation code is:</label>
+                <label class="font-weight-bold">{{turno.codigoReserva}}</label>
+                <label jhiTranslate="solicitud.form.alerta-2">A link to validate your turn has been sent to your email address.</label>
             </div>
             <div class="row">
                 <div class="col-md-6">
