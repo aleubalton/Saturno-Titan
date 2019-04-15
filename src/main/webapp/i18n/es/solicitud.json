@@ -23,7 +23,9 @@
             "celular": "Celular",
             "anterior": "Anterior",
             "siguiente": "Siguiente",
-            "confirmar": "Confirmar turno"
+            "confirmar": "Confirmar turno",
+            "alerta-1": "La solicitud ha sido registrada exitosamente. Su código de reserva es:",
+            "alerta-2": "Un enlace para validar el turno ha sido enviado a su dirección de correo."
         }
     }
 }

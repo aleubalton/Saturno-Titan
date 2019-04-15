@@ -197,8 +197,9 @@
         <ng-template ngbPanelContent>
             <div class="row col-md-12">
                 <div *ngIf="turno.id" class="alert alert-primary" role="alert">
-                    <label>Su solicitud ha sido registrada exitosamente. Su código de reserva es:</label>
+                    <label jhiTranslate="solicitud.form.alerta-1">The request has been successfully registered. Your reservation code is:</label>
                     <label class="font-weight-bold">{{turno.codigoReserva}}</label>
+                    <label jhiTranslate="solicitud.form.alerta-2">A link to validate your turn has been sent to your email address.</label>
                 </div>
             </div>
             <div class="row">

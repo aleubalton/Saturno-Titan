@@ -23,7 +23,9 @@
             "celular": "Cellphone",
             "anterior": "Previous",
             "siguiente": "Next",
-            "confirmar": "Confirm turn"
+            "confirmar": "Confirm turn",
+            "alerta-1": "The request has been successfully registered. Your reservation code is:",
+            "alerta-2": "A link to validate this turn has been sent to your email address. Please open it as soon as possible."
         }
     }
 }
