@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.time.Instant;
 
 /**
  * Spring Data  repository for the Turno entity.
@@ -41,5 +42,9 @@ public interface TurnoRepository extends JpaRepository<Turno, Long> {
         "turno.estado not in ('CANCELADO','EXPIRADO','FINALIZADO') and turno.agenda.id =:agendaId",
         countQuery = "select count(distinct turno) from Turno turno")
     Page<Turno> findAllByFechaAndAgenda(Pageable pageable, @Param("year") Integer year, @Param("month") Integer month, @Param("day") Integer day, @Param("agendaId") Long agendaId);
+
+    @Modifying
+    @Query("update Turno set estado = 'EXPIRADO' where estado = 'RESERVADO' and creation_date < :date")
+    void expirarTurnos(@Param("date") Instant date);
 
 }

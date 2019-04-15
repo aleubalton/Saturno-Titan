@@ -38,6 +38,10 @@ public class Turno implements Serializable {
     @Column(name = "fecha_hora", nullable = false)
     private Instant fechaHora;
 
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "creation_date", nullable = false, updatable = false)
+    private Instant creationDate = Instant.now();
+
     @NotNull
     @Min(value = 0)
     @Max(value = 600)
@@ -111,6 +115,15 @@ public class Turno implements Serializable {
 
     public Turno fechaHora(Instant fechaHora) {
         this.fechaHora = fechaHora;
+        return this;
+    }
+
+    public void setCreationDate(Instant creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Turno creationDate(Instant creationDate) {
+        this.creationDate = creationDate;
         return this;
     }
 

@@ -61,10 +61,13 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="creation_date" type="timestamp"/>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="turno" columnName="fecha_hora" columnDataType="datetime"/>
-        
+        <dropDefaultValue tableName="turno" columnName="creation_date" columnDataType="datetime"/>
+
         <createTable tableName="turno_servicio">
             <column name="servicios_id" type="bigint">
                 <constraints nullable="false"/>

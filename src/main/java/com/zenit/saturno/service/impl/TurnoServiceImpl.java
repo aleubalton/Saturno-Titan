@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.time.Instant;
 
 /**
  * Service Implementation for managing Turno.
@@ -55,9 +56,10 @@ public class TurnoServiceImpl implements TurnoService {
      * @return the list of entities
      */
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Page<TurnoDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Turnos");
+        turnoRepository.expirarTurnos(Instant.now().minusSeconds(3600));
         return turnoRepository.findAll(pageable)
             .map(turnoMapper::toDto);
     }
@@ -96,6 +98,7 @@ public class TurnoServiceImpl implements TurnoService {
     @Transactional(readOnly = true)
     public Optional<TurnoDTO> findByCodigoReserva(String codigoReserva) {
         log.debug("Request to get Turno : {}", codigoReserva);
+        turnoRepository.expirarTurnos(Instant.now().minusSeconds(3600));
         return turnoRepository.findByCodigoReserva(codigoReserva)
             .map(turnoMapper::toDto);
     }
@@ -112,6 +115,7 @@ public class TurnoServiceImpl implements TurnoService {
     @Override
     @Transactional(readOnly = true)
     public Page<TurnoDTO> findAllByFecha(Pageable pageable, Integer year, Integer month, Integer day, Integer agendaId) {
+        turnoRepository.expirarTurnos(Instant.now().minusSeconds(3600));
         if (agendaId != 0) {
             log.debug("Request to get Turnos by fecha : {} - {} - {} / Agenda ID: {}", year, month, day, agendaId);
             return turnoRepository.findAllByFechaAndAgenda(pageable, year, month, day, Long.valueOf(agendaId))
