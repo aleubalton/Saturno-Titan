@@ -1,4 +1,5 @@
 id;nombre;codigo;kilometraje;duracion;precio;tipo_id;plan_id
+1550;Service 1000km;S001;1000;30;0;5503;1
 1551;Service 10000km;S010;10000;30;5700;5503;1
 1552;Service 20000km;S020;20000;45;6500;5503;1
 1553;Service 30000km;S030;30000;30;5700;5503;1
@@ -8,4 +9,7 @@ id;nombre;codigo;kilometraje;duracion;precio;tipo_id;plan_id
 1557;Service 70000km;S070;70000;30;5700;5503;1
 1558;Service 80000km;S080;80000;60;7600;5503;1
 1559;Service 90000km;S090;90000;30;5700;5503;1
-1560;Service 100000km;S100;100000;60;7600;5503;1
+1560;Cambio de Bateria;CBAT;0;30;4500;5511;1
+1561;Cambio de Neumáticos;CNEU;0;30;11600;5512;1
+1562;General;DIAG;0;30;2500;5508;1
+1563;Llamado a revisión;CAMP;0;60;0;5506;1
