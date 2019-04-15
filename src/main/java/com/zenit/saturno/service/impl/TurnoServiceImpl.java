@@ -95,7 +95,7 @@ public class TurnoServiceImpl implements TurnoService {
      * @return the entity
      */
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Optional<TurnoDTO> findByCodigoReserva(String codigoReserva) {
         log.debug("Request to get Turno : {}", codigoReserva);
         turnoRepository.expirarTurnos(Instant.now().minusSeconds(3600));
@@ -113,7 +113,7 @@ public class TurnoServiceImpl implements TurnoService {
      * @return the entity
      */
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Page<TurnoDTO> findAllByFecha(Pageable pageable, Integer year, Integer month, Integer day, Integer agendaId) {
         turnoRepository.expirarTurnos(Instant.now().minusSeconds(3600));
         if (agendaId != 0) {
