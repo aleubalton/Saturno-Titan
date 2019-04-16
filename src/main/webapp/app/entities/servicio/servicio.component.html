@@ -31,8 +31,8 @@
                 <td>{{servicio.nombre}}</td>
                 <td>{{servicio.codigo}}</td>
                 <td>{{servicio.kilometraje}}</td>
-                <td>{{servicio.duracion}}</td>
-                <td>{{servicio.precio}}</td>
+                <td>{{servicio.duracion}} min.</td>
+                <td>${{servicio.precio}}</td>
                 <td>
                     <div *ngIf="servicio.tipoId">
                         <a [routerLink]="['../tipo-servicio', servicio.tipoId , 'view' ]" >{{servicio.tipoCodigo}}</a>
