@@ -31,8 +31,8 @@
                 <td><a [routerLink]="['/turno', turno.id, 'view' ]">{{turno.id}}</a></td>
                 <td>{{turno.codigoReserva}}</td>
                 <td>{{turno.fechaHora | date:'medium'}}</td>
-                <td>{{turno.duracion}}</td>
-                <td>{{turno.costo}}</td>
+                <td>{{turno.duracion}} min.</td>
+                <td>${{turno.costo}}</td>
                 <td jhiTranslate="{{'saturnoApp.Estado.' + turno.estado}}">{{turno.estado}}</td>
                 <td>
                     <div *ngIf="turno.agendaId">
