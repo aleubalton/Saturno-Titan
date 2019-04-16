@@ -26,8 +26,8 @@
             <tr *ngFor="let horario of horarios ;trackBy: trackId">
                 <td><a [routerLink]="['/horario', horario.id, 'view' ]">{{horario.id}}</a></td>
                 <td>{{horario.descripcion}}</td>
-                <td>{{horario.horaDesde}}</td>
-                <td>{{horario.horaHasta}}</td>
+                <td>{{horario.horaDesde}}:00</td>
+                <td>{{horario.horaHasta}}:00</td>
                 <td jhiTranslate="{{'saturnoApp.Dia.' + horario.dia}}">{{horario.dia}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
