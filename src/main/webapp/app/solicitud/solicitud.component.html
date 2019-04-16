@@ -10,7 +10,7 @@
                         <div class="form-group col-md-3">
                             <label class="form-control-label" jhiTranslate="solicitud.form.marca">Brand</label>
                             <select class="form-control" id="marca" name="marca" [(ngModel)]="marcaSelected" (change)="refreshMarcas()" required>
-                                <option *ngFor="let marca of marcas;let index = index">{{marca}}</option>
+                                <option *ngFor="let marca of marcas">{{marca}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
@@ -53,8 +53,15 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.detalle">Services detail</label>
                             <ul class="list-group">
                                 <ng-template #popContent>
+                                    <b>INSPECCION
+                                    </b>
                                     <small *ngFor="let tarea of solicitud.servicio.tareas">
-                                        <ul class="list-group">{{tarea.descripcion}}</ul>
+                                        <ul class="list-group" *ngIf="tarea.tipo==='INSPECCION'">{{tarea.descripcion}}</ul>
+                                    </small>
+                                    <b *ngIf="solicitud.servicio.tareas.length">CAMBIO
+                                    </b>
+                                    <small *ngFor="let tarea of solicitud.servicio.tareas">
+                                        <ul class="list-group" *ngIf="tarea.tipo==='CAMBIO'">{{tarea.descripcion}}</ul>
                                     </small>
                                 </ng-template>
                                 <ng-template #popTitle>
@@ -86,22 +93,13 @@
                                         </div>
                                     </li>
                                 </ng-container>
-                                <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div class="col-md-10">
-                                        <label class="form-control-label font-weight-bold" jhiTranslate="solicitud.form.duraciones">Estimated cost and delay:</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <span class="badge badge-primary badge-pill">{{solicitud.servicio.duracion+solicitud?.adicionales[0]?.duracion+solicitud?.adicionales[1]?.duracion}} min.</span>
-                                        <span class="badge badge-success badge-pill">$ {{solicitud.servicio.precio+solicitud?.adicionales[0]?.precio+solicitud?.adicionales[1]?.precio}}</span>
-                                    </div>
-                                </li> -->
                             </ul>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-6" style="overflow: hidden">
                             <label class="form-control-label" jhiTranslate="solicitud.form.fecha">Date</label>
                             <br>
                             <ngb-datepicker style="margin: auto" #dp [(ngModel)]="solicitud.fecha"
-                            [minDate]="minDate" [maxDate]="maxDate" [markDisabled]="isWeekend" [displayMonths]="2" name="date"></ngb-datepicker>
+                            [minDate]="minDate" [maxDate]="maxDate" [markDisabled]="isDisabled" [displayMonths]="2" outsideDays="collapsed" navigation="none" name="date"></ngb-datepicker>
                             <br>
                             <br>
                             <label class="form-control-label" jhiTranslate="solicitud.form.hora">Time</label>
@@ -159,6 +157,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label class="form-control-label" jhiTranslate="solicitud.form.patente">Licence plate</label>
+                            <small>(XXX999/XX999XX)</small>
                             <input type="text" class="form-control" id="patente" name="patente" [(ngModel)]="vehiculo.patente" minlength="6" maxlength="7" pattern="^[A-Z]{2}[0-9]{3}[A-Z]{2}|[A-Z]{3}[0-9]{3}$" required>
                             </input>
                         </div>

@@ -30,7 +30,7 @@ export class SolicitudComponent implements OnInit {
     model: NgbDateStruct;
     minDate: NgbDateStruct;
     maxDate: NgbDateStruct;
-    marcas: Set<any>;
+    marcas: any[];
     modelos_backend: IModelo[];
     modelosByMarca: any[];
     anios: number[];
@@ -84,7 +84,6 @@ export class SolicitudComponent implements OnInit {
         this.solicitud.fecha = moment();
         this.fecha = new Date(this.minDate['year'], this.minDate['month'], this.minDate['day'] + 40);
         this.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
-        this.marcas = new Set(['TOYOTA', 'LEXUS', 'HINO']);
         this.horarios = [
             { hora: '8', disabled: true },
             { hora: '9', disabled: true },
@@ -100,7 +99,7 @@ export class SolicitudComponent implements OnInit {
         this.activeIds = ['toggle-1'];
     }
 
-    isWeekend = (date: NgbDate) => this.calendar.getWeekday(date) >= 6;
+    isDisabled = (date: NgbDate) => this.checkDate(date);
 
     ngOnInit() {
         this.isSaving = false;
@@ -110,16 +109,9 @@ export class SolicitudComponent implements OnInit {
         this.modeloService.query().subscribe(
             (res: HttpResponse<IModelo[]>) => {
                 this.modelos_backend = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.servicioService.query().subscribe(
-            (res: HttpResponse<IServicio[]>) => {
-                this.servicios = this.filterByAdicional(res.body, false);
-                this.tiposDeServicios = new Set(this.servicios.map(a => a.tipoNombre));
-                this.serviciosByTipo = this.filterByTipo(this.servicios, this.solicitud.tipo_servicio);
-                this.solicitud.servicio = this.serviciosByTipo[0];
-                this.adicionales = this.filterByAdicional(res.body, true);
+                this.marcas = ['TOYOTA', 'LEXUS', 'HINO'];
+                this.marcaSelected = this.marcas[0];
+                this.refreshMarcas();
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -219,7 +211,6 @@ export class SolicitudComponent implements OnInit {
     }
 
     public refreshAnios() {
-        this.vehiculo.anio = null;
         this.anios = [];
         this.anioInicio = this.modelosByMarca[this.modelosByMarca.findIndex(a => a.id === this.vehiculo.modeloId)].anioInicioProduccion;
         this.anioFin = this.modelosByMarca[this.modelosByMarca.findIndex(a => a.id === this.vehiculo.modeloId)].anioFinProduccion;
@@ -229,6 +220,17 @@ export class SolicitudComponent implements OnInit {
         for (let i = this.anioFin; i >= this.anioInicio; i--) {
             this.anios.push(i);
         }
+        this.vehiculo.anio = this.anioFin;
+        this.servicioService.query().subscribe(
+            (resp: HttpResponse<IServicio[]>) => {
+                this.servicios = this.filterByAdicional(resp.body, false);
+                this.tiposDeServicios = new Set(this.servicios.map(a => a.tipoNombre));
+                this.serviciosByTipo = this.filterByTipo(this.servicios, this.solicitud.tipo_servicio);
+                this.solicitud.servicio = this.serviciosByTipo[0];
+                this.adicionales = this.filterByAdicional(resp.body, true);
+            },
+            (resp: HttpErrorResponse) => this.onError(resp.message)
+        );
     }
 
     public refreshTipos() {
@@ -256,7 +258,9 @@ export class SolicitudComponent implements OnInit {
     }
 
     public filterByAdicional(data, s) {
-        return data.filter(e => e.tipoAdicional === s);
+        return data.filter(
+            e => e.tipoAdicional === s && e.planId === this.modelos_backend.find(a => a.id === this.vehiculo.modeloId).planId
+        );
     }
 
     private randomString(length, chars) {
@@ -269,5 +273,9 @@ export class SolicitudComponent implements OnInit {
 
     public isPatenteOk() {
         return this.regexPatente.test(this.vehiculo.patente);
+    }
+
+    private checkDate(date) {
+        return this.calendar.getWeekday(date) >= 6;
     }
 }
