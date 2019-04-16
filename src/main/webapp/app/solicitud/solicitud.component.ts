@@ -87,7 +87,9 @@ export class SolicitudComponent implements OnInit {
         private calendar: NgbCalendar
     ) {
         config.minDate = this.calendar.getToday();
-        this.fecha = new Date(config.minDate['year'], config.minDate['month'], config.minDate['day'] + 60);
+        this.fecha = new Date(config.minDate['year'], config.minDate['month'], config.minDate['day'] + 1);
+        config.minDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
+        this.fecha = new Date(config.minDate['year'], config.minDate['month'], config.minDate['day'] + 45);
         config.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
         this.horarios = [
             { hora: '8', disabled: true },
