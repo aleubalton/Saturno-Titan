@@ -20,8 +20,6 @@
             <th jhiSortBy="duracion"><span jhiTranslate="saturnoApp.turno.duracion">Duracion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="costo"><span jhiTranslate="saturnoApp.turno.costo">Costo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="estado"><span jhiTranslate="saturnoApp.turno.estado">Estado</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="comentario"><span jhiTranslate="saturnoApp.turno.comentario">Comentario</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="indicaciones"><span jhiTranslate="saturnoApp.turno.indicaciones">Indicaciones</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="agendaNombre"><span jhiTranslate="saturnoApp.turno.agenda">Agenda</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="vehiculoPatente"><span jhiTranslate="saturnoApp.turno.vehiculo">Vehiculo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="clienteApellido"><span jhiTranslate="saturnoApp.turno.cliente">Cliente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -36,8 +34,6 @@
                 <td>{{turno.duracion}}</td>
                 <td>{{turno.costo}}</td>
                 <td jhiTranslate="{{'saturnoApp.Estado.' + turno.estado}}">{{turno.estado}}</td>
-                <td>{{turno.comentario}}</td>
-                <td>{{turno.indicaciones}}</td>
                 <td>
                     <div *ngIf="turno.agendaId">
                         <a [routerLink]="['../agenda', turno.agendaId , 'view' ]" >{{turno.agendaNombre}}</a>
