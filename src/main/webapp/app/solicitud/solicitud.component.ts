@@ -124,8 +124,11 @@ export class SolicitudComponent implements OnInit {
                 this.agendas_backend = res.body.filter(a => a.tipoRecurso === 'BAHIA' && a.activa === true);
                 const dias = ['DOMINGO', 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO'];
                 this.agendas_backend.forEach(a => {
-                    for (const date = a.fechaDesde; date.isBefore(a.fechaHasta); date.add(1, 'd')) {
-                        if (a.horarios.filter(h => h.dia === dias[date.day()]).length !== 0) {
+                    for (const date = a.fechaDesde; date.isSameOrBefore(a.fechaHasta); date.add(1, 'd')) {
+                        if (
+                            a.horarios.filter(h => h.dia === dias[date.day()]).length !== 0 ||
+                            a.horarioEspecials.filter(h => date.isSame(h.fecha)).length !== 0
+                        ) {
                             this.dls.push(NgbDate.from({ year: date.year(), month: date.month() + 1, day: date.date() }));
                         }
                     }
