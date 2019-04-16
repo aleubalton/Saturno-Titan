@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbDate, NgbDateStruct, NgbCalendar, NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerConfig, NgbDate, NgbDateStruct, NgbCalendar, NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import * as moment from 'moment';
 
@@ -17,6 +17,8 @@ import { IServicio } from 'app/shared/model/servicio.model';
 import { ServicioService } from 'app/entities/servicio';
 import { IAgenda } from 'app/shared/model/agenda.model';
 import { AgendaService } from 'app/entities/agenda';
+import { IDiaNoLaborable } from 'app/shared/model/dia-no-laborable.model';
+import { DiaNoLaborableService } from 'app/entities/dia-no-laborable';
 
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -24,12 +26,11 @@ import { Observable } from 'rxjs';
 @Component({
     selector: 'jhi-solicitud',
     templateUrl: './solicitud.component.html',
-    styleUrls: ['solicitud.scss']
+    styleUrls: ['solicitud.scss'],
+    providers: [NgbDatepickerConfig]
 })
 export class SolicitudComponent implements OnInit {
     model: NgbDateStruct;
-    minDate: NgbDateStruct;
-    maxDate: NgbDateStruct;
     marcas: any[];
     modelos_backend: IModelo[];
     modelosByMarca: any[];
@@ -37,8 +38,10 @@ export class SolicitudComponent implements OnInit {
     anioInicio: number;
     anioFin: number;
     agendas_backend: IAgenda[];
+    dnls_backend: IDiaNoLaborable[];
+    dnls: NgbDate[];
     servicios: IServicio[];
-    // servicios: any[];
+    isDisabled;
     tiposDeServicios: Set<any>;
     serviciosByTipo: any[];
     adicionales: any[];
@@ -65,9 +68,9 @@ export class SolicitudComponent implements OnInit {
             tareas: []
         },
         adicionales: [],
-        fecha: moment(),
-        horario: '10',
-        horario2: '00'
+        fecha: null,
+        horario: null,
+        horario2: null
     };
 
     constructor(
@@ -77,13 +80,14 @@ export class SolicitudComponent implements OnInit {
         private modeloService: ModeloService,
         private servicioService: ServicioService,
         private agendaService: AgendaService,
+        private dnlsService: DiaNoLaborableService,
         private turnoService: TurnoService,
+        private config: NgbDatepickerConfig,
         private calendar: NgbCalendar
     ) {
-        this.minDate = this.calendar.getToday();
-        this.solicitud.fecha = moment();
-        this.fecha = new Date(this.minDate['year'], this.minDate['month'], this.minDate['day'] + 40);
-        this.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
+        config.minDate = this.calendar.getToday();
+        this.fecha = new Date(config.minDate['year'], config.minDate['month'], config.minDate['day'] + 40);
+        config.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
         this.horarios = [
             { hora: '8', disabled: true },
             { hora: '9', disabled: true },
@@ -97,9 +101,17 @@ export class SolicitudComponent implements OnInit {
             { hora: '17', disabled: true }
         ];
         this.activeIds = ['toggle-1'];
+        this.dnlsService.query().subscribe(
+            (res: HttpResponse<IDiaNoLaborable[]>) => {
+                this.dnls_backend = res.body;
+                this.dnls = this.dnls_backend.map(a =>
+                    NgbDate.from({ year: a.fecha.year(), month: a.fecha.month() + 1, day: a.fecha.date() })
+                );
+                this.isDisabled = (date: NgbDate) => this.dnls.find(a => a.equals(date));
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
-
-    isDisabled = (date: NgbDate) => this.checkDate(date);
 
     ngOnInit() {
         this.isSaving = false;
@@ -276,6 +288,13 @@ export class SolicitudComponent implements OnInit {
     }
 
     private checkDate(date) {
-        return this.calendar.getWeekday(date) >= 6;
+        this.dnlsService.query().subscribe(
+            (res: HttpResponse<IDiaNoLaborable[]>) => {
+                this.dnls_backend = res.body;
+                this.dnls = this.dnls_backend.map(a => NgbDate.from({ year: a.fecha.year(), month: a.fecha.month(), day: a.fecha.date() }));
+                return this.dnls.find(a => a.equals(date));
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 }
