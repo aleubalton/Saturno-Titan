@@ -57,6 +57,10 @@ export class SolicitudComponent implements OnInit {
     turno: ITurno;
     isSaving: boolean;
     regexPatente = new RegExp('^[A-Z]{2}[0-9]{3}[A-Z]{2}|[A-Z]{3}[0-9]{3}$');
+    regexEmail = new RegExp(
+        '^(([^<>()\\[\\]\\.,;:\\s@&#34;]+(\\.[^<>()\\[\\]\\.,;:\\s@&#34;]+)*)|(&#34;.+&#34;))@' +
+            '((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'
+    );
     marcaSelected = null;
     solicitud = {
         id: 1,
@@ -300,6 +304,10 @@ export class SolicitudComponent implements OnInit {
 
     public isPatenteOk() {
         return this.regexPatente.test(this.vehiculo.patente);
+    }
+
+    public isEmailOk() {
+        return this.regexEmail.test(this.cliente.email);
     }
 
     private checkHorarios() {
