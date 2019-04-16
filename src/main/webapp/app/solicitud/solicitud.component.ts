@@ -40,6 +40,7 @@ export class SolicitudComponent implements OnInit {
     agendas_backend: IAgenda[];
     dnls_backend: IDiaNoLaborable[];
     dnls: NgbDate[];
+    dls: NgbDate[];
     servicios: IServicio[];
     isDisabled;
     tiposDeServicios: Set<any>;
@@ -86,7 +87,7 @@ export class SolicitudComponent implements OnInit {
         private calendar: NgbCalendar
     ) {
         config.minDate = this.calendar.getToday();
-        this.fecha = new Date(config.minDate['year'], config.minDate['month'], config.minDate['day'] + 40);
+        this.fecha = new Date(config.minDate['year'], config.minDate['month'], config.minDate['day'] + 60);
         config.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
         this.horarios = [
             { hora: '8', disabled: true },
@@ -101,16 +102,6 @@ export class SolicitudComponent implements OnInit {
             { hora: '17', disabled: true }
         ];
         this.activeIds = ['toggle-1'];
-        this.dnlsService.query().subscribe(
-            (res: HttpResponse<IDiaNoLaborable[]>) => {
-                this.dnls_backend = res.body;
-                this.dnls = this.dnls_backend.map(a =>
-                    NgbDate.from({ year: a.fecha.year(), month: a.fecha.month() + 1, day: a.fecha.date() })
-                );
-                this.isDisabled = (date: NgbDate) => this.dnls.find(a => a.equals(date));
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     ngOnInit() {
@@ -118,6 +109,7 @@ export class SolicitudComponent implements OnInit {
         this.cliente = new Cliente();
         this.vehiculo = new Vehiculo();
         this.turno = new Turno();
+        this.dls = [];
         this.modeloService.query().subscribe(
             (res: HttpResponse<IModelo[]>) => {
                 this.modelos_backend = res.body;
@@ -129,9 +121,27 @@ export class SolicitudComponent implements OnInit {
         );
         this.agendaService.query().subscribe(
             (res: HttpResponse<IAgenda[]>) => {
-                this.agendas_backend = res.body;
+                this.agendas_backend = res.body.filter(a => a.tipoRecurso === 'BAHIA' && a.activa === true);
+                const dias = ['DOMINGO', 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO'];
+                this.agendas_backend.forEach(a => {
+                    for (const date = a.fechaDesde; date.isBefore(a.fechaHasta); date.add(1, 'd')) {
+                        if (a.horarios.filter(h => h.dia === dias[date.day()]).length !== 0) {
+                            this.dls.push(NgbDate.from({ year: date.year(), month: date.month() + 1, day: date.date() }));
+                        }
+                    }
+                });
+                this.dnlsService.query().subscribe(
+                    (resp: HttpResponse<IDiaNoLaborable[]>) => {
+                        this.dnls_backend = resp.body;
+                        this.dnls = this.dnls_backend.map(a =>
+                            NgbDate.from({ year: a.fecha.year(), month: a.fecha.month() + 1, day: a.fecha.date() })
+                        );
+                        this.isDisabled = (date: NgbDate) => !this.dls.find(a => a.equals(date)) || this.dnls.find(a => a.equals(date));
+                    },
+                    (resp: HttpErrorResponse) => this.onError(resp.message)
+                );
             },
-            (res: HttpErrorResponse) => this.onError(res.message)
+            (resp: HttpErrorResponse) => this.onError(resp.message)
         );
     }
 
@@ -287,14 +297,7 @@ export class SolicitudComponent implements OnInit {
         return this.regexPatente.test(this.vehiculo.patente);
     }
 
-    private checkDate(date) {
-        this.dnlsService.query().subscribe(
-            (res: HttpResponse<IDiaNoLaborable[]>) => {
-                this.dnls_backend = res.body;
-                this.dnls = this.dnls_backend.map(a => NgbDate.from({ year: a.fecha.year(), month: a.fecha.month(), day: a.fecha.date() }));
-                return this.dnls.find(a => a.equals(date));
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+    private checkHorarios() {
+        console.log('Chequear horarios disponibles!!');
     }
 }

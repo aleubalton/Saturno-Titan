@@ -98,7 +98,7 @@
                         <div class="form-group col-md-6" style="overflow: hidden">
                             <label class="form-control-label" jhiTranslate="solicitud.form.fecha">Date</label>
                             <br>
-                            <ngb-datepicker style="margin: auto" #dp [(ngModel)]="solicitud.fecha"
+                            <ngb-datepicker style="margin: auto" #dp [(ngModel)]="solicitud.fecha" (select)="checkHorarios()"
                             [markDisabled]="isDisabled" [displayMonths]="2" outsideDays="collapsed" navigation="none" name="date"></ngb-datepicker>
                             <div *ngIf="solicitud.fecha">
                                 <br>
@@ -134,7 +134,7 @@
                         <textarea class="form-control" style="resize:none" id="comentarios" name="comentarios" rows="3" [(ngModel)]="turno.comentario">
                         </textarea>
                     </div>
-                    <div *ngIf="(vehiculo.kilometraje)&&(solicitud.fecha)">
+                    <div *ngIf="(vehiculo.kilometraje)&&(solicitud.fecha)&&(solicitud.horario)&&(solicitud.horario2)">
                         <button type="submit" class="btn btn-primary" style="float: right" jhiTranslate="solicitud.form.siguiente" (click)="toggleAccordion2()">Next</button>
                     </div>
                 </div>
