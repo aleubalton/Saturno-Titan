@@ -217,7 +217,7 @@
                             <small>{{cliente.email}}</small>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="cliente.telefono">
                         <div class="col-md-6">
                             <label class="form-control-label" jhiTranslate="solicitud.form.telefono">Phone</label>
                         </div>
@@ -225,7 +225,7 @@
                             <small>{{cliente.telefono}}</small>
                         </div>
                     </div>
-                    <div class="row" *ngIf="cliente.celular !== ''">
+                    <div class="row"  *ngIf="cliente.celular">
                         <div class="col-md-6">
                             <label class="form-control-label" jhiTranslate="solicitud.form.celular">Cellphone</label>
                         </div>
@@ -267,13 +267,13 @@
                             <small>{{solicitud.tipo_servicio + ' ' + solicitud.servicio.nombre}}</small>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="solicitud.adicionales.length">
                         <div class="col-md-6">
                             <label class="form-control-label" jhiTranslate="solicitud.form.adicionales">Additionals</label>
                         </div>
                         <div class="col-md-6">
                             <ng-container *ngFor="let adicional of solicitud.adicionales">
-                                <small *ngIf="adicional">{{adicional.nombre}}</small>
+                                <small *ngIf="adicional">{{adicional.nombre}}</small><br>
                             </ng-container>
                         </div>
                     </div>
@@ -305,7 +305,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="turno.comentario !== ''" class="form-group offset-md-6 col-md-6">
+            <div *ngIf="turno.comentario" class="form-group offset-md-3 col-md-6" style="text-align:center">
                 <label class="form-control-label" jhiTranslate="solicitud.form.comentarios">Comments</label>
                 <br>
                 <small>{{turno.comentario}}</small>
