@@ -26,8 +26,8 @@
             <tr *ngFor="let horarioEspecial of horarioEspecials ;trackBy: trackId">
                 <td><a [routerLink]="['/horario-especial', horarioEspecial.id, 'view' ]">{{horarioEspecial.id}}</a></td>
                 <td>{{horarioEspecial.descripcion}}</td>
-                <td>{{horarioEspecial.horaDesde}}</td>
-                <td>{{horarioEspecial.horaHasta}}</td>
+                <td>{{horarioEspecial.horaDesde}}:00</td>
+                <td>{{horarioEspecial.horaHasta}}:00</td>
                 <td>{{horarioEspecial.fecha | date:'mediumDate'}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
