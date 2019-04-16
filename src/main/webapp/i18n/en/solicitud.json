@@ -17,7 +17,7 @@
             "comentarios": "Comments",
             "nombre": "Name",
             "apellido": "Last name",
-            "patente": "Licence plate <small>(XXX999/XX999XX)</small>",
+            "patente": "Licence plate",
             "correo": "Email",
             "telefono": "Phone",
             "celular": "Cellphone",

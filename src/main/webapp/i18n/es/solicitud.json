@@ -17,7 +17,7 @@
             "comentarios": "Comentarios",
             "nombre": "Nombre",
             "apellido": "Apellido",
-            "patente": "Patente <small>(XXX999/XX999XX)</small>",
+            "patente": "Patente",
             "correo": "Correo electrónico",
             "telefono": "Teléfono",
             "celular": "Celular",
