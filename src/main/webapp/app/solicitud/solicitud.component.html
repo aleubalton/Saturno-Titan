@@ -171,12 +171,12 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label class="form-control-label" jhiTranslate="solicitud.form.telefono">Phone</label>
-                            <input type="text" class="form-control" id="telefono" name="telefono" [(ngModel)]="cliente.telefono" maxlength="10">
+                            <input type="number" class="form-control" id="telefono" name="telefono" [(ngModel)]="cliente.telefono" maxlength="10">
                             </input>
                         </div>
                         <div class="form-group col-md-4">
                             <label class="form-control-label" jhiTranslate="solicitud.form.celular">Cellphone</label>
-                            <input type="text" class="form-control" id="celular" name="celular" [(ngModel)]="cliente.celular" maxlength="10">
+                            <input type="number" class="form-control" id="celular" name="celular" [(ngModel)]="cliente.celular" maxlength="10">
                             </input>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
         <ng-template ngbPanelContent>
             <div *ngIf="turno.id" class="alert alert-primary" role="alert">
                 <label jhiTranslate="solicitud.form.alerta-1">The request has been successfully registered. Your reservation code is:</label>
-                <label class="font-weight-bold">{{turno.codigoReserva}}.</label>
+                <label class="font-weight-bold">{{turno.codigoReserva}}.</label><br>
                 <label jhiTranslate="solicitud.form.alerta-2">A link to validate your turn has been sent to your email address.</label>
             </div>
             <div class="row">

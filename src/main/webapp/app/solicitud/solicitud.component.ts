@@ -156,7 +156,7 @@ export class SolicitudComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.turno.fechaHora = moment();
+        this.turno.fechaHora = this.solicitud.fecha;
         this.turno.codigoReserva = this.randomString(8, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
         this.turno.estado = Estado.RESERVADO;
         this.turno.agendaId = this.agendas_backend[0].id;
@@ -311,6 +311,13 @@ export class SolicitudComponent implements OnInit {
     }
 
     private checkHorarios() {
+        const fecha = this.solicitud.fecha.year() + '-' + (this.solicitud.fecha.month() + 1) + '-' + this.solicitud.fecha.date();
+        this.turnoService.queryByFecha({ fecha, agendaId: 1 }).subscribe(
+            (res: HttpResponse<ITurno[]>) => {
+                console.log(res.body);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
         console.log('Chequear horarios disponibles!!');
     }
 }
