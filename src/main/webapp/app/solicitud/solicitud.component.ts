@@ -306,16 +306,6 @@ export class SolicitudComponent implements OnInit {
         this.solicitud.hora = null;
         this.solicitud.horario = null;
         const fecha = this.solicitud.fecha.year() + '-' + (this.solicitud.fecha.month() + 1) + '-' + this.solicitud.fecha.date();
-        this.turnoService.queryByFecha({ fecha }).subscribe(
-            (res: HttpResponse<ITurno[]>) => {
-                this.turnosByFecha = res.body;
-                this.checkHorarios2();
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-    }
-
-    private checkHorarios2() {
         this.agendasByFecha = this.agendas_backend.filter(
             a =>
                 a.horarios.some(h => h.dia === this.dias[this.solicitud.fecha.day()]) ||
@@ -329,6 +319,16 @@ export class SolicitudComponent implements OnInit {
             this.turno.costo += serv.precio;
         });
         this.horariosByFecha = [];
+        this.turnoService.queryByFecha({ fecha }).subscribe(
+            (res: HttpResponse<ITurno[]>) => {
+                this.turnosByFecha = res.body;
+                this.checkHorarios2();
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
+    private checkHorarios2() {
         for (let horaInicio = 0; horaInicio <= 1440 - this.turno.duracion; horaInicio = horaInicio + 15) {
             const horaFin = horaInicio + this.turno.duracion;
             this.agendasByHora = this.agendasByFecha.filter(
