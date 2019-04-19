@@ -303,6 +303,8 @@ export class SolicitudComponent implements OnInit {
     }
 
     public checkHorarios() {
+        this.solicitud.hora = null;
+        this.solicitud.horario = null;
         const fecha = this.solicitud.fecha.year() + '-' + (this.solicitud.fecha.month() + 1) + '-' + this.solicitud.fecha.date();
         this.turnoService.queryByFecha({ fecha }).subscribe(
             (res: HttpResponse<ITurno[]>) => {
@@ -365,8 +367,6 @@ export class SolicitudComponent implements OnInit {
             }
         }
         this.horas = new Set(this.horariosByFecha.map(h => h.hora));
-        this.solicitud.hora = null;
-        this.solicitud.horario = null;
     }
 
     public refreshHoras() {
