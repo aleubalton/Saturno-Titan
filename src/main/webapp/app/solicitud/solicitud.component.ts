@@ -302,7 +302,7 @@ export class SolicitudComponent implements OnInit {
         return this.regexEmail.test(this.cliente.email);
     }
 
-    private checkHorarios() {
+    public checkHorarios() {
         const fecha = this.solicitud.fecha.year() + '-' + (this.solicitud.fecha.month() + 1) + '-' + this.solicitud.fecha.date();
         this.turnoService.queryByFecha({ fecha }).subscribe(
             (res: HttpResponse<ITurno[]>) => {
