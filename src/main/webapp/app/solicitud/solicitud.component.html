@@ -44,7 +44,7 @@
                             <hr>
                             <label class="form-control-label" jhiTranslate="solicitud.form.adicionales">Additionals</label>
                             <br>
-                            <div class="btn-group btn-group-toggle" id="adicionales" name="adicionales">
+                            <div class="btn-group btn-group-toggle" id="adicionales" name="adicionales" (change)="refreshFecha()">
                                 <label class="btn-primary" ngbButtonLabel *ngFor="let adicional of adicionales;let index = index">
                                     <input type="checkbox" ngbButton [(ngModel)]="solicitud.adicionales[index]" [valueChecked]="adicional" [valueUnChecked]="null"> {{adicional.nombre}}
                                 </label>
@@ -73,7 +73,7 @@
                                     <div class="col-md-10">
                                         {{solicitud.tipo_servicio}}
                                         <br>
-                                        <select class="form-control" style="overflow: hidden" [(ngModel)]="solicitud.servicio" required>
+                                        <select class="form-control" style="overflow: hidden" [(ngModel)]="solicitud.servicio" (change)="refreshFecha()" required>
                                             <option *ngFor="let servicio of serviciosByTipo;let index = index" [(ngValue)]="serviciosByTipo[index]">{{servicio.nombre}}</option>
                                         </select>
                                     </div>
@@ -104,25 +104,16 @@
                                 <br>
                                 <label class="form-control-label" jhiTranslate="solicitud.form.hora">Time</label>
                                 <br>
-                                <div class="btn-group btn-group-toggle" style="margin: auto" ngbRadioGroup id="hora" name="hora" [(ngModel)]="solicitud.horario">
-                                    <label class="btn-primary" ngbButtonLabel *ngFor="let horario of horarios;let index = index">
-                                        <input type="radio" ngbButton [value]="horarios[index].hora" [(disabled)]="horarios[index].disabled"> {{horario.hora}}
+                                <div class="btn-group btn-group-toggle" style="margin: auto" ngbRadioGroup id="horas" name="horas" [(ngModel)]="solicitud.hora" (change)="refreshHoras()">
+                                    <label class="btn-primary" ngbButtonLabel *ngFor="let hora of horas">
+                                        <input type="radio" ngbButton [value]="hora"> {{hora}}
                                     </label>
                                 </div>
                                 <br>
                                 <br>
-                                <div class="btn-group btn-group-toggle" ngbRadioGroup *ngIf="solicitud.horario" id="hora" name="hora" [(ngModel)]="solicitud.horario2">
-                                    <label class="btn-primary" ngbButtonLabel>
-                                        <input type="radio" ngbButton value="00"> {{solicitud.horario}}:00
-                                    </label>
-                                    <label class="btn-primary" ngbButtonLabel>
-                                        <input type="radio" ngbButton value="15"> {{solicitud.horario}}:15
-                                    </label>
-                                    <label class="btn-primary" ngbButtonLabel>
-                                        <input type="radio" ngbButton value="30"> {{solicitud.horario}}:30
-                                    </label>
-                                    <label class="btn-primary" ngbButtonLabel>
-                                        <input type="radio" ngbButton value="45"> {{solicitud.horario}}:45
+                                <div class="btn-group btn-group-toggle" style="margin: auto" ngbRadioGroup *ngIf="solicitud.hora" id="hora" name="hora" [(ngModel)]="solicitud.horario">
+                                    <label class="btn-primary" ngbButtonLabel *ngFor="let horario of horarios;let index = index">
+                                        <input type="radio" ngbButton [value]="horarios[index].hora + ':' + horarios[index].minutos" [(disabled)]="horarios[index].disabled"> {{horario.hora}}:{{horario.minutos}}
                                     </label>
                                 </div>
                             </div>
@@ -134,7 +125,7 @@
                         <textarea class="form-control" style="resize:none" id="comentarios" name="comentarios" rows="3" [(ngModel)]="turno.comentario">
                         </textarea>
                     </div>
-                    <div *ngIf="(vehiculo.kilometraje)&&(solicitud.fecha)&&(solicitud.horario)&&(solicitud.horario2)">
+                    <div *ngIf="(vehiculo.kilometraje)&&(solicitud.fecha)&&(solicitud.horario)">
                         <button type="submit" class="btn btn-primary" style="float: right" jhiTranslate="solicitud.form.siguiente" (click)="toggleAccordion2()">Next</button>
                     </div>
                 </div>
@@ -290,7 +281,7 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.hora">Time</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{solicitud.horario}}:{{solicitud.horario2}}</small>
+                            <small>{{solicitud.horario}}</small>
                         </div>
                     </div>
                     <div class="row">

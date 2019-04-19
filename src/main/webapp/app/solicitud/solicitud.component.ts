@@ -38,15 +38,21 @@ export class SolicitudComponent implements OnInit {
     anioInicio: number;
     anioFin: number;
     agendas_backend: IAgenda[];
+    agendasByFecha: IAgenda[];
+    agendasByHora: IAgenda[];
+    turnosByFecha: ITurno[];
     dnls_backend: IDiaNoLaborable[];
     dnls: NgbDate[];
     dls: NgbDate[];
+    dias = ['DOMINGO', 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO'];
     servicios: IServicio[];
     isDisabled;
     tiposDeServicios: Set<any>;
     serviciosByTipo: any[];
     adicionales: any[];
     horarios: any[];
+    horariosByFecha: any[];
+    horas: Set<any>;
     activeIds: any[];
     fecha: Date;
     disable_toggle_1 = false;
@@ -74,8 +80,8 @@ export class SolicitudComponent implements OnInit {
         },
         adicionales: [],
         fecha: null,
-        horario: null,
-        horario2: null
+        hora: null,
+        horario: null
     };
 
     constructor(
@@ -95,18 +101,6 @@ export class SolicitudComponent implements OnInit {
         config.minDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
         this.fecha = new Date(config.minDate['year'], config.minDate['month'], config.minDate['day'] + 45);
         config.maxDate = { year: this.fecha.getFullYear(), month: this.fecha.getMonth(), day: this.fecha.getDate() };
-        this.horarios = [
-            { hora: '8', disabled: true },
-            { hora: '9', disabled: true },
-            { hora: '10', disabled: false },
-            { hora: '11', disabled: false },
-            { hora: '12', disabled: true },
-            { hora: '13', disabled: false },
-            { hora: '14', disabled: false },
-            { hora: '15', disabled: false },
-            { hora: '16', disabled: true },
-            { hora: '17', disabled: true }
-        ];
         this.activeIds = ['toggle-1'];
     }
 
@@ -128,13 +122,9 @@ export class SolicitudComponent implements OnInit {
         this.agendaService.query().subscribe(
             (res: HttpResponse<IAgenda[]>) => {
                 this.agendas_backend = res.body.filter(a => a.tipoRecurso === 'BAHIA' && a.activa === true);
-                const dias = ['DOMINGO', 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO'];
                 this.agendas_backend.forEach(a => {
                     for (const date = a.fechaDesde; date.isSameOrBefore(a.fechaHasta); date.add(1, 'd')) {
-                        if (
-                            a.horarios.filter(h => h.dia === dias[date.day()]).length !== 0 ||
-                            a.horarioEspecials.filter(h => date.isSame(h.fecha)).length !== 0
-                        ) {
+                        if (a.horarios.some(h => h.dia === this.dias[date.day()]) || a.horarioEspecials.some(h => date.isSame(h.fecha))) {
                             this.dls.push(NgbDate.from({ year: date.year(), month: date.month() + 1, day: date.date() }));
                         }
                     }
@@ -157,9 +147,11 @@ export class SolicitudComponent implements OnInit {
     save() {
         this.isSaving = true;
         this.turno.fechaHora = this.solicitud.fecha;
+        this.turno.fechaHora.add(parseInt(this.solicitud.horario.split(':')[0], 10), 'h');
+        this.turno.fechaHora.add(parseInt(this.solicitud.horario.split(':')[1], 10), 'm');
         this.turno.codigoReserva = this.randomString(8, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
         this.turno.estado = Estado.RESERVADO;
-        this.turno.agendaId = this.agendas_backend[0].id;
+        this.turno.agendaId = this.horariosByFecha.find(h => h.hora + ':' + h.minutos === this.solicitud.horario).agendas[0].id;
         this.subscribeToSaveClienteResponse(this.clienteService.create(this.cliente));
     }
 
@@ -220,13 +212,6 @@ export class SolicitudComponent implements OnInit {
         this.disable_toggle_1 = true;
         this.disable_toggle_2 = true;
         this.disable_toggle_3 = false;
-        this.turno.servicios = [this.solicitud.servicio].concat(this.solicitud.adicionales.filter(e => e != null));
-        this.turno.duracion = 0;
-        this.turno.costo = 0;
-        this.turno.servicios.forEach(serv => {
-            this.turno.duracion += serv.duracion;
-            this.turno.costo += serv.precio;
-        });
     }
 
     public refreshMarcas() {
@@ -267,6 +252,13 @@ export class SolicitudComponent implements OnInit {
     public refreshTipos() {
         this.serviciosByTipo = this.filterByTipo(this.servicios, this.solicitud.tipo_servicio);
         this.solicitud.servicio = this.serviciosByTipo[0];
+        this.refreshFecha();
+    }
+
+    public refreshFecha() {
+        this.solicitud.fecha = null;
+        this.solicitud.hora = null;
+        this.solicitud.horario = null;
     }
 
     public filterByMarca(data, s) {
@@ -312,12 +304,73 @@ export class SolicitudComponent implements OnInit {
 
     private checkHorarios() {
         const fecha = this.solicitud.fecha.year() + '-' + (this.solicitud.fecha.month() + 1) + '-' + this.solicitud.fecha.date();
-        this.turnoService.queryByFecha({ fecha, agendaId: 1 }).subscribe(
+        this.turnoService.queryByFecha({ fecha }).subscribe(
             (res: HttpResponse<ITurno[]>) => {
-                console.log(res.body);
+                this.turnosByFecha = res.body;
+                this.checkHorarios2();
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        console.log('Chequear horarios disponibles!!');
+    }
+
+    private checkHorarios2() {
+        this.agendasByFecha = this.agendas_backend.filter(
+            a =>
+                a.horarios.some(h => h.dia === this.dias[this.solicitud.fecha.day()]) ||
+                a.horarioEspecials.some(h => this.solicitud.fecha.isSame(h.fecha))
+        );
+        this.turno.servicios = [this.solicitud.servicio].concat(this.solicitud.adicionales.filter(e => e != null));
+        this.turno.duracion = 0;
+        this.turno.costo = 0;
+        this.turno.servicios.forEach(serv => {
+            this.turno.duracion += serv.duracion;
+            this.turno.costo += serv.precio;
+        });
+        this.horariosByFecha = [];
+        for (let horaInicio = 0; horaInicio <= 1440 - this.turno.duracion; horaInicio = horaInicio + 15) {
+            const horaFin = horaInicio + this.turno.duracion;
+            this.agendasByHora = this.agendasByFecha.filter(
+                a =>
+                    a.horarios.some(
+                        h =>
+                            h.dia === this.dias[this.solicitud.fecha.day()] && h.horaDesde <= horaInicio / 60 && h.horaHasta >= horaFin / 60
+                    ) ||
+                    a.horarioEspecials.some(
+                        h => this.solicitud.fecha.isSame(h.fecha) && h.horaDesde <= horaInicio / 60 && h.horaHasta >= horaFin / 60
+                    )
+            );
+            if (this.agendasByHora.length !== 0) {
+                this.horariosByFecha.push({
+                    hora: Math.floor(horaInicio / 60),
+                    minutos: horaInicio % 60 < 10 ? '00' : horaInicio % 60,
+                    disabled: false,
+                    agendas: this.agendasByHora.filter(
+                        a =>
+                            this.turnosByFecha.length === 0 ||
+                            !this.turnosByFecha.some(
+                                t =>
+                                    t.agendaId === a.id &&
+                                    ((t.fechaHora.hours() * 60 + t.fechaHora.minutes() <= horaInicio &&
+                                        t.fechaHora.hours() * 60 + t.fechaHora.minutes() + t.duracion >= horaFin) ||
+                                        (t.fechaHora.hours() * 60 + t.fechaHora.minutes() >= horaInicio &&
+                                            t.fechaHora.hours() * 60 + t.fechaHora.minutes() < horaFin) ||
+                                        (t.fechaHora.hours() * 60 + t.fechaHora.minutes() + t.duracion > horaInicio &&
+                                            t.fechaHora.hours() * 60 + t.fechaHora.minutes() + t.duracion <= horaFin))
+                            )
+                    )
+                });
+                if (this.horariosByFecha[this.horariosByFecha.length - 1].agendas.length === 0) {
+                    this.horariosByFecha[this.horariosByFecha.length - 1].disabled = true;
+                }
+            }
+        }
+        this.horas = new Set(this.horariosByFecha.map(h => h.hora));
+        this.solicitud.hora = null;
+        this.solicitud.horario = null;
+    }
+
+    public refreshHoras() {
+        this.solicitud.horario = null;
+        this.horarios = this.horariosByFecha.filter(h => h.hora === this.solicitud.hora);
     }
 }
