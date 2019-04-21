@@ -13,7 +13,7 @@
             Your turn has been reserved, please click on the URL below to validate it:
         </p>
         <p>
-            <a th:with="url=(@{|${baseUrl}/validateTurno?codigoReserva=${turno.codigoReserva}|})" th:href="${url}"
+            <a th:with="url=(@{|${baseUrl}/#/validateTurno?codigoReserva=${turno.codigoReserva}|})" th:href="${url}"
             th:text="${url}">Activation link</a>
         </p>
         <p>
