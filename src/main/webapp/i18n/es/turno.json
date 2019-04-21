@@ -15,15 +15,15 @@
             "detail": {
                 "title": "Turno"
             },
-            "codigoReserva": "Codigo Reserva",
+            "codigoReserva": "Código de Reserva",
             "fechaHora": "Fecha Hora",
-            "duracion": "Duracion",
+            "duracion": "Duración",
             "costo": "Costo",
             "estado": "Estado",
             "comentario": "Comentario",
             "indicaciones": "Indicaciones",
             "agenda": "Agenda",
-            "vehiculo": "Vehiculo",
+            "vehiculo": "Vehículo",
             "servicio": "Servicio",
             "cliente": "Cliente"
         }

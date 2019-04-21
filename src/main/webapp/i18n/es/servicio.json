@@ -10,15 +10,15 @@
             "updated": "Un Servicio ha sido actualizado con el identificador {{ param }}",
             "deleted": "Un Servicio ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Servicio {{ id }}?"
+                "question": "¿Seguro que quiere eliminar el Servicio {{ id }}?"
             },
             "detail": {
                 "title": "Servicio"
             },
             "nombre": "Nombre",
-            "codigo": "Codigo",
+            "codigo": "Código",
             "kilometraje": "Kilometraje",
-            "duracion": "Duracion",
+            "duracion": "Duración",
             "precio": "Precio",
             "tipo": "Tipo",
             "tarea": "Tarea",

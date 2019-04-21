@@ -10,15 +10,15 @@
             "updated": "Un Horario ha sido actualizado con el identificador {{ param }}",
             "deleted": "Un Horario ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Horario {{ id }}?"
+                "question": "¿Seguro que quiere eliminar el Horario {{ id }}?"
             },
             "detail": {
                 "title": "Horario"
             },
-            "descripcion": "Descripcion",
+            "descripcion": "Descripción",
             "horaDesde": "Hora Desde",
             "horaHasta": "Hora Hasta",
-            "dia": "Dia",
+            "dia": "Día",
             "agenda": "Agenda"
         }
     }

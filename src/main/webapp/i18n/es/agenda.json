@@ -3,20 +3,20 @@
         "agenda": {
             "home": {
                 "title": "Agenda",
-                "createLabel": "Crear nuevo Agenda",
+                "createLabel": "Crear nueva Agenda",
                 "createOrEditLabel": "Crear o editar Agenda"
             },
-            "created": "Un nuevo Agenda ha sido creado con el identificador {{ param }}",
-            "updated": "Un Agenda ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Agenda ha sido eliminado con el identificador {{ param }}",
+            "created": "Una nueva Agenda ha sido creada con el identificador {{ param }}",
+            "updated": "Una Agenda ha sido actualizada con el identificador {{ param }}",
+            "deleted": "Una Agenda ha sido eliminada con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Agenda {{ id }}?"
+                "question": "¿Seguro que quiere eliminar la Agenda {{ id }}?"
             },
             "detail": {
                 "title": "Agenda"
             },
             "nombre": "Nombre",
-            "tipoRecurso": "Tipo Recurso",
+            "tipoRecurso": "Tipo de Recurso",
             "fechaDesde": "Fecha Desde",
             "fechaHasta": "Fecha Hasta",
             "email": "Email",

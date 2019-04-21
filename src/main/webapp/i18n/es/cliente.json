@@ -10,7 +10,7 @@
             "updated": "Un Cliente ha sido actualizado con el identificador {{ param }}",
             "deleted": "Un Cliente ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Cliente {{ id }}?"
+                "question": "¿Seguro que quiere eliminar el Cliente {{ id }}?"
             },
             "detail": {
                 "title": "Cliente"
@@ -18,8 +18,8 @@
             "nombre": "Nombre",
             "apellido": "Apellido",
             "email": "Email",
-            "dni": "Dni",
-            "telefono": "Telefono",
+            "dni": "DNI",
+            "telefono": "Teléfono",
             "celular": "Celular",
             "turno": "Turno"
         }

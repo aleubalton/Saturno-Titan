@@ -2,21 +2,21 @@
     "saturnoApp": {
         "vehiculo": {
             "home": {
-                "title": "Vehiculos",
-                "createLabel": "Crear nuevo Vehiculo",
-                "createOrEditLabel": "Crear o editar Vehiculo"
+                "title": "Vehículos",
+                "createLabel": "Crear nuevo Vehículo",
+                "createOrEditLabel": "Crear o editar Vehículo"
             },
-            "created": "Un nuevo Vehiculo ha sido creado con el identificador {{ param }}",
-            "updated": "Un Vehiculo ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Vehiculo ha sido eliminado con el identificador {{ param }}",
+            "created": "Un nuevo Vehículo ha sido creado con el identificador {{ param }}",
+            "updated": "Un Vehículo ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Vehículo ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Vehiculo {{ id }}?"
+                "question": "¿Seguro que quiere eliminar el Vehículo {{ id }}?"
             },
             "detail": {
-                "title": "Vehiculo"
+                "title": "Vehículo"
             },
             "patente": "Patente",
-            "anio": "Anio",
+            "anio": "Año",
             "kilometraje": "Kilometraje",
             "vin": "Vin",
             "motor": "Motor",

@@ -2,21 +2,21 @@
     "saturnoApp": {
         "tipoServicio": {
             "home": {
-                "title": "Tipo Servicios",
-                "createLabel": "Crear nuevo Tipo Servicio",
-                "createOrEditLabel": "Crear o editar Tipo Servicio"
+                "title": "Tipos de Servicios",
+                "createLabel": "Crear nuevo Tipo de Servicio",
+                "createOrEditLabel": "Crear o editar Tipo de Servicio"
             },
-            "created": "Un nuevo Tipo Servicio ha sido creado con el identificador {{ param }}",
-            "updated": "Un Tipo Servicio ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Tipo Servicio ha sido eliminado con el identificador {{ param }}",
+            "created": "Un nuevo Tipo de Servicio ha sido creado con el identificador {{ param }}",
+            "updated": "Un Tipo de Servicio ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Tipo de Servicio ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Tipo Servicio {{ id }}?"
+                "question": "¿Seguro que quiere eliminar el Tipo de Servicio {{ id }}?"
             },
             "detail": {
-                "title": "Tipo Servicio"
+                "title": "Tipo de Servicio"
             },
             "nombre": "Nombre",
-            "codigo": "Codigo",
+            "codigo": "Código",
             "interno": "Interno",
             "adicional": "Adicional",
             "tipoRecurso": "Tipo Recurso",

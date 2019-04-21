@@ -10,18 +10,18 @@
             "updated": "Un Modelo ha sido actualizado con el identificador {{ param }}",
             "deleted": "Un Modelo ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Modelo {{ id }}?"
+                "question": "¿Seguro que quiere eliminar el Modelo {{ id }}?"
             },
             "detail": {
                 "title": "Modelo"
             },
-            "codigo": "Codigo",
+            "codigo": "Código",
             "nombre": "Nombre",
-            "anioInicioProduccion": "Anio Inicio Produccion",
-            "anioFinProduccion": "Anio Fin Produccion",
+            "anioInicioProduccion": "Año Inicio de Produccion",
+            "anioFinProduccion": "Año Fin de Produccion",
             "marca": "Marca",
             "plan": "Plan",
-            "vehiculo": "Vehiculo"
+            "vehiculo": "Vehículo"
         }
     }
 }

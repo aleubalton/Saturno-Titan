@@ -3,20 +3,20 @@
         "tarea": {
             "home": {
                 "title": "Tareas",
-                "createLabel": "Crear nuevo Tarea",
+                "createLabel": "Crear nueva Tarea",
                 "createOrEditLabel": "Crear o editar Tarea"
             },
-            "created": "Un nuevo Tarea ha sido creado con el identificador {{ param }}",
-            "updated": "Un Tarea ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Tarea ha sido eliminado con el identificador {{ param }}",
+            "created": "Una nueva Tarea ha sido creada con el identificador {{ param }}",
+            "updated": "Una Tarea ha sido actualizada con el identificador {{ param }}",
+            "deleted": "Una Tarea ha sido eliminada con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Tarea {{ id }}?"
+                "question": "¿Seguro que quiere eliminar la Tarea {{ id }}?"
             },
             "detail": {
                 "title": "Tarea"
             },
-            "codigo": "Codigo",
-            "descripcion": "Descripcion",
+            "codigo": "Código",
+            "descripcion": "Descripción",
             "tipo": "Tipo",
             "servicio": "Servicio"
         }
