@@ -19,7 +19,7 @@
                 "intervalo": "Intervalo",
                 "diaNoLaborable": "Dia No Laborable",
                 "planMantenimiento": "Plan de Mantenimiento",
-                "tipoServicio": "Tipo Servicio",
+                "tipoServicio": "Tipo de Servicio",
                 "horario": "Horario",
                 "horarioEspecial": "Horario Especial",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
