@@ -190,4 +190,18 @@ public class TurnoResource {
         turnoService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * GET  /validateTurno : validate the "codigoReserva" turno.
+     *
+     * @param codigoReserva the codigoReserva of the turnoDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the turnoDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/validateTurno")
+    @Timed
+    public ResponseEntity<TurnoDTO> validateTurno(@RequestParam String codigoReserva) {
+        log.debug("REST request to validate Turno : {}", codigoReserva);
+        Optional<TurnoDTO> turnoDTO = turnoService.validateTurno(codigoReserva);
+        return ResponseUtil.wrapOrNotFound(turnoDTO);
+    }
 }

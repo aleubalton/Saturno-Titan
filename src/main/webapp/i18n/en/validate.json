@@ -1,0 +1,9 @@
+{
+    "validate": {
+        "title": "Turn validation",
+        "messages": {
+            "success": "<strong>Your turn has been validated.</strong>",
+            "error": "<strong>Your turn could not be validated.</strong> <br> Please use the URL sent to your email."
+        }
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "validate": {
+        "title": "Validación de turno",
+        "messages": {
+            "success": "<strong>Su turno ha sido validado.</strong>",
+            "error": "<strong>Su turno no pudo ser validado.</strong> <br> Por favor, utilice el enlace enviado a su correo."
+        }
+    }
+}

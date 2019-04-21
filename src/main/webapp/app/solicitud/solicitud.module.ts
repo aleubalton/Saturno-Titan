@@ -3,11 +3,11 @@ import { RouterModule } from '@angular/router';
 
 import { SaturnoSharedModule } from '../shared';
 
-import { SOLICITUD_ROUTE, SolicitudComponent, SolicitudService } from './';
+import { ValidateComponent, SOLICITUD_ROUTE, VALIDATE_ROUTE, SolicitudComponent, SolicitudService } from './';
 
 @NgModule({
-    imports: [SaturnoSharedModule, RouterModule.forChild([SOLICITUD_ROUTE])],
-    declarations: [SolicitudComponent],
+    imports: [SaturnoSharedModule, RouterModule.forChild([SOLICITUD_ROUTE]), RouterModule.forChild([VALIDATE_ROUTE])],
+    declarations: [ValidateComponent, SolicitudComponent],
     entryComponents: [],
     providers: [SolicitudService],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

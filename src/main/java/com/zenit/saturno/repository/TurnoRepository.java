@@ -47,4 +47,8 @@ public interface TurnoRepository extends JpaRepository<Turno, Long> {
     @Query("update Turno set estado = 'EXPIRADO' where estado = 'RESERVADO' and creation_date < :date")
     void expirarTurnos(@Param("date") Instant date);
 
+    @Modifying
+    @Query("update Turno set estado = 'VALIDADO' where estado = 'RESERVADO' and codigoReserva =:codigoReserva")
+    void validateTurno(@Param("codigoReserva") String codigoReserva);
+
 }

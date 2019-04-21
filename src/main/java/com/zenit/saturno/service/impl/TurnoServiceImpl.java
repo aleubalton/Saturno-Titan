@@ -137,4 +137,20 @@ public class TurnoServiceImpl implements TurnoService {
         log.debug("Request to delete Turno : {}", id);
         turnoRepository.deleteById(id);
     }
+
+    /**
+     * Validate turno by codigoReserva.
+     *
+     * @param codigoReserva the codigoReserva of the entity
+     * @return the entity
+     */
+    @Override
+    @Transactional
+    public Optional<TurnoDTO> validateTurno(String codigoReserva) {
+        log.debug("Request to validate Turno : {}", codigoReserva);
+        turnoRepository.expirarTurnos(Instant.now().minusSeconds(3600));
+        turnoRepository.validateTurno(codigoReserva);
+        return turnoRepository.findByCodigoReserva(codigoReserva)
+            .map(turnoMapper::toDto);
+    }
 }

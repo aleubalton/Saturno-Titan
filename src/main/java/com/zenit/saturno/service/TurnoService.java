@@ -68,4 +68,12 @@ public interface TurnoService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Validate the "codigoReserva" turno.
+     *
+     * @param codigoReserva the codigoReserva of the entity
+     * @return the entity
+     */
+    Optional<TurnoDTO> validateTurno(String codigoReserva);
 }

@@ -1,0 +1,16 @@
+<div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 jhiTranslate="validate.title">Turn validation</h1>
+
+            <div class="alert alert-success" *ngIf="success">
+                <span jhiTranslate="validate.messages.success"><strong>Your turn has been validated.</strong></span>
+            </div>
+
+            <div class="alert alert-danger" *ngIf="error" jhiTranslate="validate.messages.error">
+                <strong>Your turn could not be validated.</strong> <br> Please use the URL sent to your email.
+            </div>
+
+        </div>
+    </div>
+</div>
