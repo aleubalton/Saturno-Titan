@@ -44,28 +44,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="saturnoApp.tipoServicio.interno" for="field_interno">Interno</label>
-                    <input type="checkbox" class="form-control" name="interno" id="field_interno"
-                        [(ngModel)]="tipoServicio.interno" />
-                    <div [hidden]="!(editForm.controls.interno?.dirty && editForm.controls.interno?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.interno?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="saturnoApp.tipoServicio.adicional" for="field_adicional">Adicional</label>
-                    <input type="checkbox" class="form-control" name="adicional" id="field_adicional"
-                        [(ngModel)]="tipoServicio.adicional" />
-                    <div [hidden]="!(editForm.controls.adicional?.dirty && editForm.controls.adicional?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.adicional?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="saturnoApp.tipoServicio.tipoRecurso" for="field_tipoRecurso">Tipo Recurso</label>
                     <select class="form-control" name="tipoRecurso" [(ngModel)]="tipoServicio.tipoRecurso" id="field_tipoRecurso"  required>
                         <option value="BAHIA">{{'saturnoApp.TipoRecurso.BAHIA' | translate}}</option>
@@ -80,6 +58,29 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="interno" id="field_interno"
+                        [(ngModel)]="tipoServicio.interno" />
+                    <div [hidden]="!(editForm.controls.interno?.dirty && editForm.controls.interno?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.interno?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                    <label class="form-check-label" jhiTranslate="saturnoApp.tipoServicio.interno" for="field_interno">Interno</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="adicional" id="field_adicional"
+                        [(ngModel)]="tipoServicio.adicional" />
+                    <div [hidden]="!(editForm.controls.adicional?.dirty && editForm.controls.adicional?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.adicional?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                    <label class="form-check-label" jhiTranslate="saturnoApp.tipoServicio.adicional" for="field_adicional">Adicional</label>
+                </div>
+                <br>
 
                 <div [hidden]="!(editForm.controls.servicio?.dirty && editForm.controls.servicio?.invalid)">
                     <small class="form-text text-danger"

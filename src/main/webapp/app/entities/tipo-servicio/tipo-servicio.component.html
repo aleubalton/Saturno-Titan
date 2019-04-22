@@ -28,10 +28,10 @@
                 <!-- <td><a [routerLink]="['/tipo-servicio', tipoServicio.id, 'view' ]">{{tipoServicio.id}}</a></td> -->
                 <td>{{tipoServicio.nombre}}</td>
                 <td>{{tipoServicio.codigo}}</td>
-                <td *ngIf="tipoServicio.interno; else false_interno">☑</td>
-                <ng-template #false_interno><td>☒</td></ng-template>
-                <td *ngIf="tipoServicio.adicional; else false_adicional">☑</td>
-                <ng-template #false_adicional><td>☒</td></ng-template>
+                <td *ngIf="tipoServicio.interno; else false_interno">✓</td>
+                <ng-template #false_interno><td>☓</td></ng-template>
+                <td *ngIf="tipoServicio.adicional; else false_adicional">✓</td>
+                <ng-template #false_adicional><td>☓</td></ng-template>
                 <td jhiTranslate="{{'saturnoApp.TipoRecurso.' + tipoServicio.tipoRecurso}}">{{tipoServicio.tipoRecurso}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

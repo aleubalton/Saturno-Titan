@@ -15,13 +15,13 @@
                 </dd>
                 <dt><span jhiTranslate="saturnoApp.tipoServicio.interno">Interno</span></dt>
                 <dd>
-                    <span *ngIf="tipoServicio.interno; else false_interno">☑</span>
-                    <ng-template #false_interno><span>☒</span></ng-template>
+                    <span *ngIf="tipoServicio.interno; else false_interno">✓</span>
+                    <ng-template #false_interno><span>☓</span></ng-template>
                 </dd>
                 <dt><span jhiTranslate="saturnoApp.tipoServicio.adicional">Adicional</span></dt>
                 <dd>
-                    <span *ngIf="tipoServicio.adicional; else false_adicional">☑</span>
-                    <ng-template #false_adicional><span>☒</span></ng-template>
+                    <span *ngIf="tipoServicio.adicional; else false_adicional">✓</span>
+                    <ng-template #false_adicional><span>☓</span></ng-template>
                 </dd>
                 <dt><span jhiTranslate="saturnoApp.tipoServicio.tipoRecurso">Tipo Recurso</span></dt>
                 <dd>

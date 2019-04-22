@@ -27,8 +27,8 @@
                 </dd>
                 <dt><span jhiTranslate="saturnoApp.agenda.activa">Activa</span></dt>
                 <dd>
-                    <span *ngIf="agenda.activa; else false_activa">☑</span>
-                    <ng-template #false_activa><span>☒</span></ng-template>
+                    <span *ngIf="agenda.activa; else false_activa">✓</span>
+                    <ng-template #false_activa><span>☓</span></ng-template>
                 </dd>
                 <dt><span jhiTranslate="saturnoApp.agenda.horario">Horario</span></dt>
                 <dd>
@@ -40,12 +40,6 @@
                 <dd>
                     <span *ngFor="let horarioEspecial of agenda.horarioEspecials; let last = last">
                         <a [routerLink]="['/horario-especial', horarioEspecial?.id, 'view' ]">{{horarioEspecial.descripcion}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
-                <dt><span jhiTranslate="saturnoApp.agenda.diaNoLaborable">Dia No Laborable</span></dt>
-                <dd>
-                    <span *ngFor="let diaNoLaborable of agenda.diaNoLaborables; let last = last">
-                        <a [routerLink]="['/dia-no-laborable', diaNoLaborable?.id, 'view' ]">{{diaNoLaborable.descripcion}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
             </dl>

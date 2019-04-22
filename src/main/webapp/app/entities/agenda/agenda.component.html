@@ -32,8 +32,8 @@
                 <td>{{agenda.fechaDesde | date:'mediumDate'}}</td>
                 <td>{{agenda.fechaHasta | date:'mediumDate'}}</td>
                 <td>{{agenda.email}}</td>
-                <td *ngIf="agenda.activa; else false_activa">☑</td>
-                <ng-template #false_activa><td>☒</td></ng-template>
+                <td *ngIf="agenda.activa; else false_activa">✓</td>
+                <ng-template #false_activa><td>☓</td></ng-template>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

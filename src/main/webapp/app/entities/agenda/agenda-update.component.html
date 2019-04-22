@@ -86,9 +86,8 @@
                         </small>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="saturnoApp.agenda.activa" for="field_activa">Activa</label>
-                    <input type="checkbox" class="form-control" name="activa" id="field_activa"
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="activa" id="field_activa"
                         [(ngModel)]="agenda.activa" />
                     <div [hidden]="!(editForm.controls.activa?.dirty && editForm.controls.activa?.invalid)">
                         <small class="form-text text-danger"
@@ -96,7 +95,9 @@
                         This field is required.
                         </small>
                     </div>
+                    <label class="form-check-label" jhiTranslate="saturnoApp.agenda.activa" for="field_activa">Activa</label>
                 </div>
+                <br>
 
                 <div class="form-group">
                     <label jhiTranslate="saturnoApp.agenda.horario" for="field_horario">Horario</label>
@@ -109,18 +110,6 @@
                     <select class="form-control" id="field_horarioEspecial" multiple name="horarioEspecial" [(ngModel)]="agenda.horarioEspecials">
                         <option [ngValue]="getSelected(agenda.horarioEspecials, horarioEspecialOption)" *ngFor="let horarioEspecialOption of horarioespecials; trackBy: trackHorarioEspecialById">{{horarioEspecialOption.descripcion}}</option>
                     </select>
-                </div>
-                <div class="form-group">
-                    <label jhiTranslate="saturnoApp.agenda.diaNoLaborable" for="field_diaNoLaborable">Dia No Laborable</label>
-                    <select class="form-control" id="field_diaNoLaborable" multiple name="diaNoLaborable" [(ngModel)]="agenda.diaNoLaborables">
-                        <option [ngValue]="getSelected(agenda.diaNoLaborables, diaNoLaborableOption)" *ngFor="let diaNoLaborableOption of dianolaborables; trackBy: trackDiaNoLaborableById">{{diaNoLaborableOption.descripcion}}</option>
-                    </select>
-                </div>
-                <div [hidden]="!(editForm.controls.turno?.dirty && editForm.controls.turno?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.turno?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
                 </div>
             </div>
             <div>
