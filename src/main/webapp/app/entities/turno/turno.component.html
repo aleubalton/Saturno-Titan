@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!-- <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
             <th jhiSortBy="codigoReserva"><span jhiTranslate="saturnoApp.turno.codigoReserva">Codigo Reserva</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="fechaHora"><span jhiTranslate="saturnoApp.turno.fechaHora">Fecha Hora</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="duracion"><span jhiTranslate="saturnoApp.turno.duracion">Duracion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -28,7 +28,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let turno of turnos ;trackBy: trackId">
-                <td><a [routerLink]="['/turno', turno.id, 'view' ]">{{turno.id}}</a></td>
+                <!-- <td><a [routerLink]="['/turno', turno.id, 'view' ]">{{turno.id}}</a></td> -->
                 <td>{{turno.codigoReserva}}</td>
                 <td>{{turno.fechaHora | date:'medium'}}</td>
                 <td>{{turno.duracion}} min.</td>

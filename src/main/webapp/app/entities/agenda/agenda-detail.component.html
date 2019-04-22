@@ -15,11 +15,11 @@
                 </dd>
                 <dt><span jhiTranslate="saturnoApp.agenda.fechaDesde">Fecha Desde</span></dt>
                 <dd>
-                    <span>{{agenda.fechaDesde}}</span>
+                    <span>{{agenda.fechaDesde | date:'longDate'}}</span>
                 </dd>
                 <dt><span jhiTranslate="saturnoApp.agenda.fechaHasta">Fecha Hasta</span></dt>
                 <dd>
-                    <span>{{agenda.fechaHasta}}</span>
+                    <span>{{agenda.fechaHasta | date:'longDate'}}</span>
                 </dd>
                 <dt><span jhiTranslate="saturnoApp.agenda.email">Email</span></dt>
                 <dd>
@@ -27,7 +27,8 @@
                 </dd>
                 <dt><span jhiTranslate="saturnoApp.agenda.activa">Activa</span></dt>
                 <dd>
-                    <span>{{agenda.activa}}</span>
+                    <span *ngIf="agenda.activa; else false_activa">☑</span>
+                    <ng-template #false_activa><span>☒</span></ng-template>
                 </dd>
                 <dt><span jhiTranslate="saturnoApp.agenda.horario">Horario</span></dt>
                 <dd>

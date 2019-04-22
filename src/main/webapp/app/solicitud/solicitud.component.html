@@ -150,7 +150,7 @@
                         <div class="form-group col-md-4">
                             <label class="form-control-label" jhiTranslate="solicitud.form.patente">Licence plate</label>
                             <small>(XXX999/XX999XX)</small>
-                            <input type="text" class="form-control" id="patente" name="patente" [(ngModel)]="vehiculo.patente" minlength="6" maxlength="7" pattern="^[A-Z]{2}[0-9]{3}[A-Z]{2}|[A-Z]{3}[0-9]{3}$" required>
+                            <input type="text" class="form-control" id="patente" name="patente" [(ngModel)]="vehiculo.patente" minlength="6" maxlength="7" style="text-transform:uppercase" pattern="^[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}|[a-zA-Z]{3}[0-9]{3}$" required>
                             </input>
                         </div>
                     </div>
@@ -237,7 +237,7 @@
                             <label class="form-control-label" jhiTranslate="solicitud.form.patente">Licence plate</label>
                         </div>
                         <div class="col-md-6">
-                            <small>{{vehiculo.patente}}</small>
+                            <small>{{vehiculo.patente | uppercase}}</small>
                         </div>
                     </div>
                     <div class="row">

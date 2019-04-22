@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!-- <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
             <th jhiSortBy="descripcion"><span jhiTranslate="saturnoApp.diaNoLaborable.descripcion">Descripcion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="fecha"><span jhiTranslate="saturnoApp.diaNoLaborable.fecha">Fecha</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -22,7 +22,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let diaNoLaborable of diaNoLaborables ;trackBy: trackId">
-                <td><a [routerLink]="['/dia-no-laborable', diaNoLaborable.id, 'view' ]">{{diaNoLaborable.id}}</a></td>
+                <!-- <td><a [routerLink]="['/dia-no-laborable', diaNoLaborable.id, 'view' ]">{{diaNoLaborable.id}}</a></td> -->
                 <td>{{diaNoLaborable.descripcion}}</td>
                 <td>{{diaNoLaborable.fecha | date:'mediumDate'}}</td>
                 <td class="text-right">

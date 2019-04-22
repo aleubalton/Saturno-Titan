@@ -62,7 +62,7 @@ export class SolicitudComponent implements OnInit {
     vehiculo: IVehiculo;
     turno: ITurno;
     isSaving: boolean;
-    regexPatente = new RegExp('^[A-Z]{2}[0-9]{3}[A-Z]{2}|[A-Z]{3}[0-9]{3}$');
+    regexPatente = new RegExp('^[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}|[a-zA-Z]{3}[0-9]{3}$');
     regexEmail = new RegExp(
         '^(([^<>()\\[\\]\\.,;:\\s@&#34;]+(\\.[^<>()\\[\\]\\.,;:\\s@&#34;]+)*)|(&#34;.+&#34;))@' +
             '((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'
@@ -152,6 +152,7 @@ export class SolicitudComponent implements OnInit {
         this.turno.codigoReserva = this.randomString(8, '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
         this.turno.estado = Estado.RESERVADO;
         this.turno.agendaId = this.horariosByFecha.find(h => h.hora + ':' + h.minutos === this.solicitud.horario).agendas[0].id;
+        this.vehiculo.patente = this.vehiculo.patente.toUpperCase();
         this.subscribeToSaveClienteResponse(this.clienteService.create(this.cliente));
     }
 

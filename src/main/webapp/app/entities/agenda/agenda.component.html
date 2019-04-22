@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!-- <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
             <th jhiSortBy="nombre"><span jhiTranslate="saturnoApp.agenda.nombre">Nombre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="tipoRecurso"><span jhiTranslate="saturnoApp.agenda.tipoRecurso">Tipo Recurso</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="fechaDesde"><span jhiTranslate="saturnoApp.agenda.fechaDesde">Fecha Desde</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -26,13 +26,14 @@
             </thead>
             <tbody>
             <tr *ngFor="let agenda of agenda ;trackBy: trackId">
-                <td><a [routerLink]="['/agenda', agenda.id, 'view' ]">{{agenda.id}}</a></td>
+                <!-- <td><a [routerLink]="['/agenda', agenda.id, 'view' ]">{{agenda.id}}</a></td> -->
                 <td>{{agenda.nombre}}</td>
                 <td jhiTranslate="{{'saturnoApp.TipoRecurso.' + agenda.tipoRecurso}}">{{agenda.tipoRecurso}}</td>
                 <td>{{agenda.fechaDesde | date:'mediumDate'}}</td>
                 <td>{{agenda.fechaHasta | date:'mediumDate'}}</td>
                 <td>{{agenda.email}}</td>
-                <td>{{agenda.activa}}</td>
+                <td *ngIf="agenda.activa; else false_activa">☑</td>
+                <ng-template #false_activa><td>☒</td></ng-template>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

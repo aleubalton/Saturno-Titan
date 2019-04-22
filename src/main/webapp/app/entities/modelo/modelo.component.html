@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!-- <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
             <th jhiSortBy="codigo"><span jhiTranslate="saturnoApp.modelo.codigo">Codigo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nombre"><span jhiTranslate="saturnoApp.modelo.nombre">Nombre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="anioInicioProduccion"><span jhiTranslate="saturnoApp.modelo.anioInicioProduccion">Anio Inicio Produccion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -26,7 +26,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let modelo of modelos ;trackBy: trackId">
-                <td><a [routerLink]="['/modelo', modelo.id, 'view' ]">{{modelo.id}}</a></td>
+                <!-- <td><a [routerLink]="['/modelo', modelo.id, 'view' ]">{{modelo.id}}</a></td> -->
                 <td>{{modelo.codigo}}</td>
                 <td>{{modelo.nombre}}</td>
                 <td>{{modelo.anioInicioProduccion}}</td>

@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!-- <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
             <th jhiSortBy="nombre"><span jhiTranslate="saturnoApp.cliente.nombre">Nombre</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="apellido"><span jhiTranslate="saturnoApp.cliente.apellido">Apellido</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="email"><span jhiTranslate="saturnoApp.cliente.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -26,7 +26,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let cliente of clientes ;trackBy: trackId">
-                <td><a [routerLink]="['/cliente', cliente.id, 'view' ]">{{cliente.id}}</a></td>
+                <!-- <td><a [routerLink]="['/cliente', cliente.id, 'view' ]">{{cliente.id}}</a></td> -->
                 <td>{{cliente.nombre}}</td>
                 <td>{{cliente.apellido}}</td>
                 <td>{{cliente.email}}</td>

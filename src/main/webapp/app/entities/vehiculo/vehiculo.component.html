@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!-- <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
             <th jhiSortBy="patente"><span jhiTranslate="saturnoApp.vehiculo.patente">Patente</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="anio"><span jhiTranslate="saturnoApp.vehiculo.anio">Anio</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="kilometraje"><span jhiTranslate="saturnoApp.vehiculo.kilometraje">Kilometraje</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -26,7 +26,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let vehiculo of vehiculos ;trackBy: trackId">
-                <td><a [routerLink]="['/vehiculo', vehiculo.id, 'view' ]">{{vehiculo.id}}</a></td>
+                <!-- <td><a [routerLink]="['/vehiculo', vehiculo.id, 'view' ]">{{vehiculo.id}}</a></td> -->
                 <td>{{vehiculo.patente}}</td>
                 <td>{{vehiculo.anio}}</td>
                 <td>{{vehiculo.kilometraje}}</td>

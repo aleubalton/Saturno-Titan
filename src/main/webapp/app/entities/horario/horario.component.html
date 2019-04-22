@@ -14,7 +14,7 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!-- <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
             <th jhiSortBy="descripcion"><span jhiTranslate="saturnoApp.horario.descripcion">Descripcion</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="horaDesde"><span jhiTranslate="saturnoApp.horario.horaDesde">Hora Desde</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="horaHasta"><span jhiTranslate="saturnoApp.horario.horaHasta">Hora Hasta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -24,7 +24,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let horario of horarios ;trackBy: trackId">
-                <td><a [routerLink]="['/horario', horario.id, 'view' ]">{{horario.id}}</a></td>
+                <!-- <td><a [routerLink]="['/horario', horario.id, 'view' ]">{{horario.id}}</a></td> -->
                 <td>{{horario.descripcion}}</td>
                 <td>{{horario.horaDesde}}:00</td>
                 <td>{{horario.horaHasta}}:00</td>
