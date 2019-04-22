@@ -1,4 +1,7 @@
 id;codigo;nombre
-1;PMVM;Plan de Mantenimiento Vehículos Medianos
-2;PMPU;Plan de Mantenimiento Pick-Ups
-3;PMVC;Plan de Mantenimiento Vehículos de Carga
+1;PMVM;Vehículos Medianos
+2;PMPU;Pick-Ups
+3;PMVC;Vehículos de Carga
+4;PMLX;Lexus
+5;PMAG;Vehículos Medianos Alta Gama
+6;PMEL;Vehículos Eléctricos
