@@ -110,7 +110,7 @@ export class SolicitudComponent implements OnInit {
         this.vehiculo = new Vehiculo();
         this.turno = new Turno();
         this.dls = [];
-        this.modeloService.query().subscribe(
+        this.modeloService.query({ size: 99 }).subscribe(
             (res: HttpResponse<IModelo[]>) => {
                 this.modelos_backend = res.body;
                 this.marcas = ['TOYOTA', 'LEXUS', 'HINO'];
@@ -119,7 +119,7 @@ export class SolicitudComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.agendaService.query().subscribe(
+        this.agendaService.query({ size: 99 }).subscribe(
             (res: HttpResponse<IAgenda[]>) => {
                 this.agendas_backend = res.body.filter(a => a.tipoRecurso === 'BAHIA' && a.activa === true);
                 this.agendas_backend.forEach(a => {
@@ -129,7 +129,7 @@ export class SolicitudComponent implements OnInit {
                         }
                     }
                 });
-                this.dnlsService.query().subscribe(
+                this.dnlsService.query({ size: 99 }).subscribe(
                     (resp: HttpResponse<IDiaNoLaborable[]>) => {
                         this.dnls_backend = resp.body;
                         this.dnls = this.dnls_backend.map(a =>
@@ -238,7 +238,7 @@ export class SolicitudComponent implements OnInit {
             this.anios.push(i);
         }
         this.vehiculo.anio = this.anioFin;
-        this.servicioService.query().subscribe(
+        this.servicioService.query({ size: 999 }).subscribe(
             (resp: HttpResponse<IServicio[]>) => {
                 this.servicios = this.filterByAdicional(resp.body, false);
                 this.tiposDeServicios = new Set(this.servicios.map(a => a.tipoNombre));
