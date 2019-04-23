@@ -1,7 +1,8 @@
 id;codigo;nombre
-1;PMVM;Vehículos Medianos
-2;PMPU;Pick-Ups
-3;PMVC;Vehículos de Carga
-4;PMLX;Lexus
-5;PMAG;Vehículos Medianos Alta Gama
-6;PMEL;Vehículos Eléctricos
+1;PMM1;Vehículos Medianos 1
+2;PMM2;Vehículos Medianos 2
+3;PMPU;Pick-Ups
+4;PMVC;Vehículos de Carga
+5;PMLX;Lexus
+6;PMAG;Vehículos Medianos Alta Gama
+7;PMEL;Vehículos Eléctricos

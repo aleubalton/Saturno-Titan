@@ -1,43 +1,51 @@
 id;codigo;descripcion;tipo
-6000;DIAG;Diagnóstico General;INSPECCION
-5452;BUJ;Bujias de Encendido;CAMBIO
-5451;ACM;Aceite de Motor;CAMBIO
-6001;FAM;Filtro de aceite de motor;CAMBIO
-6002;FAI;Filtro de aire;CAMBIO
-6003;FCO;Filtro de combustible;CAMBIO
-6004;FFE;Fluidos de freno / embrague;CAMBIO
-6005;FTM;Fluidos de transmisión manual;CAMBIO
-6006;FAC;Filtro de aire acondicionado;CAMBIO
-6032;LDM;Lubricante de motor;CAMBIO
-6007;SAC;Sistema de Aire acondicionado y calefacción;INSPECCION
-6008;BAT;Batería;INSPECCION
-6009;FCA;Filtro de carbón activado;INSPECCION
-6010;CSA;Conexiones de sistema de aire acondicionado;INSPECCION
-6011;CCO;Conexiones de combustible;INSPECCION
-6012;CTR;Correas transmisoras;INSPECCION
-6013;CEM;Conductos de escape y montajes;INSPECCION
-6014;EAV;Extremos articulados y volantes;INSPECCION
-6015;FAA;Filtro de aire acondicionado;INSPECCION
-6016;FTR;Fluidos de transmisión manual;INSPECCION
-6017;PEM;Pedal de embrague;INSPECCION
-6018;GSE;Guardapolvos de semiejes;INSPECCION
-6019;HVA;Holgura de válvulas;INSPECCION
-6020;BYL;Bocinas y luces interiores / exteriores;INSPECCION
-6021;NRM;Nivel de refrigerante de motor;INSPECCION
-6022;NFF;Nivel de fluidos de freno / embrague;INSPECCION
-6024;PDF;Pastillas y discos de freno;INSPECCION
-6025;PFM;Pedal de freno y freno de mano;INSPECCION
-6026;PIN;Presión de inflado de neumáticos;INSPECCION
-6027;STD;Suspensión trasera y delantera;INSPECCION
-6028;TMC;Tuberías, mangueras y conectores de freno;INSPECCION
-6029;FIA;Filtro de aire;INSPECCION
-6030;ZTF;Zapatas y tambores de freno;INSPECCION
-6031;RNE;Rotación de neumáticos;INSPECCION
-6033;FDP;Fluidos de dirección de potencia;INSPECCION
-6034;NLL;Nivel rec. Limpiaparabrisas;INSPECCION
-6035;ASG;Articulaciones y sus Guardapolvos;INSPECCION
-6036;FTA;Fluido de transmisión automática;INSPECCION
-6037;LDM;Filtro de lubricante de motor;INSPECCION
-6038;FDD;Fluidos de diferenciales;INSPECCION
-6039;FT4;Fluidos de transferencia (4x4);INSPECCION
-6040;HER;Humos de escape y rendimiento;INSPECCION
+6001;CBAT;Batería;CAMBIO
+6002;CBUJ;Bujías;CAMBIO
+6003;CFAC;Filtro de Acondicionador de Aire;CAMBIO
+6004;CFAI;Filtro de Aire;CAMBIO
+6005;CFCO;Filtro de Combustible;CAMBIO
+6006;CFLM;Filtro de Lubricante de Motor;CAMBIO
+6007;CFDD;Fluidos de Diferenciales;CAMBIO
+6008;CFDP;Fluidos de Dirección de Potencia;CAMBIO
+6009;CFFE;Fluidos de Freno / Embrague;CAMBIO
+6010;CFT4;Fluidos de Transferencia (4x4);CAMBIO
+6011;CFTM;Fluidos de Transmisión Manual;CAMBIO
+6012;CGAC;Grasa de Árboles Cardánicos;CAMBIO
+6013;CLDM;Lubricante de Motor;CAMBIO
+6014;CNEU;Neumáticos;CAMBIO
+6015;IASG;Articulaciones y sus Guardapolvos;INSPECCION
+6016;IBAT;Batería;INSPECCION
+6017;IBYL;Bocina y Luces Interiores / Exteriores;INSPECCION
+6018;ICEM;Conductos de Escape y Montantes;INSPECCION
+6019;ICCO;Conexiones de Combustible;INSPECCION
+6020;ICSA;Conexiones del Sistema de A/C;INSPECCION
+6021;ICTR;Correas Transmisoras;INSPECCION
+6022;EAC;Engrase de Árboles Cardánicos;INSPECCION
+6023;ERE;Engrase de Rótulas y Extremos;INSPECCION
+6024;IEAV;Extremos Articulados y Volante;INSPECCION
+6025;IFAC;Filtro de Acondicionador de Aire;INSPECCION
+6026;IFAI;Filtro de Aire;INSPECCION
+6027;IFCA;Filtro de Carbón Activado;INSPECCION
+6028;IFDD;Fluidos de Diferenciales;INSPECCION
+6029;IFDP;Fluidos de Dirección de Potencia;INSPECCION
+6030;IFT4;Fluidos de Transferencia (4x4);INSPECCION
+6031;IFTA;Fluidos de Transmisión Automática;INSPECCION
+6032;IFTM;Fluidos de Transmisión Manual;INSPECCION
+6033;DIAG;Diagnóstico General;INSPECCION
+6034;IGSE;Guardapolvos de Semiejes;INSPECCION
+6035;IHVA;Holgura de Válvulas;INSPECCION
+6036;IHER;Humos de Escape y Rendimiento;INSPECCION
+6037;NFFE;Nivel de Fluidos de Freno / Embrague;INSPECCION
+6038;NRMO;Nivel de Refrigerante de Motor;INSPECCION
+6039;NRLL;Nivel Rec. Limpia Lavaparabrisas;INSPECCION
+6040;IPDF;Pastillas y Discos de Freno;INSPECCION
+6041;IPEM;Pedal de Embrague;INSPECCION
+6042;IPFM;Pedal de Freno y Freno de Mano;INSPECCION
+6043;IPIN;Presión de Inflado de Neumáticos;INSPECCION
+6044;CAMP;Revisión;INSPECCION
+6045;RONE;Rotación de Neumáticos;INSPECCION
+6046;ISAC;Sistema de A/C y Calefacción;INSPECCION
+6047;ISTD;Suspensión Trasera y Delantera;INSPECCION
+6048;TBAC;Torquear Bulones de Árboles Cardánicos;INSPECCION
+6049;TMCF;Tuberías, Mangueras y Conectores de Freno;INSPECCION
+6050;IZCF;Zapatas y Campanas de Freno;INSPECCION
