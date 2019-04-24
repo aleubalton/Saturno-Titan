@@ -4,3 +4,4 @@ export * from './turno-delete-dialog.component';
 export * from './turno-detail.component';
 export * from './turno.component';
 export * from './turno.route';
+export * from './calendario.component';

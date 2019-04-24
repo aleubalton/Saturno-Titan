@@ -12,5 +12,6 @@ eg $input-color: red;
 
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */
 
+@import '~angular-calendar/css/angular-calendar.css';
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import 'animate.css';

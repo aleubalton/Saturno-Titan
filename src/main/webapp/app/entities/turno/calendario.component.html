@@ -1,0 +1,13 @@
+<div>
+    <h2 id="page-heading">
+        <span>Calendario de Turnos</span>
+    </h2>
+    <mwl-calendar-week-view
+      [viewDate]="viewDate"
+      [events]="events"
+      [dayStartHour]="9"
+      [dayEndHour]="17"
+      (eventClicked)="eventClicked($event)"
+    >
+    </mwl-calendar-week-view>
+</div>
