@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,9 @@ import { Principal } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { TurnoService } from './turno.service';
 
-import { CalendarEvent } from 'angular-calendar';
+import { CalendarEvent, CalendarEventTitleFormatter } from 'angular-calendar';
+import { CustomEventTitleFormatter } from './disable-tooltip.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 
@@ -32,9 +34,18 @@ const colors: any[] = [
 
 @Component({
     selector: 'jhi-calendario',
-    templateUrl: './calendario.component.html'
+    templateUrl: './calendario.component.html',
+    providers: [
+        {
+            provide: CalendarEventTitleFormatter,
+            useClass: CustomEventTitleFormatter
+        }
+    ]
 })
 export class CalendarioComponent implements OnInit, OnDestroy {
+    @ViewChild('modalContent')
+    modalContent: TemplateRef<any>;
+    turno: ITurno;
     currentAccount: any;
     turnos: ITurno[];
     error: any;
@@ -55,6 +66,7 @@ export class CalendarioComponent implements OnInit, OnDestroy {
     events: CalendarEvent[];
 
     constructor(
+        private modal: NgbModal,
         private turnoService: TurnoService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
@@ -148,7 +160,7 @@ export class CalendarioComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.turnos = data;
-        this.events = this.turnos.map((turno: ITurno) => {
+        this.events = this.turnos.filter(turno => turno.estado !== 'EXPIRADO' && turno.estado !== 'CANCELADO').map((turno: ITurno) => {
             return {
                 title: turno.vehiculoPatente,
                 start: addHours(turno.fechaHora.toDate(), 0),
@@ -163,8 +175,10 @@ export class CalendarioComponent implements OnInit, OnDestroy {
     }
 
     public eventClicked({ event }: { event: CalendarEvent }): void {
-        console.log('Event clicked', event);
-        this.router.navigate(['/turno', event.meta.turno.id, 'view']);
+        // console.log('Event clicked', event);
+        // this.router.navigate(['/turno', event.meta.turno.id, 'view']);
+        this.turno = event.meta.turno;
+        this.modal.open(this.modalContent, { size: 'sm' });
     }
 
     private onError(errorMessage: string) {
