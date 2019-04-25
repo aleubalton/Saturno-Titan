@@ -17,6 +17,7 @@ import {
     turnoRoute,
     turnoPopupRoute
 } from './';
+import { CalendarHeaderComponent } from './calendar-header.component';
 
 const ENTITY_STATES = [...turnoRoute, ...turnoPopupRoute];
 
@@ -29,6 +30,7 @@ const ENTITY_STATES = [...turnoRoute, ...turnoPopupRoute];
         RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [
+        CalendarHeaderComponent,
         CalendarioComponent,
         TurnoComponent,
         TurnoDetailComponent,

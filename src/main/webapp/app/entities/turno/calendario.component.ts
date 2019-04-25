@@ -7,7 +7,6 @@ import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { ITurno } from 'app/shared/model/turno.model';
 import { Principal } from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
 import { TurnoService } from './turno.service';
 
 import { CalendarEvent, CalendarEventTitleFormatter } from 'angular-calendar';
@@ -45,6 +44,7 @@ const colors: any[] = [
 export class CalendarioComponent implements OnInit, OnDestroy {
     @ViewChild('modalContent')
     modalContent: TemplateRef<any>;
+    view = 'week';
     turno: ITurno;
     currentAccount: any;
     turnos: ITurno[];
@@ -75,7 +75,7 @@ export class CalendarioComponent implements OnInit, OnDestroy {
         private router: Router,
         private eventManager: JhiEventManager
     ) {
-        this.itemsPerPage = ITEMS_PER_PAGE;
+        this.itemsPerPage = 999;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;
             this.previousPage = data.pagingParams.page;

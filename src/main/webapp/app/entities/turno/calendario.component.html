@@ -2,19 +2,49 @@
     <h2 id="page-heading">
         <span>Calendario de Turnos</span>
     </h2>
-    <mwl-calendar-week-view
-      [viewDate]="viewDate"
-      [events]="events"
-      [dayStartHour]="8"
-      [dayEndHour]="18"
-      (eventClicked)="eventClicked($event)"
+    <jhi-mwl-demo-utils-calendar-header
+      [(view)]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="loadAll()"
+      (viewChange)="loadAll()"
     >
-    </mwl-calendar-week-view>
+    </jhi-mwl-demo-utils-calendar-header>
+    <div>
+      <div [ngSwitch]="view">
+        <mwl-calendar-month-view
+          *ngSwitchCase="'month'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [activeDayIsOpen]="activeDayIsOpen"
+          (dayClicked)="dayClicked($event.day)"
+          (eventClicked)="eventClicked($event)"
+        >
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view
+          *ngSwitchCase="'week'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [dayStartHour]="8"
+          [dayEndHour]="18"
+          (eventClicked)="eventClicked($event)"
+        >
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view
+          *ngSwitchCase="'day'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [dayStartHour]="8"
+          [dayEndHour]="18"
+          (eventClicked)="eventClicked($event)"
+        >
+        </mwl-calendar-day-view>
+      </div>
+    </div>
 </div>
 
 <ng-template #modalContent let-close="close">
   <div class="modal-header">
-    <h4><span jhiTranslate="saturnoApp.turno.detail.title">Turno</span> {{turno.id}}</h4>
+    <h5><span jhiTranslate="saturnoApp.turno.detail.title">Turno</span> {{turno.id}}</h5>
     <button type="button" class="close" (click)="close()">
       <span aria-hidden="true">&times;</span>
     </button>
