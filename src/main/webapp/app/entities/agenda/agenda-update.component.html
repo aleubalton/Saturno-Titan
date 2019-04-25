@@ -101,15 +101,21 @@
 
                 <div class="form-group">
                     <label jhiTranslate="saturnoApp.agenda.horario" for="field_horario">Horario</label>
-                    <select class="form-control" id="field_horario" multiple name="horario" [(ngModel)]="agenda.horarios">
-                        <option [ngValue]="getSelected(agenda.horarios, horarioOption)" *ngFor="let horarioOption of horarios; trackBy: trackHorarioById">{{horarioOption.descripcion}}</option>
-                    </select>
+                    <br>
+                    <div class="btn-group btn-group-toggle" id="field_horario" name="horario">
+                        <label class="btn-primary" ngbButtonLabel *ngFor="let horarioOption of horariosSelected; let index = index">
+                            <input type="checkbox" ngbButton [(ngModel)]="horariosSelected[index].enabled" [ngModelOptions]="{standalone: true}"> {{horarioOption.descripcion}}
+                        </label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label jhiTranslate="saturnoApp.agenda.horarioEspecial" for="field_horarioEspecial">Horario Especial</label>
-                    <select class="form-control" id="field_horarioEspecial" multiple name="horarioEspecial" [(ngModel)]="agenda.horarioEspecials">
-                        <option [ngValue]="getSelected(agenda.horarioEspecials, horarioEspecialOption)" *ngFor="let horarioEspecialOption of horarioespecials; trackBy: trackHorarioEspecialById">{{horarioEspecialOption.descripcion}}</option>
-                    </select>
+                    <br>
+                    <div class="btn-group btn-group-toggle" id="field_horarioEspecial" name="horarioEspecial">
+                        <label class="btn-primary" ngbButtonLabel *ngFor="let horarioEspecialsOption of horarioEspecialsSelected; let index = index">
+                            <input type="checkbox" ngbButton [(ngModel)]="horarioEspecialsSelected[index].enabled" [ngModelOptions]="{standalone: true}"> {{horarioEspecialsOption.descripcion}}
+                        </label>
+                    </div>
                 </div>
             </div>
             <div>

@@ -11,8 +11,6 @@ import { IHorario } from 'app/shared/model/horario.model';
 import { HorarioService } from 'app/entities/horario';
 import { IHorarioEspecial } from 'app/shared/model/horario-especial.model';
 import { HorarioEspecialService } from 'app/entities/horario-especial';
-import { IDiaNoLaborable } from 'app/shared/model/dia-no-laborable.model';
-import { DiaNoLaborableService } from 'app/entities/dia-no-laborable';
 
 @Component({
     selector: 'jhi-agenda-update',
@@ -23,10 +21,11 @@ export class AgendaUpdateComponent implements OnInit {
     isSaving: boolean;
 
     horarios: IHorario[];
+    horariosSelected: any[];
+    horarioEspecialsSelected: any[];
 
     horarioespecials: IHorarioEspecial[];
 
-    dianolaborables: IDiaNoLaborable[];
     fechaDesdeDp: any;
     fechaHastaDp: any;
 
@@ -35,7 +34,6 @@ export class AgendaUpdateComponent implements OnInit {
         private agendaService: AgendaService,
         private horarioService: HorarioService,
         private horarioEspecialService: HorarioEspecialService,
-        private diaNoLaborableService: DiaNoLaborableService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -43,25 +41,27 @@ export class AgendaUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ agenda }) => {
             this.agenda = agenda;
+            this.horarioService.query().subscribe(
+                (res: HttpResponse<IHorario[]>) => {
+                    this.horarios = res.body;
+                    this.horariosSelected = this.horarios.map(h => {
+                        const rObj = { id: h.id, descripcion: h.descripcion, enabled: agenda.horarios.some(ah => ah.id === h.id) };
+                        return rObj;
+                    });
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+            this.horarioEspecialService.query().subscribe(
+                (res: HttpResponse<IHorarioEspecial[]>) => {
+                    this.horarioespecials = res.body;
+                    this.horarioEspecialsSelected = this.horarioespecials.map(h => {
+                        const rObj = { id: h.id, descripcion: h.descripcion, enabled: agenda.horarioEspecials.some(ah => ah.id === h.id) };
+                        return rObj;
+                    });
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
         });
-        this.horarioService.query().subscribe(
-            (res: HttpResponse<IHorario[]>) => {
-                this.horarios = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.horarioEspecialService.query().subscribe(
-            (res: HttpResponse<IHorarioEspecial[]>) => {
-                this.horarioespecials = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.diaNoLaborableService.query().subscribe(
-            (res: HttpResponse<IDiaNoLaborable[]>) => {
-                this.dianolaborables = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     previousState() {
@@ -70,6 +70,8 @@ export class AgendaUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.agenda.horarios = this.horariosSelected.filter(h => h.enabled);
+        this.agenda.horarioEspecials = this.horarioEspecialsSelected.filter(h => h.enabled);
         if (this.agenda.id !== undefined) {
             this.subscribeToSaveResponse(this.agendaService.update(this.agenda));
         } else {
@@ -99,10 +101,6 @@ export class AgendaUpdateComponent implements OnInit {
     }
 
     trackHorarioEspecialById(index: number, item: IHorarioEspecial) {
-        return item.id;
-    }
-
-    trackDiaNoLaborableById(index: number, item: IDiaNoLaborable) {
         return item.id;
     }
 
