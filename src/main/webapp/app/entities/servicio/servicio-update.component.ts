@@ -52,7 +52,7 @@ export class ServicioUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.tareaService.query().subscribe(
+        this.tareaService.query({ size: 999 }).subscribe(
             (res: HttpResponse<ITarea[]>) => {
                 this.tareas = res.body;
             },

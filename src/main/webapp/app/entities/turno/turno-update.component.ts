@@ -56,19 +56,19 @@ export class TurnoUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.vehiculoService.query().subscribe(
+        this.vehiculoService.query({ size: 999 }).subscribe(
             (res: HttpResponse<IVehiculo[]>) => {
                 this.vehiculos = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.servicioService.query().subscribe(
+        this.servicioService.query({ size: 999 }).subscribe(
             (res: HttpResponse<IServicio[]>) => {
                 this.servicios = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.clienteService.query().subscribe(
+        this.clienteService.query({ size: 999 }).subscribe(
             (res: HttpResponse<ICliente[]>) => {
                 this.clientes = res.body;
             },

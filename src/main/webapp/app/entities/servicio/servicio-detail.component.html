@@ -28,13 +28,13 @@
                 <dt><span jhiTranslate="saturnoApp.servicio.tipo">Tipo</span></dt>
                 <dd>
                     <div *ngIf="servicio.tipoId">
-                        <a [routerLink]="['/tipo-servicio', servicio.tipoId, 'view']">{{servicio.tipoCodigo}}</a>
+                        <a [routerLink]="['/tipo-servicio', servicio.tipoId, 'view']">{{servicio.tipoCodigo}} - {{servicio.tipoNombre}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="saturnoApp.servicio.tarea">Tarea</span></dt>
                 <dd>
                     <span *ngFor="let tarea of servicio.tareas; let last = last">
-                        <a [routerLink]="['/tarea', tarea?.id, 'view' ]">{{tarea.codigo}}</a>{{last ? '' : ', '}}
+                        <a [routerLink]="['/tarea', tarea?.id, 'view' ]" placement="top" [(ngbTooltip)]="tarea.descripcion">{{tarea.codigo}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
                 <dt><span jhiTranslate="saturnoApp.servicio.plan">Plan</span></dt>
