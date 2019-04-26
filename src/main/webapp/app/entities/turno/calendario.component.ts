@@ -162,7 +162,7 @@ export class CalendarioComponent implements OnInit, OnDestroy {
         this.turnos = data;
         this.events = this.turnos.filter(turno => turno.estado !== 'EXPIRADO' && turno.estado !== 'CANCELADO').map((turno: ITurno) => {
             return {
-                title: turno.vehiculoPatente,
+                title: turno.vehiculoPatente + '<br>' + turno.clienteApellido,
                 start: addHours(turno.fechaHora.toDate(), 0),
                 end: addHours(turno.fechaHora.toDate(), turno.duracion / 60),
                 color: colors[turno.agendaId],

@@ -9,7 +9,7 @@
         <p th:text="#{email.turn.greeting(${cliente.nombre})}">
             Dear
         </p>
-        <p th:text="#{email.turn.text1}">
+        <p th:text="#{email.turn.text1(${fechaHora})}">
             Your turn has been reserved, please click on the URL below to validate it:
         </p>
         <p>
