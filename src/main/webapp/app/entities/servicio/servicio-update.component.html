@@ -109,7 +109,7 @@
                     <label class="form-control-label" jhiTranslate="saturnoApp.servicio.tipo" for="field_tipo">Tipo</label>
                     <select class="form-control" id="field_tipo" name="tipo" [(ngModel)]="servicio.tipoId"  required>
                         <option *ngIf="!editForm.value.tipo" [ngValue]="null" selected></option>
-                        <option [ngValue]="tipoServicioOption.id" *ngFor="let tipoServicioOption of tiposervicios; trackBy: trackTipoServicioById">{{tipoServicioOption.codigo}}</option>
+                        <option [ngValue]="tipoServicioOption.id" *ngFor="let tipoServicioOption of tiposervicios; trackBy: trackTipoServicioById">{{tipoServicioOption.codigo}} - {{tipoServicioOption.nombre}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.tipo?.dirty && editForm.controls.tipo?.invalid)">
@@ -121,7 +121,7 @@
                 <div class="form-group">
                     <label jhiTranslate="saturnoApp.servicio.tarea" for="field_tarea">Tarea</label>
                     <select class="form-control" id="field_tarea" multiple name="tarea" [(ngModel)]="servicio.tareas" required>
-                        <option [ngValue]="getSelected(servicio.tareas, tareaOption)" *ngFor="let tareaOption of tareas; trackBy: trackTareaById">{{tareaOption.codigo}}</option>
+                        <option [ngValue]="getSelected(servicio.tareas, tareaOption)" *ngFor="let tareaOption of tareas; trackBy: trackTareaById">{{tareaOption.codigo}} - {{tareaOption.descripcion}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.tarea?.dirty && editForm.controls.tarea?.invalid)">
