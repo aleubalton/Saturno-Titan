@@ -38,6 +38,14 @@ public interface VehiculoService {
     Optional<VehiculoDTO> findOne(Long id);
 
     /**
+     * Get the "patente" vehiculo.
+     *
+     * @param patente the patente of the entity
+     * @return the entity
+     */
+    Optional<VehiculoDTO> findOneByPatente(String patente);
+
+    /**
      * Delete the "id" vehiculo.
      *
      * @param id the id of the entity

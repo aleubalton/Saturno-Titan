@@ -78,6 +78,20 @@ public class VehiculoServiceImpl implements VehiculoService {
     }
 
     /**
+     * Get one vehiculo by patente.
+     *
+     * @param patente the patente of the entity
+     * @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<VehiculoDTO> findOneByPatente(String patente) {
+        log.debug("Request to get Vehiculo : {}", patente);
+        return vehiculoRepository.findByPatente(patente)
+            .map(vehiculoMapper::toDto);
+    }
+
+    /**
      * Delete the vehiculo by id.
      *
      * @param id the id of the entity
