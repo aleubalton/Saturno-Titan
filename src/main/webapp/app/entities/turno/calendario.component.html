@@ -1,0 +1,111 @@
+<div>
+    <h2 id="page-heading">
+        <span>Calendario de Turnos</span>
+    </h2>
+    <jhi-mwl-demo-utils-calendar-header
+      [(view)]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="loadAll()"
+      (viewChange)="loadAll()"
+    >
+    </jhi-mwl-demo-utils-calendar-header>
+    <div>
+      <div [ngSwitch]="view">
+        <mwl-calendar-month-view
+          *ngSwitchCase="'month'"
+          [viewDate]="viewDate"
+          [events]="events"
+          (eventClicked)="eventClicked($event)"
+        >
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view
+          *ngSwitchCase="'week'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [dayStartHour]="8"
+          [dayEndHour]="18"
+          (eventClicked)="eventClicked($event)"
+        >
+        </mwl-calendar-week-view>
+        <mwl-calendar-day-view
+          *ngSwitchCase="'day'"
+          [viewDate]="viewDate"
+          [events]="events"
+          [dayStartHour]="8"
+          [dayEndHour]="18"
+          (eventClicked)="eventClicked($event)"
+        >
+        </mwl-calendar-day-view>
+      </div>
+    </div>
+</div>
+
+<ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h5><span jhiTranslate="saturnoApp.turno.detail.title">Turno</span> {{turno.id}}</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="saturnoApp.turno.codigoReserva">Codigo Reserva</span></dt>
+        <dd>
+            <span>{{turno.codigoReserva}}</span>
+        </dd>
+        <dt><span jhiTranslate="saturnoApp.turno.fechaHora">Fecha Hora</span></dt>
+        <dd>
+            <span>{{turno.fechaHora | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="saturnoApp.turno.duracion">Duracion</span></dt>
+        <dd>
+            <span>{{turno.duracion}} min.</span>
+        </dd>
+        <dt><span jhiTranslate="saturnoApp.turno.costo">Costo</span></dt>
+        <dd>
+            <span>${{turno.costo}}</span>
+        </dd>
+        <dt><span jhiTranslate="saturnoApp.turno.estado">Estado</span></dt>
+        <dd>
+            <span jhiTranslate="{{'saturnoApp.Estado.' + turno.estado}}">{{turno.estado}}</span>
+        </dd>
+        <dt><span jhiTranslate="saturnoApp.turno.comentario">Comentario</span></dt>
+        <dd>
+            <span>{{turno.comentario}}</span>
+        </dd>
+        <dt><span jhiTranslate="saturnoApp.turno.indicaciones">Indicaciones</span></dt>
+        <dd>
+            <span>{{turno.indicaciones}}</span>
+        </dd>
+        <dt><span jhiTranslate="saturnoApp.turno.agenda">Agenda</span></dt>
+        <dd>
+            <div *ngIf="turno.agendaId">
+                <a [routerLink]="['/agenda', turno.agendaId, 'view']">{{turno.agendaNombre}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="saturnoApp.turno.vehiculo">Vehiculo</span></dt>
+        <dd>
+            <div *ngIf="turno.vehiculoId">
+                <a [routerLink]="['/vehiculo', turno.vehiculoId, 'view']">{{turno.vehiculoPatente}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="saturnoApp.turno.servicio">Servicio</span></dt>
+        <dd>
+            <span *ngFor="let servicio of turno.servicios; let last = last">
+                <a [routerLink]="['/servicio', servicio?.id, 'view' ]">{{servicio.nombre}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span jhiTranslate="saturnoApp.turno.cliente">Cliente</span></dt>
+        <dd>
+            <div *ngIf="turno.clienteId">
+                <a [routerLink]="['/cliente', turno.clienteId, 'view']">{{turno.clienteApellido}}</a>
+            </div>
+        </dd>
+    </dl>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">
+      OK
+    </button>
+  </div>
+</ng-template>

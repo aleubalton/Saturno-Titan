@@ -9,6 +9,10 @@ import io.github.jhipster.config.JHipsterProperties;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
@@ -34,6 +38,8 @@ public class MailService {
     private static final String USER = "user";
 
     private static final String TURNO = "turno";
+
+    private static final String FECHA_HORA = "fechaHora";
 
     private static final String CLIENTE = "cliente";
 
@@ -116,7 +122,10 @@ public class MailService {
     public void sendTurnoEmail(TurnoDTO turno, ClienteDTO cliente, VehiculoDTO vehiculo) {
         Locale locale = Locale.forLanguageTag("es");
         Context context = new Context(locale);
+        LocalDateTime datetime = LocalDateTime.ofInstant(turno.getFechaHora(), ZoneOffset.of("-03:00"));
+        String fechaHora = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.SHORT).format(datetime);
         context.setVariable(TURNO, turno);
+        context.setVariable(FECHA_HORA, fechaHora);
         context.setVariable(CLIENTE, cliente);
         context.setVariable(VEHICULO, vehiculo);
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());

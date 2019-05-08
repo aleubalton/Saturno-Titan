@@ -9,12 +9,19 @@
         <p th:text="#{email.turn.greeting(${cliente.nombre})}">
             Dear
         </p>
-        <p th:text="#{email.turn.text1}">
+        <p th:text="#{email.turn.text1(${fechaHora})}">
             Your turn has been reserved, please click on the URL below to validate it:
         </p>
         <p>
             <a th:with="url=(@{|${baseUrl}/#/validateTurno?codigoReserva=${turno.codigoReserva}|})" th:href="${url}"
             th:text="${url}">Activation link</a>
+        </p>
+        <p th:text="#{email.turn.cancel}">
+            If you wish to cancel it, click on the URL below:
+        </p>
+        <p>
+            <a th:with="url=(@{|${baseUrl}/#/cancelTurno?codigoReserva=${turno.codigoReserva}|})" th:href="${url}"
+            th:text="${url}">Cancelation link</a>
         </p>
         <p>
             <span th:text="#{email.turn.text2}">Regards, </span>

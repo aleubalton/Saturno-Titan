@@ -30,6 +30,14 @@ public interface ClienteService {
 
 
     /**
+     * Get the "email" cliente.
+     *
+     * @param email the email of the entity
+     * @return the entity
+     */
+    Optional<ClienteDTO> findOneByEmail(String email);
+
+    /**
      * Get the "id" cliente.
      *
      * @param id the id of the entity

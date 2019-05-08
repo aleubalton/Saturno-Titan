@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { Turno } from 'app/shared/model/turno.model';
 import { TurnoService } from './turno.service';
+import { CalendarioComponent } from './calendario.component';
 import { TurnoComponent } from './turno.component';
 import { TurnoDetailComponent } from './turno-detail.component';
 import { TurnoUpdateComponent } from './turno-update.component';
@@ -75,6 +76,19 @@ export const turnoRoute: Routes = [
         },
         data: {
             authorities: ['ROLE_USER'],
+            pageTitle: 'saturnoApp.turno.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'calendario',
+        component: CalendarioComponent,
+        resolve: {
+            pagingParams: JhiResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            defaultSort: 'id,asc',
             pageTitle: 'saturnoApp.turno.home.title'
         },
         canActivate: [UserRouteAccessService]

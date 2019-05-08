@@ -54,7 +54,15 @@ public class VehiculoResource {
         if (vehiculoDTO.getId() != null) {
             throw new BadRequestAlertException("A new vehiculo cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        VehiculoDTO result = vehiculoService.save(vehiculoDTO);
+        Optional<VehiculoDTO> optional = vehiculoService.findOneByPatente(vehiculoDTO.getPatente());
+        VehiculoDTO result = null;
+        if (optional.isPresent()){
+            result = optional.get();
+            result.setKilometraje(vehiculoDTO.getKilometraje());
+            result = vehiculoService.save(result);
+        } else {
+            result = vehiculoService.save(vehiculoDTO);
+        }
         return ResponseEntity.created(new URI("/api/vehiculos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

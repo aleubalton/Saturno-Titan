@@ -78,6 +78,20 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     /**
+     * Get one cliente by email.
+     *
+     * @param email the email of the entity
+     * @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ClienteDTO> findOneByEmail(String email) {
+        log.debug("Request to get Cliente : {}", email);
+        return clienteRepository.findByEmail(email)
+            .map(clienteMapper::toDto);
+    }
+
+    /**
      * Delete the cliente by id.
      *
      * @param id the id of the entity

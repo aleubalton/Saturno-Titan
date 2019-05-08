@@ -4,11 +4,11 @@
             <h2 id="jhi-turno-heading" jhiTranslate="saturnoApp.turno.home.createOrEditLabel">Create or edit a Turno</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!turno.id">
+                <!-- <div class="form-group" [hidden]="!turno.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="turno.id" readonly />
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="saturnoApp.turno.codigoReserva" for="field_codigoReserva">Codigo Reserva</label>
                     <input type="text" class="form-control" name="codigoReserva" id="field_codigoReserva"
@@ -124,7 +124,7 @@
                     <label class="form-control-label" jhiTranslate="saturnoApp.turno.vehiculo" for="field_vehiculo">Vehiculo</label>
                     <select class="form-control" id="field_vehiculo" name="vehiculo" [(ngModel)]="turno.vehiculoId"  required>
                         <option *ngIf="!editForm.value.vehiculo" [ngValue]="null" selected></option>
-                        <option [ngValue]="vehiculoOption.id" *ngFor="let vehiculoOption of vehiculos; trackBy: trackVehiculoById">{{vehiculoOption.patente}}</option>
+                        <option [ngValue]="vehiculoOption.id" *ngFor="let vehiculoOption of vehiculos; trackBy: trackVehiculoById">{{vehiculoOption.patente}} - {{vehiculoOption.modeloNombre}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.vehiculo?.dirty && editForm.controls.vehiculo?.invalid)">
@@ -136,7 +136,7 @@
                 <div class="form-group">
                     <label jhiTranslate="saturnoApp.turno.servicio" for="field_servicio">Servicio</label>
                     <select class="form-control" id="field_servicio" multiple name="servicio" [(ngModel)]="turno.servicios" required>
-                        <option [ngValue]="getSelected(turno.servicios, servicioOption)" *ngFor="let servicioOption of servicios; trackBy: trackServicioById">{{servicioOption.nombre}}</option>
+                        <option [ngValue]="getSelected(turno.servicios, servicioOption)" *ngFor="let servicioOption of servicios; trackBy: trackServicioById">{{servicioOption.planNombre}} - {{servicioOption.nombre}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.servicio?.dirty && editForm.controls.servicio?.invalid)">
@@ -149,7 +149,7 @@
                     <label class="form-control-label" jhiTranslate="saturnoApp.turno.cliente" for="field_cliente">Cliente</label>
                     <select class="form-control" id="field_cliente" name="cliente" [(ngModel)]="turno.clienteId"  required>
                         <option *ngIf="!editForm.value.cliente" [ngValue]="null" selected></option>
-                        <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.apellido}}</option>
+                        <option [ngValue]="clienteOption.id" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.apellido}}, {{clienteOption.nombre}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.cliente?.dirty && editForm.controls.cliente?.invalid)">

@@ -54,7 +54,13 @@ public class ClienteResource {
         if (clienteDTO.getId() != null) {
             throw new BadRequestAlertException("A new cliente cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ClienteDTO result = clienteService.save(clienteDTO);
+        Optional<ClienteDTO> optional = clienteService.findOneByEmail(clienteDTO.getEmail());
+        ClienteDTO result = null;
+        if (optional.isPresent()){
+            result = optional.get();
+        } else {
+            result = clienteService.save(clienteDTO);
+        }
         return ResponseEntity.created(new URI("/api/clientes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

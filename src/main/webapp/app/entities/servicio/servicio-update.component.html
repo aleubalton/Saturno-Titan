@@ -4,11 +4,11 @@
             <h2 id="jhi-servicio-heading" jhiTranslate="saturnoApp.servicio.home.createOrEditLabel">Create or edit a Servicio</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!servicio.id">
+                <!-- <div class="form-group" [hidden]="!servicio.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="servicio.id" readonly />
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="saturnoApp.servicio.nombre" for="field_nombre">Nombre</label>
                     <input type="text" class="form-control" name="nombre" id="field_nombre"
@@ -109,7 +109,7 @@
                     <label class="form-control-label" jhiTranslate="saturnoApp.servicio.tipo" for="field_tipo">Tipo</label>
                     <select class="form-control" id="field_tipo" name="tipo" [(ngModel)]="servicio.tipoId"  required>
                         <option *ngIf="!editForm.value.tipo" [ngValue]="null" selected></option>
-                        <option [ngValue]="tipoServicioOption.id" *ngFor="let tipoServicioOption of tiposervicios; trackBy: trackTipoServicioById">{{tipoServicioOption.codigo}}</option>
+                        <option [ngValue]="tipoServicioOption.id" *ngFor="let tipoServicioOption of tiposervicios; trackBy: trackTipoServicioById">{{tipoServicioOption.codigo}} - {{tipoServicioOption.nombre}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.tipo?.dirty && editForm.controls.tipo?.invalid)">
@@ -121,7 +121,7 @@
                 <div class="form-group">
                     <label jhiTranslate="saturnoApp.servicio.tarea" for="field_tarea">Tarea</label>
                     <select class="form-control" id="field_tarea" multiple name="tarea" [(ngModel)]="servicio.tareas" required>
-                        <option [ngValue]="getSelected(servicio.tareas, tareaOption)" *ngFor="let tareaOption of tareas; trackBy: trackTareaById">{{tareaOption.codigo}}</option>
+                        <option [ngValue]="getSelected(servicio.tareas, tareaOption)" *ngFor="let tareaOption of tareas; trackBy: trackTareaById">{{tareaOption.codigo}} - {{tareaOption.descripcion}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.tarea?.dirty && editForm.controls.tarea?.invalid)">
